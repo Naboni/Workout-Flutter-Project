@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:project/presentation/screens/_routes.dart';
 
 class ExerciseType extends StatelessWidget {
   // const ExerciseType({Key? key}) : super(key: key);
@@ -9,18 +10,8 @@ class ExerciseType extends StatelessWidget {
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
-        // title: Text('exercise'),
         backgroundColor: Colors.transparent,
       ),
-      // appBar: AppBar(
-      //   leading: BackButton(
-      //     onPressed: () {
-      //       Navigator.of(context).pushNamed('/');
-      //     },
-      //   ),
-      //   backgroundColor: Colors.transparent,
-      //   elevation: 0,
-      // ),
       body: Container(
         child: Column(
           children: [
@@ -56,7 +47,6 @@ class ExerciseType extends StatelessWidget {
             Divider(),
             Expanded(
               child: Container(
-                // height: MediaQuery.of(context).size.height * 0.6,
                 width: double.infinity,
                 child: MediaQuery.removePadding(
                   context: context,
@@ -93,7 +83,7 @@ class ExerciseFooter extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-            height: MediaQuery.of(context).size.height * 0.07,
+            height: MediaQuery.of(context).size.height * 0.08,
             padding: EdgeInsets.symmetric(horizontal: 20, vertical: 8),
             child: Column(
               children: [
@@ -112,27 +102,24 @@ class ExerciseFooter extends StatelessWidget {
               ],
             ),
           ),
-          InkWell(
-            onTap: () {},
-            child: Material(
-                elevation: 5.0,
-                shadowColor: Colors.red,
-                color: Colors.orange,
-                borderRadius: BorderRadius.circular(30.0),
-                child: Container(
-                  width: MediaQuery.of(context).size.width * 0.7,
-                  height: MediaQuery.of(context).size.height * 0.06,
-                  child: Center(
-                    child: Text(
-                      'START',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                )),
+          ElevatedButton(
+            onPressed: () {
+              Navigator.of(context).pushNamed(
+                Training.routeName,
+                // arguments: exercise,
+              );
+            },
+            style: ButtonStyle(
+              shape: MaterialStateProperty.all(RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(30.0))),
+            ),
+            child: Container(
+              child: Center(
+                child: Text("START"),
+              ),
+              height: MediaQuery.of(context).size.height * 0.06,
+              width: MediaQuery.of(context).size.width * 0.7,
+            ),
           ),
         ],
       ),
@@ -153,31 +140,12 @@ class ExerciseAppBar extends StatelessWidget {
       child: Stack(
         children: [
           Container(
-            // height: MediaQuery.of(context).size.height * 0.21,
-            // width: double.infinity,
             decoration: BoxDecoration(
                 image: DecorationImage(
               image: AssetImage('assets/images/course1.jpg'),
               fit: BoxFit.cover,
             )),
           ),
-          // Align(
-          //   alignment: Alignment.topLeft,
-          //   child: InkWell(
-          //     onTap: () {
-          //       Navigator.pop(context);
-          //     },
-          //     child: Container(
-          //       height: 20,
-          //       padding: EdgeInsets.symmetric(vertical: 50, horizontal: 20),
-          //       // color: Colors.amber,
-          //       child: Icon(
-          //         Icons.arrow_back,
-          //         size: 30,
-          //       ),
-          //     ),
-          //   ),
-          // ),
           Align(
             alignment: Alignment.bottomLeft,
             child: Container(
@@ -223,45 +191,46 @@ class SpecificExercise extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: MediaQuery.of(context).size.height * 0.1,
-      width: double.infinity,
-      padding: EdgeInsets.symmetric(vertical: 10, horizontal: 18),
-      child: Row(
-        // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Icon(Icons.menu),
-          SizedBox(
-            width: 15,
-          ),
-          Container(
-            height: 100,
-            width: 100,
-            decoration: BoxDecoration(
-                image: DecorationImage(
-                    image: AssetImage('assets/images/course1.jpg'))),
-          ),
-          SizedBox(
-            width: 15,
-          ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              Text(
-                'JUMPING JACKS',
-              ),
-              Text(
-                '00:20',
-                style: TextStyle(
-                  color: Colors.grey,
-                  fontSize: 14,
-                  // fontWeight: FontWeight.bold,
+    return GestureDetector(
+      onTap: () {},
+      child: Container(
+        height: MediaQuery.of(context).size.height * 0.1,
+        width: double.infinity,
+        padding: EdgeInsets.symmetric(vertical: 10, horizontal: 18),
+        child: Row(
+          children: [
+            Icon(Icons.menu),
+            SizedBox(
+              width: 15,
+            ),
+            Container(
+              height: 100,
+              width: 100,
+              decoration: BoxDecoration(
+                  image: DecorationImage(
+                      image: AssetImage('assets/images/course1.jpg'))),
+            ),
+            SizedBox(
+              width: 15,
+            ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Text(
+                  'JUMPING JACKS',
                 ),
-              ),
-            ],
-          ),
-        ],
+                Text(
+                  '00:20',
+                  style: TextStyle(
+                    color: Colors.grey,
+                    fontSize: 14,
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }

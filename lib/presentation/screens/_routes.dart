@@ -3,7 +3,8 @@ export './feeds.dart';
 export 'profile.dart';
 export './options.dart';
 export './splash.dart';
-export 'reminder.dart';
-
+export './reminder.dart';
+export 'training.dart';
+export './my_plan.dart';
 // auth
 export './login.dart';

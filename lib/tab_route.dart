@@ -27,6 +27,10 @@ class _TabState extends State<TabRoute> {
         'page': Feeds(),
         'title': 'Feeds',
       },
+      {
+        'page': MyPlan(),
+        'title': 'Feeds',
+      },
     ];
     super.initState();
   }
@@ -91,6 +95,12 @@ class _TabState extends State<TabRoute> {
               Icons.library_books_outlined,
             ),
             label: "Feeds",
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(
+              Icons.library_books_outlined,
+            ),
+            label: "My Plan",
           ),
         ],
       ),
