@@ -1,12 +1,12 @@
 # Can Addis
 
-A new Flutter project.
+A workout plan app
 
 ## Project Features
 
 - Authentication & Authorization
 - CRUD workout plans
-- Workout notification
+- Reminder notification
 - 2 roles -- trainee & trainer
 
 ## Business Logic
