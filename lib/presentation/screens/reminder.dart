@@ -130,16 +130,3 @@ addReminder(BuildContext context, String time) {
   final reminder = Reminder()..time = time;
   reminderBloc.add(AddReminder(reminder));
 }
-// Container(
-//                   margin: EdgeInsets.symmetric(vertical: 5),
-//                   height: MediaQuery.of(context).size.height * 0.2,
-//                   width: double.infinity,
-//                   decoration: BoxDecoration(
-//                       color: Colors.amber,
-//                       borderRadius: BorderRadius.circular(10),
-//                       border: Border.all(
-//                         width: 1,
-//                         color: Colors.grey,
-//                       )),
-//                   child: Text('ti'),
-//                 );

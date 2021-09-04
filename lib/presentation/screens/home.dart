@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:project/presentation/widgets/parallax.dart';
+import 'package:project/presentation/widgets/exercise.dart';
 
 class Home extends StatelessWidget {
-  // const Home({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     var mq = MediaQuery.of(context).size;
@@ -87,7 +85,7 @@ class Home extends StatelessWidget {
             ),
             SizedBox(height: 10),
             Container(
-              padding: EdgeInsets.symmetric(horizontal: mq.width * .05),
+              padding: EdgeInsets.symmetric(horizontal: mq.width * .01),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -95,56 +93,10 @@ class Home extends StatelessWidget {
                     "7X4",
                     style: TextStyle(fontWeight: FontWeight.bold),
                   ),
-
-                  ExampleParallax(),
-                  //Container(
-                  //   width: mq.width * 9,
-                  //   height: 100,
-                  //   color: Colors.green,
-                  // ),
-                  // Container(
-                  //   width: mq.width * 9,
-                  //   height: 100,
-                  //   color: Colors.green,
-                  // ),
-                  // Container(
-                  //   width: mq.width * 9,
-                  //   height: 100,
-                  //   color: Colors.green,
-                  // ),
-                  // Container(
-                  //   width: mq.width * 9,
-                  //   height: 100,
-                  //   color: Colors.green,
-                  // ),
-                  // Container(
-                  //   width: mq.width * 9,
-                  //   height: 100,
-                  //   color: Colors.green,
-                  // ),
-                  // Container(
-                  //   width: mq.width * 9,
-                  //   height: 100,
-                  //   color: Colors.green,
-                  // ),
-                  // Container(
-                  //   width: mq.width * 9,
-                  //   height: 100,
-                  //   color: Colors.green,
-                  // ),
-                  // Container(
-                  //   width: mq.width * 9,
-                  //   height: 100,
-                  //   color: Colors.green,
-                  // ),
-                  // Container(
-                  //   width: mq.width * 9,
-                  //   height: 100,
-                  //   color: Colors.green,
-                  // ),
+                  Exercise(),
                 ],
               ),
-            )
+            ),
           ],
         ),
       ),
