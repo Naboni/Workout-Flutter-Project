@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
+// deps
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:lottie/lottie.dart';
 // bloc
 import '../../logic/bloc/reminder/reminder.dart';
 
@@ -56,7 +58,11 @@ class _ReminderScreenState extends State<ReminderScreen> {
                 final _reminders = reminderState.reminders;
                 if (_reminders.length == 0) {
                   return Center(
-                    child: Text("NO REMINDERS SET"),
+                    child: Container(
+                      height: MediaQuery.of(context).size.height * .25,
+                      width: double.infinity,
+                      child: Lottie.asset('assets/anim/empty.json'),
+                    ),
                   );
                 }
                 return ListView.builder(

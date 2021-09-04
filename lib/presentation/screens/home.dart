@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:project/presentation/widgets/exercise.dart';
+
+// widgets
+import '../../presentation/widgets/home/exercise.dart';
+import '../../presentation/widgets/home/stat.dart';
 
 class Home extends StatelessWidget {
   @override
@@ -29,57 +32,7 @@ class Home extends StatelessWidget {
                           tileMode: TileMode.clamp),
                     ),
                   ),
-                  Align(
-                    alignment: Alignment.bottomCenter,
-                    child: Container(
-                      padding: EdgeInsets.all(10),
-                      width: mq.width * .9,
-                      height: mq.height * .22,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        color: Colors.white,
-                      ),
-                      child: Column(
-                        // crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Align(
-                            alignment: Alignment.centerLeft,
-                            child: Text(
-                              'WEEK GOAL',
-                              style: TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ),
-                          Text(
-                            "Set weekly goals for a better shape",
-                            style: TextStyle(
-                              fontSize: 18,
-                              color: Colors.grey[500],
-                            ),
-                          ),
-                          ElevatedButton(
-                            onPressed: () {},
-                            style: ButtonStyle(
-                              shape: MaterialStateProperty.all(
-                                  RoundedRectangleBorder(
-                                      borderRadius:
-                                          BorderRadius.circular(30.0))),
-                            ),
-                            child: Container(
-                              child: Center(
-                                child: Text("SET A GOAL"),
-                              ),
-                              height: 45,
-                              width: 150,
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
-                  ),
+                  Stat(),
                 ],
               ),
             ),
@@ -89,10 +42,6 @@ class Home extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    "7X4",
-                    style: TextStyle(fontWeight: FontWeight.bold),
-                  ),
                   Exercise(),
                 ],
               ),

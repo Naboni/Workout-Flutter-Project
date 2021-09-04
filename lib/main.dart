@@ -62,6 +62,7 @@ void main() async {
   Hive.registerAdapter(ReminderAdapter());
 
   await Hive.openBox<Reminder>("reminders");
+  await Hive.openBox<Reminder>("workouts");
 
   // ? Initialize local notification
   // for default icon
@@ -140,12 +141,13 @@ class _MyAppState extends State<MyApp> {
         theme: ThemeData(
           primaryColor: Colors.blue.shade300,
         ),
-        home: SafeArea(
-          child: TabRoute(),
-          //  Build(
-          //     authenticationBloc: authenticationBloc,
-          //     userRepository: userRepository),
-        ),
+        home: TabRoute(),
+
+        // Build(
+        //   authenticationBloc: authenticationBloc,
+        //   userRepository: userRepository,
+        // ),
+
         onGenerateRoute: appRouter.onGenerateRoute,
       ),
     );
@@ -167,10 +169,13 @@ class Build extends StatelessWidget {
     return BlocBuilder<AuthenticationBloc, AuthenticationState>(
       bloc: authenticationBloc,
       builder: (BuildContext context, AuthenticationState state) {
+        print("=========================================================");
+        print(state.runtimeType);
         if (state is AuthenticationUninitialized) {
           return Splash();
         }
         if (state is AuthenticationAuthenticated) {
+          print("wooooooooooooooooooooooooooooooooooooooooooooooooooo");
           return TabRoute();
         }
         if (state is AuthenticationUnauthenticated) {
