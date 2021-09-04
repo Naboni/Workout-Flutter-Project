@@ -7,4 +7,6 @@ part 'reminder.g.dart';
 class Reminder extends HiveObject {
   @HiveField(0)
   late String time;
+  @HiveField(1)
+  late var days;
 }

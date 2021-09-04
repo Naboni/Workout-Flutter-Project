@@ -16,15 +16,19 @@ class ReminderAdapter extends TypeAdapter<Reminder> {
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return Reminder()..time = fields[0] as String;
+    return Reminder()
+      ..time = fields[0] as String
+      ..days = fields[1] as dynamic;
   }
 
   @override
   void write(BinaryWriter writer, Reminder obj) {
     writer
-      ..writeByte(1)
+      ..writeByte(2)
       ..writeByte(0)
-      ..write(obj.time);
+      ..write(obj.time)
+      ..writeByte(1)
+      ..write(obj.days);
   }
 
   @override

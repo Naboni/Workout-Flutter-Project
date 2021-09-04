@@ -25,7 +25,13 @@ class ReminderBloc extends Bloc<ReminderEvent, ReminderState> {
     }
     if (event is AddReminder) {
       final _reminder = event.reminder;
-      await reminderRepository.saveReminder(_reminder.time);
+      await reminderRepository.saveReminder(_reminder);
+      final _reminders = await reminderRepository.getReminders();
+      yield ReminderLoaded(_reminders);
+    }
+    if (event is DeleteReminder) {
+      final _reminder = event.reminder;
+      await reminderRepository.deleteReminder(_reminder);
       final _reminders = await reminderRepository.getReminders();
       yield ReminderLoaded(_reminders);
     }

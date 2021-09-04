@@ -103,9 +103,6 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     authenticationBloc = AuthenticationBloc(userRepository: userRepository);
     authenticationBloc!.add(AppStarted());
-
-    // ! open hive box
-    Hive.openBox<Reminder>("reminders");
     super.initState();
   }
 

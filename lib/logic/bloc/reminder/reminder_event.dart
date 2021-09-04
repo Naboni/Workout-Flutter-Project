@@ -7,4 +7,9 @@ class AddReminder extends ReminderEvent {
   AddReminder(this.reminder);
 }
 
+class DeleteReminder extends ReminderEvent {
+  final Reminder reminder;
+  DeleteReminder(this.reminder);
+}
+
 class GetReminders extends ReminderEvent {}
