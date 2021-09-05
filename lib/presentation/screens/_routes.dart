@@ -6,4 +6,5 @@ export './splash.dart';
 export './reminder.dart';
 export 'training.dart';
 export './my_plan.dart';
+export './exercise_type.dart';
 // auth

@@ -10,6 +10,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import './logic/bloc/auth/auth.dart';
 import './logic/bloc/login/login_bloc.dart';
 import './logic/bloc/reminder/reminder.dart';
+import './logic/bloc/workout/workout.dart';
 
 // repository
 import './data/repositories/user_repository.dart';
@@ -133,6 +134,7 @@ class _MyAppState extends State<MyApp> {
               GetReminders(),
             ),
         ),
+        BlocProvider(create: (_) => WorkoutBloc())
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -141,12 +143,6 @@ class _MyAppState extends State<MyApp> {
           primaryColor: Colors.blue.shade300,
         ),
         home: TabRoute(),
-
-        // Build(
-        //   authenticationBloc: authenticationBloc,
-        //   userRepository: userRepository,
-        // ),
-
         onGenerateRoute: appRouter.onGenerateRoute,
       ),
     );

@@ -21,7 +21,7 @@
                     "id" : "2",
                     "name" : "SQUAT KICK",
                     "duration" : "20",
-                    "lottieUrl" : "assets/anim/workouts/abs/squat-kick.json.json"
+                    "lottieUrl" : "assets/anim/workouts/abs/squat-kick.json"
                 },
                 {
                     "id" : "3",
@@ -52,7 +52,7 @@
                     "id" : "2",
                     "name" : "STEP UP ON CHAIR",
                     "duration" : "20",
-                    "lottieUrl" : "assets/anim/workouts/leg/step-up-on-chair.json.json"
+                    "lottieUrl" : "assets/anim/workouts/leg/step-up-on-chair.json"
                 },
                 {
                     "id" : "3",

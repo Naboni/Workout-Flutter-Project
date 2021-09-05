@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 // deps
-import 'package:weekday_selector/weekday_selector.dart';
 
 class DeleteConfirmation extends StatelessWidget {
   @override

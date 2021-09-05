@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:project/presentation/screens/exercise_type.dart';
-import 'package:project/presentation/screens/my_plan.dart';
-import 'package:project/presentation/screens/training.dart';
+
 import './screens/_routes.dart';
+// model
+import 'package:project/data/models/exercise/exercise.dart';
 
 class AppRouter {
   Route onGenerateRoute(RouteSettings settings) {
@@ -14,7 +14,9 @@ class AppRouter {
       case ReminderScreen.routeName:
         return MaterialPageRoute(builder: (ctx) => ReminderScreen());
       case ExerciseType.routeName:
-        return MaterialPageRoute(builder: (ctx) => ExerciseType());
+        return MaterialPageRoute(
+            builder: (ctx) =>
+                ExerciseType(settings.arguments as List<Exercise>));
       case Training.routeName:
         return MaterialPageRoute(builder: (ctx) => Training());
       case MyPlan.routeName:

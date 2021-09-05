@@ -1,10 +1,26 @@
 import 'package:flutter/material.dart';
-
+// deps
+import 'package:flutter_bloc/flutter_bloc.dart';
 // widgets
-import '../../presentation/widgets/home/exercise.dart';
+import '../widgets/home/workouts.dart';
 import '../../presentation/widgets/home/stat.dart';
+//bloc
+import '../../logic/bloc/workout/workout.dart';
 
-class Home extends StatelessWidget {
+class Home extends StatefulWidget {
+  @override
+  _HomeState createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    final _workouts = BlocProvider.of<WorkoutBloc>(context);
+    _workouts.add(GetWorkouts());
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     var mq = MediaQuery.of(context).size;
@@ -39,11 +55,17 @@ class Home extends StatelessWidget {
             SizedBox(height: 10),
             Container(
               padding: EdgeInsets.symmetric(horizontal: mq.width * .01),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Exercise(),
-                ],
+              child: BlocBuilder<WorkoutBloc, WorkoutState>(
+                builder: (_, workoutState) {
+                  if (workoutState is WorkoutInitial) {
+                    return Container();
+                  }
+                  if (workoutState is WorkoutLoaded) {
+                    final _workouts = workoutState.workouts;
+                    return Workouts(_workouts);
+                  }
+                  return Container();
+                },
               ),
             ),
           ],
