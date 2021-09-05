@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-// import 'package:project/presentation/widgets/main_drawer.dart';
+import '../widgets/profile/profile_field.dart';
+import '../widgets/profile/profile_pic.dart';
 
 class ProfileRoute extends StatelessWidget {
   static const routeName = "profileRoute";
@@ -71,82 +72,6 @@ class ProfileRoute extends StatelessWidget {
                   )),
             ),
           ],
-        ),
-      ),
-    );
-  }
-}
-
-class Field extends StatelessWidget {
-  final String labelText;
-  final String hintText;
-  Field(
-    this.labelText,
-    this.hintText,
-  );
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 10),
-      child: TextField(
-        decoration: InputDecoration(
-            contentPadding: EdgeInsets.only(
-              bottom: 3,
-            ),
-            labelText: labelText,
-            floatingLabelBehavior: FloatingLabelBehavior.always,
-            hintText: hintText,
-            hintStyle: TextStyle(
-                fontSize: 16,
-                // fontWeight: FontWeight.bold,
-                color: Colors.black)),
-      ),
-    );
-  }
-}
-
-class ProfilePic extends StatelessWidget {
-  const ProfilePic({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: Container(
-        padding: EdgeInsets.all(10),
-        child: SizedBox(
-          height: 135,
-          width: 135,
-          child: Stack(
-            fit: StackFit.expand,
-            clipBehavior: Clip.none,
-            // overflow: Overflow.visible,
-            children: [
-              CircleAvatar(
-                backgroundImage: AssetImage("assets/images/course1.jpg"),
-              ),
-              Positioned(
-                right: -2,
-                bottom: 0,
-                child: SizedBox(
-                  height: 40,
-                  width: 40,
-                  child: FlatButton(
-                    padding: EdgeInsets.zero,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(50),
-                      side: BorderSide(color: Colors.orange, width: 3),
-                    ),
-                    color: Color(0xFFF5F6F9),
-                    child: Icon(Icons.edit),
-                    onPressed: () {},
-                  ),
-                ),
-              )
-            ],
-          ),
         ),
       ),
     );
