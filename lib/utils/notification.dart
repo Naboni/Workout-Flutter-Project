@@ -14,26 +14,28 @@ void scheduleAlarm(int hr, int min) async {
 
   tz.initializeTimeZones();
   tz.setLocalLocation(tz.local);
-  var scheduledNotificationDateTime = tz.TZDateTime.now(tz.local).add(
-    Duration(minutes: hrToMin),
-  );
-  var androidPlatformChannelSpecifics = AndroidNotificationDetails(
-    'alarm_notif',
-    'alarm_notif',
-    'chennel for notif',
-    icon: 'ic',
-  );
-  var platformChannelSpecifics = NotificationDetails(
-    android: androidPlatformChannelSpecifics,
-  );
-  await flutterLocalNotificationsPlugin.zonedSchedule(
-    0,
-    "Local Notification",
-    "Trial Notification",
-    scheduledNotificationDateTime,
-    platformChannelSpecifics,
-    uiLocalNotificationDateInterpretation:
-        UILocalNotificationDateInterpretation.absoluteTime,
-    androidAllowWhileIdle: true,
-  );
+  if (hrToMin > 0) {
+    var scheduledNotificationDateTime = tz.TZDateTime.now(tz.local).add(
+      Duration(minutes: hrToMin),
+    );
+    var androidPlatformChannelSpecifics = AndroidNotificationDetails(
+      'alarm_notif',
+      'alarm_notif',
+      'chennel for notif',
+      icon: 'ic',
+    );
+    var platformChannelSpecifics = NotificationDetails(
+      android: androidPlatformChannelSpecifics,
+    );
+    await flutterLocalNotificationsPlugin.zonedSchedule(
+      0,
+      "Local Notification",
+      "Trial Notification",
+      scheduledNotificationDateTime,
+      platformChannelSpecifics,
+      uiLocalNotificationDateInterpretation:
+          UILocalNotificationDateInterpretation.absoluteTime,
+      androidAllowWhileIdle: true,
+    );
+  }
 }

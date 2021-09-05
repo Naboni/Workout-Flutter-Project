@@ -17,7 +17,6 @@ class OptionsRoute extends StatefulWidget {
 class _OptionsRouteState extends State<OptionsRoute> {
   @override
   Widget build(BuildContext context) {
-    AuthenticationBloc authBloc = BlocProvider.of<AuthenticationBloc>(context);
     var mq = MediaQuery.of(context).size;
 
     return Scaffold(
@@ -65,9 +64,7 @@ class _OptionsRouteState extends State<OptionsRoute> {
                   const Divider(),
                   const SizedBox(height: 50),
                   TextButton(
-                    onPressed: () {
-                      authBloc.add(LoggedOut());
-                    },
+                    onPressed: () {},
                     child: Text(
                       "Log Out",
                       style: TextStyle(

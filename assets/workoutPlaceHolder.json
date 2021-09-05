@@ -1,0 +1,85 @@
+{
+    "workouts" : [
+        {
+            "id" : "0",
+            "name" : "ABS",
+            "imgUrl" : "assets/images/course1.jpg",
+            "exercise" : [
+                {
+                    "id" : "0",
+                    "name" : "PLANK EXERCISE",
+                    "duration" : "20",
+                    "lottieUrl" : "assets/anim/workouts/abs/plank-excercise.json"
+                },
+                {
+                    "id" : "1",
+                    "name" : "SEATED ABS CIRCLE",
+                    "duration" : "20",
+                    "lottieUrl" : "assets/anim/workouts/abs/seated-abs-circles.json"
+                },
+                {
+                    "id" : "2",
+                    "name" : "SQUAT KICK",
+                    "duration" : "20",
+                    "lottieUrl" : "assets/anim/workouts/abs/squat-kick.json.json"
+                },
+                {
+                    "id" : "3",
+                    "name" : "INCH WORM",
+                    "duration" : "20",
+                    "lottieUrl" : "assets/anim/workouts/abs/inchworm.json"
+                }
+            ]
+        },
+        {
+            "id" : "1",
+            "name" : "LEGS",
+            "imgUrl" : "assets/images/course1.jpg",
+            "exercise" : [
+                {
+                    "id" : "0",
+                    "name" : "JUMPING JACK",
+                    "duration" : "20",
+                    "lottieUrl" : "assets/anim/workouts/leg/jumping-jack.json"
+                },
+                {
+                    "id" : "1",
+                    "name" : "JUMPING SQUAT",
+                    "duration" : "20",
+                    "lottieUrl" : "assets/anim/workouts/leg/jumping-squats.json"
+                },
+                {
+                    "id" : "2",
+                    "name" : "STEP UP ON CHAIR",
+                    "duration" : "20",
+                    "lottieUrl" : "assets/anim/workouts/leg/step-up-on-chair.json.json"
+                },
+                {
+                    "id" : "3",
+                    "name" : "REVERSE CRUNCHES",
+                    "duration" : "20",
+                    "lottieUrl" : "assets/anim/workouts/leg/reverse-crunches.json"
+                }
+            ]
+        },
+        {
+            "id" : "2",
+            "name" : "WARMUP",
+            "imgUrl" : "assets/images/course1.jpg",
+            "exercise" : [
+                {
+                    "id" : "0",
+                    "name" : "LUNGE",
+                    "duration" : "20",
+                    "lottieUrl" : "assets/anim/workouts/warmup/lunge.json"
+                },
+                {
+                    "id" : "1",
+                    "name" : "SHOULDER STRETCH",
+                    "duration" : "20",
+                    "lottieUrl" : "assets/anim/workouts/warmup/shoulder-stretch.json"
+                }
+            ]
+        }
+    ]    
+}

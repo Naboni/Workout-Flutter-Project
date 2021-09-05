@@ -16,7 +16,12 @@ import './data/repositories/user_repository.dart';
 import './data/repositories/reminder_repository.dart';
 
 // models/adapter
+import 'data/models/workout/workout.dart';
+import 'data/models/exercise/exercise.dart';
 import 'data/models/reminder/reminder.dart';
+
+// utils
+import './utils/prefrence.dart';
 
 import './presentation/screens/_routes.dart';
 import 'tab_route.dart';
@@ -60,9 +65,11 @@ void main() async {
   // ? Initialize hive & register adapters
   await Hive.initFlutter();
   Hive.registerAdapter(ReminderAdapter());
+  Hive.registerAdapter(WorkoutAdapter());
+  Hive.registerAdapter(ExerciseAdapter());
 
   await Hive.openBox<Reminder>("reminders");
-  await Hive.openBox<Reminder>("workouts");
+  await Hive.openBox<Workout>("workouts");
 
   // ? Initialize local notification
   // for default icon
@@ -79,13 +86,11 @@ void main() async {
   // ? Run the bloc observer(for debuging purpose)
   Bloc.observer = MyBlocObserver();
   // ? Inject a single instance of the userRepository
-  runApp(MyApp(userRepository: UserRepository()));
+  runApp(MyApp());
 }
 
 class MyApp extends StatefulWidget {
-  final UserRepository? userRepository;
-
-  MyApp({Key? key, @required this.userRepository}) : super(key: key);
+  MyApp({Key? key}) : super(key: key);
 
   @override
   _MyAppState createState() => _MyAppState();
@@ -97,22 +102,24 @@ class _MyAppState extends State<MyApp> {
 
   final appRouter = AppRouter();
 
-  AuthenticationBloc? authenticationBloc;
-  UserRepository get userRepository => widget.userRepository!;
-
   @override
   void initState() {
-    authenticationBloc = AuthenticationBloc(userRepository: userRepository);
-    authenticationBloc!.add(AppStarted());
+    // ? Future delayed b/c cant use async/await on init
+    Future.delayed(Duration(seconds: 1), () async {
+      // ! check if db is already populated
+      var isPopulated = await Pref.checkIfPopulated();
+      if (!isPopulated) {
+        Pref.setPopulated();
+      }
+    });
     super.initState();
   }
 
   @override
   void dispose() {
-    // ! close blocs
-    authenticationBloc!.close();
     // ! close hive box...not sure where to dispose
     Hive.box("reminders").close();
+    Hive.box("workouts").close();
     super.dispose();
   }
 
@@ -125,14 +132,6 @@ class _MyAppState extends State<MyApp> {
             ..add(
               GetReminders(),
             ),
-        ),
-        BlocProvider(
-          create: (_) => AuthenticationBloc(userRepository: userRepository),
-        ),
-        BlocProvider(
-          create: (_) => LoginBloc(
-              authenticationBloc: authenticationBloc,
-              userRepository: userRepository),
         ),
       ],
       child: MaterialApp(
@@ -150,45 +149,6 @@ class _MyAppState extends State<MyApp> {
 
         onGenerateRoute: appRouter.onGenerateRoute,
       ),
-    );
-  }
-}
-
-class Build extends StatelessWidget {
-  const Build({
-    Key? key,
-    required this.authenticationBloc,
-    required this.userRepository,
-  }) : super(key: key);
-
-  final AuthenticationBloc? authenticationBloc;
-  final UserRepository userRepository;
-
-  @override
-  Widget build(BuildContext context) {
-    return BlocBuilder<AuthenticationBloc, AuthenticationState>(
-      bloc: authenticationBloc,
-      builder: (BuildContext context, AuthenticationState state) {
-        print("=========================================================");
-        print(state.runtimeType);
-        if (state is AuthenticationUninitialized) {
-          return Splash();
-        }
-        if (state is AuthenticationAuthenticated) {
-          print("wooooooooooooooooooooooooooooooooooooooooooooooooooo");
-          return TabRoute();
-        }
-        if (state is AuthenticationUnauthenticated) {
-          return Login(userRepository: userRepository);
-        }
-        if (state is AuthenticationLoading) {
-          return Center(
-            child: CircularProgressIndicator(),
-          );
-        } else {
-          return Splash();
-        }
-      },
     );
   }
 }

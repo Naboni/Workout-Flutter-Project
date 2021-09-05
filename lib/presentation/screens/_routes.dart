@@ -7,4 +7,3 @@ export './reminder.dart';
 export 'training.dart';
 export './my_plan.dart';
 // auth
-export './login.dart';
