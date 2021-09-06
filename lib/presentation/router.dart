@@ -25,6 +25,8 @@ class AppRouter {
             builder: (ctx) => Training(settings.arguments as List<Exercise>));
       case MyPlan.routeName:
         return MaterialPageRoute(builder: (ctx) => MyPlan());
+      case AddPlan.routeName:
+        return MaterialPageRoute(builder: (ctx) => AddPlan());
       default:
         return MaterialPageRoute(builder: (ctx) => ProfileRoute());
     }

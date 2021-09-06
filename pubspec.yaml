@@ -37,7 +37,9 @@ dependencies:
   weekday_selector: ^1.0.0
   lottie: ^1.1.0
   google_fonts: ^2.1.0
-  
+  image_picker: ^0.8.4
+  path_provider: ^2.0.3
+  path: ^1.8.0
   # NoSQL Db
   hive: ^2.0.4
   hive_flutter: ^1.1.0

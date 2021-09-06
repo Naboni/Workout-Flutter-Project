@@ -27,6 +27,10 @@ void scheduleAlarm(int hr, int min) async {
     var platformChannelSpecifics = NotificationDetails(
       android: androidPlatformChannelSpecifics,
     );
+    // await flutterLocalNotificationsPlugin.periodicallyShow(0, 'Time to workout',
+    // 'Get up and start your daily routine', RepeatInterval.everyMinute, platformChannelSpecifics,
+    // androidAllowWhileIdle: true);
+
     await flutterLocalNotificationsPlugin.zonedSchedule(
       0,
       "Local Notification",
