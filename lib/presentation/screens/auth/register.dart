@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+
 import 'login.dart';
 
-class Register extends StatefulWidget {
-  // const Register({Key? key}) : super(key: key);
+import 'package:google_fonts/google_fonts.dart';
 
+class Register extends StatefulWidget {
   @override
   _RegisterState createState() => _RegisterState();
 }
@@ -12,9 +13,11 @@ class _RegisterState extends State<Register> {
   TextEditingController username = TextEditingController();
   TextEditingController password = TextEditingController();
 
+  final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+    // print(password.value);
 
     return Scaffold(
         body: SingleChildScrollView(
@@ -25,14 +28,14 @@ class _RegisterState extends State<Register> {
         child: Column(
           children: [
             SizedBox(
-              height: size.height * 0.08,
+              height: size.height * 0.12,
             ),
             Align(
               alignment: Alignment.topCenter,
               child: Column(
                 children: [
                   Icon(
-                    Icons.app_registration_rounded,
+                    Icons.app_registration,
                     color: Colors.blue,
                     size: 69.0,
                   ),
@@ -41,45 +44,34 @@ class _RegisterState extends State<Register> {
                   ),
                   Text(
                     'Register',
-                    style: TextStyle(
-                        fontSize: 28,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.blue[900]),
+                    style: GoogleFonts.montserrat(
+                        textStyle: TextStyle(
+                      fontSize: 36,
+                      fontWeight: FontWeight.w400,
+                      color: Colors.blue.shade700,
+                    )),
                   ),
                   SizedBox(
-                    height: size.height * 0.22,
+                    height: size.height * 0.14,
                   ),
                   Padding(
                     padding: const EdgeInsets.only(left: 40.0, right: 40),
                     child: Column(children: [
-                      TextField(
-                        controller: username,
-                        decoration: InputDecoration(
-                          labelText: 'Username',
-                          hintText: "your username",
-                          hintStyle:
-                              TextStyle(fontSize: 14, color: Colors.black26),
-                          enabledBorder: new UnderlineInputBorder(
-                            borderSide: BorderSide(color: Colors.black12),
-                          ),
-                          focusedBorder: new UnderlineInputBorder(
-                            borderSide: BorderSide(color: Colors.blue),
-                          ),
-                        ),
-                      ),
-                      TextField(
-                        controller: password,
-                        decoration: InputDecoration(
-                          labelText: 'Password',
-                          hintText: "your password",
-                          hintStyle:
-                              TextStyle(fontSize: 14, color: Colors.black26),
-                          enabledBorder: new UnderlineInputBorder(
-                            borderSide: BorderSide(color: Colors.black12),
-                          ),
-                          focusedBorder: new UnderlineInputBorder(
-                            borderSide: BorderSide(color: Colors.blue),
-                          ),
+                      Form(
+                        key: _formKey,
+                        child: Column(
+                          children: [
+                            FormField(
+                              controller: password,
+                              labelText: 'Username',
+                              validatorMessage: 'Enter your username',
+                            ),
+                            FormField(
+                              controller: password,
+                              labelText: 'Password',
+                              validatorMessage: 'Enter your password',
+                            ),
+                          ],
                         ),
                       ),
                     ]),
@@ -94,24 +86,26 @@ class _RegisterState extends State<Register> {
                         Expanded(
                           child: ElevatedButton(
                             style: ElevatedButton.styleFrom(
-                              shape: new RoundedRectangleBorder(
-                                borderRadius: new BorderRadius.circular(8.0),
-                              ),
-                            ),
+                                shape: new RoundedRectangleBorder(
+                                  borderRadius: new BorderRadius.circular(8.0),
+                                ),
+                                primary: Colors.blue[400]),
                             child: Padding(
                               padding: const EdgeInsets.all(15.0),
                               child: Text(
-                                'Register',
+                                'Login',
                               ),
                             ),
-                            onPressed: () {},
+                            onPressed: () {
+                              if (_formKey.currentState!.validate()) {}
+                            },
                           ),
                         ),
                       ],
                     ),
                   ),
                   SizedBox(
-                    height: size.height * 0.1,
+                    height: size.height * 0.03,
                   ),
                   Padding(
                     padding: const EdgeInsets.only(left: 40, right: 40),
@@ -133,10 +127,10 @@ class _RegisterState extends State<Register> {
                               ));
                             },
                             child: Text(
-                              'Sign In',
+                              'Sign in',
                               style: TextStyle(
                                   fontWeight: FontWeight.bold,
-                                  color: Colors.blue[900]),
+                                  color: Colors.blue[400]),
                             ),
                           ),
                         ],
@@ -150,5 +144,43 @@ class _RegisterState extends State<Register> {
         ),
       ),
     ));
+  }
+}
+
+class FormField extends StatelessWidget {
+  final String labelText;
+  final String validatorMessage;
+
+  final TextEditingController controller;
+
+  FormField({
+    required this.labelText,
+    required this.validatorMessage,
+    required this.controller,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return TextFormField(
+      controller: controller,
+      decoration: InputDecoration(
+        labelText: labelText,
+        labelStyle: TextStyle(color: Colors.blue[400]),
+        // hintText: "your username",
+        hintStyle: TextStyle(fontSize: 14, color: Colors.black26),
+        enabledBorder: new UnderlineInputBorder(
+          borderSide: BorderSide(color: Colors.black12),
+        ),
+        focusedBorder: new UnderlineInputBorder(
+          borderSide: BorderSide(color: Colors.blue.shade400),
+        ),
+      ),
+      validator: (value) {
+        if (value!.isEmpty) {
+          return validatorMessage;
+        }
+        return null;
+      },
+    );
   }
 }

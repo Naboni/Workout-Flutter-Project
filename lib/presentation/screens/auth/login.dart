@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+
 import 'register.dart';
+
+import 'package:google_fonts/google_fonts.dart';
 
 class Login extends StatefulWidget {
   // const Login({Key? key}) : super(key: key);
@@ -12,6 +15,10 @@ class _LoginState extends State<Login> {
   TextEditingController username = TextEditingController();
   TextEditingController password = TextEditingController();
 
+  late bool isValidAccount =
+      true; // if account info is valid, warning will not be displayed
+
+  final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -26,7 +33,7 @@ class _LoginState extends State<Login> {
         child: Column(
           children: [
             SizedBox(
-              height: size.height * 0.08,
+              height: size.height * 0.12,
             ),
             Align(
               alignment: Alignment.topCenter,
@@ -42,45 +49,74 @@ class _LoginState extends State<Login> {
                   ),
                   Text(
                     'Login',
-                    style: TextStyle(
-                        fontSize: 28,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.blue[900]),
+                    style: GoogleFonts.montserrat(
+                        textStyle: TextStyle(
+                      fontSize: 36,
+                      fontWeight: FontWeight.w400,
+                      color: Colors.blue.shade700,
+                    )),
                   ),
-                  SizedBox(
-                    height: size.height * 0.22,
-                  ),
+                  Column(children: [
+                    isValidAccount
+                        ? SizedBox(
+                            height: size.height * 0.12,
+                          )
+                        : Container(
+                            child: Column(
+                              children: [
+                                SizedBox(
+                                  height: size.height * 0.075,
+                                ),
+                                Stack(
+                                  children: [
+                                    Container(
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(8)),
+                                        color: Colors.amber[200],
+                                      ),
+                                      width: size.width * 0.8,
+                                      height: size.height * 0.05,
+                                      child: Align(
+                                        alignment: Alignment.center,
+                                        child: Text(
+                                          'Invalid Credentials',
+                                          style: GoogleFonts.montserrat(
+                                              textStyle: TextStyle(
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.w400,
+                                            color: Colors.blue.shade700,
+                                          )),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                    SizedBox(
+                      height: size.height * 0.025,
+                    ),
+                  ]),
                   Padding(
                     padding: const EdgeInsets.only(left: 40.0, right: 40),
                     child: Column(children: [
-                      TextField(
-                        controller: username,
-                        decoration: InputDecoration(
-                          labelText: 'Username',
-                          // hintText: "your username",
-                          hintStyle:
-                              TextStyle(fontSize: 14, color: Colors.black26),
-                          enabledBorder: new UnderlineInputBorder(
-                            borderSide: BorderSide(color: Colors.black12),
-                          ),
-                          focusedBorder: new UnderlineInputBorder(
-                            borderSide: BorderSide(color: Colors.blue),
-                          ),
-                        ),
-                      ),
-                      TextField(
-                        controller: password,
-                        decoration: InputDecoration(
-                          labelText: 'Password',
-                          // hintText: "your password",
-                          hintStyle:
-                              TextStyle(fontSize: 14, color: Colors.black26),
-                          enabledBorder: new UnderlineInputBorder(
-                            borderSide: BorderSide(color: Colors.black12),
-                          ),
-                          focusedBorder: new UnderlineInputBorder(
-                            borderSide: BorderSide(color: Colors.blue),
-                          ),
+                      Form(
+                        key: _formKey,
+                        child: Column(
+                          children: [
+                            FormField(
+                              controller: password,
+                              labelText: 'Username',
+                              validatorMessage: 'Enter your username',
+                            ),
+                            FormField(
+                              controller: password,
+                              labelText: 'Password',
+                              validatorMessage: 'Enter your password',
+                            ),
+                          ],
                         ),
                       ),
                     ]),
@@ -95,24 +131,26 @@ class _LoginState extends State<Login> {
                         Expanded(
                           child: ElevatedButton(
                             style: ElevatedButton.styleFrom(
-                              shape: new RoundedRectangleBorder(
-                                borderRadius: new BorderRadius.circular(8.0),
-                              ),
-                            ),
+                                shape: new RoundedRectangleBorder(
+                                  borderRadius: new BorderRadius.circular(8.0),
+                                ),
+                                primary: Colors.blue[400]),
                             child: Padding(
                               padding: const EdgeInsets.all(15.0),
                               child: Text(
                                 'Login',
                               ),
                             ),
-                            onPressed: () {},
+                            onPressed: () {
+                              if (_formKey.currentState!.validate()) {}
+                            },
                           ),
                         ),
                       ],
                     ),
                   ),
                   SizedBox(
-                    height: size.height * 0.1,
+                    height: size.height * 0.03,
                   ),
                   Padding(
                     padding: const EdgeInsets.only(left: 40, right: 40),
@@ -137,7 +175,7 @@ class _LoginState extends State<Login> {
                               'Sign Up',
                               style: TextStyle(
                                   fontWeight: FontWeight.bold,
-                                  color: Colors.blue[900]),
+                                  color: Colors.blue[400]),
                             ),
                           ),
                         ],
@@ -151,5 +189,43 @@ class _LoginState extends State<Login> {
         ),
       ),
     ));
+  }
+}
+
+class FormField extends StatelessWidget {
+  final String labelText;
+  final String validatorMessage;
+
+  final TextEditingController controller;
+
+  FormField({
+    required this.labelText,
+    required this.validatorMessage,
+    required this.controller,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return TextFormField(
+      controller: controller,
+      decoration: InputDecoration(
+        labelText: labelText,
+        labelStyle: TextStyle(color: Colors.blue[400]),
+        // hintText: "your username",
+        hintStyle: TextStyle(fontSize: 14, color: Colors.black26),
+        enabledBorder: new UnderlineInputBorder(
+          borderSide: BorderSide(color: Colors.black12),
+        ),
+        focusedBorder: new UnderlineInputBorder(
+          borderSide: BorderSide(color: Colors.blue.shade400),
+        ),
+      ),
+      validator: (value) {
+        if (value!.isEmpty) {
+          return validatorMessage;
+        }
+        return null;
+      },
+    );
   }
 }
