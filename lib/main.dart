@@ -5,11 +5,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:project/presentation/screens/auth/register.dart';
+import 'package:project/data/models/user/registration_data.dart';
+import 'package:project/presentation/screens/auth/login.dart';
 
 // bloc
-import './logic/bloc/auth/auth.dart';
-import './logic/bloc/login/login_bloc.dart';
 import './logic/bloc/reminder/reminder.dart';
 import './logic/bloc/workout/workout.dart';
 
@@ -26,6 +25,8 @@ import 'data/models/reminder/reminder.dart';
 import './utils/prefrence.dart';
 
 import './presentation/screens/_routes.dart';
+import 'logic/bloc/auth_bloc/auth.dart';
+import 'logic/bloc/login_bloc/login.dart';
 import 'tab_route.dart';
 import './presentation/router.dart';
 
@@ -87,8 +88,27 @@ void main() async {
 
   // ? Run the bloc observer(for debuging purpose)
   Bloc.observer = MyBlocObserver();
-  // ? Inject a single instance of the userRepository
-  runApp(MyApp());
+
+  // ! repository initialization
+  final ReminderRepository reminderRepository = ReminderRepository();
+  runApp(RepositoryProvider(
+    create: (context) => UserRepositories(),
+    child: MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (context) {
+          return AuthBloc()..add(AppStarted());
+        }),
+        BlocProvider(
+          create: (context) => ReminderBloc(reminderRepository)
+            ..add(
+              GetReminders(),
+            ),
+        ),
+        BlocProvider(create: (context) => WorkoutBloc())
+      ],
+      child: MyApp(),
+    ),
+  ));
 }
 
 class MyApp extends StatefulWidget {
@@ -99,11 +119,8 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  // ! repository initialization
-  final ReminderRepository reminderRepository = ReminderRepository();
-
   final appRouter = AppRouter();
-
+  final data = RegistrationData();
   @override
   void initState() {
     // ? Future delayed b/c cant use async/await on init
@@ -127,25 +144,31 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider(
-          create: (_) => ReminderBloc(reminderRepository)
-            ..add(
-              GetReminders(),
-            ),
-        ),
-        BlocProvider(create: (_) => WorkoutBloc())
-      ],
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: 'Can Addis',
-        theme: ThemeData(
-          primaryColor: Colors.blue.shade300,
-        ),
-        home: Register(),
-        onGenerateRoute: appRouter.onGenerateRoute,
+    return MaterialApp(
+      home: BlocBuilder<AuthBloc, AuthState>(
+        builder: (context, state) {
+          if (state is AuthAuthenticated) {
+            return TabRoute(data: data);
+          }
+          if (state is AuthUnauthenticated) {
+            //! MAKE THIS TO THE PAGE ROUTE VIEW LATTER
+
+            return Login();
+            // return Intro();
+          }
+          if (state is AuthLoading) {
+            //! ADD A SPLASH SCREEN PLS
+            return Scaffold(body: CircularProgressIndicator());
+          }
+          return Scaffold(body: CircularProgressIndicator());
+        },
       ),
+      debugShowCheckedModeBanner: false,
+      title: 'Can Addis',
+      theme: ThemeData(
+        primaryColor: Colors.blue.shade300,
+      ),
+      onGenerateRoute: appRouter.onGenerateRoute,
     );
   }
 }
