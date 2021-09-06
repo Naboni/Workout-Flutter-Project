@@ -36,6 +36,8 @@ dependencies:
   android_alarm_manager: ^2.0.2
   weekday_selector: ^1.0.0
   lottie: ^1.1.0
+  google_fonts: ^2.1.0
+  
   # NoSQL Db
   hive: ^2.0.4
   hive_flutter: ^1.1.0

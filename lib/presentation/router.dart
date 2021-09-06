@@ -13,6 +13,8 @@ class AppRouter {
         return MaterialPageRoute(builder: (ctx) => ProfileRoute());
       case ReminderScreen.routeName:
         return MaterialPageRoute(builder: (ctx) => ReminderScreen());
+      case FeedDetail.routeName:
+        return MaterialPageRoute(builder: (ctx) => FeedDetail());
       case ExerciseType.routeName:
         return MaterialPageRoute(builder: (ctx) {
           List set = settings.arguments! as List;

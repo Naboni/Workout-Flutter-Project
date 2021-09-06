@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../widgets/feeds_item.dart';
+import '../widgets/feeds/feeds_item.dart';
 
 class Feeds extends StatelessWidget {
   // const FeedPage({Key? key}) : super(key: key);
@@ -46,28 +46,31 @@ class Feeds extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Padding(
+    return SingleChildScrollView(
+      child: Padding(
         padding: EdgeInsets.symmetric(
             horizontal: MediaQuery.of(context).size.width * .01),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            Material(
-              elevation: 5.0,
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(30.0),
-              child: TextField(
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(borderSide: BorderSide.none),
-                  contentPadding:
-                      EdgeInsets.symmetric(vertical: 20 * 0.75, horizontal: 20),
-                  fillColor: Colors.white,
-                  hintText: 'Email',
-                  suffixIcon: Icon(
-                    Icons.search,
-                    size: 25.0,
-                    color: Colors.black.withOpacity(0.4),
+            Container(
+              padding: EdgeInsets.symmetric(horizontal: 20),
+              child: Material(
+                elevation: 5.0,
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(30.0),
+                child: TextField(
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(borderSide: BorderSide.none),
+                    contentPadding: EdgeInsets.symmetric(
+                        vertical: 20 * 0.75, horizontal: 20),
+                    fillColor: Colors.white,
+                    hintText: 'Search',
+                    suffixIcon: Icon(
+                      Icons.search,
+                      size: 25.0,
+                      color: Colors.black.withOpacity(0.4),
+                    ),
                   ),
                 ),
               ),
@@ -78,7 +81,7 @@ class Feeds extends StatelessWidget {
             SingleChildScrollView(
               physics: BouncingScrollPhysics(),
               child: Container(
-                height: MediaQuery.of(context).size.height * 0.7,
+                height: MediaQuery.of(context).size.height * 0.75,
                 child: ListView.builder(
                   itemBuilder: (context, index) {
                     return FeedsItem(
