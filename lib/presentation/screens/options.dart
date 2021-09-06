@@ -5,7 +5,6 @@ import 'package:project/presentation/screens/_routes.dart';
 import 'package:project/presentation/screens/reminder.dart';
 
 // bloc
-import '../../logic/bloc/auth/auth.dart';
 
 class OptionsRoute extends StatefulWidget {
   static const routeName = '/OptionsRoute';

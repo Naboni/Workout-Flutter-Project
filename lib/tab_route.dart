@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 //dep
 import 'package:page_transition/page_transition.dart';
+import 'package:project/data/repositories/user_repository.dart';
 
 // import 'presentation/widgets/main_drawer.dart';
+import 'data/models/user/user.dart';
+import 'logic/bloc/auth_bloc/auth.dart';
 import 'presentation/screens/_routes.dart';
 
 class TabRoute extends StatefulWidget {
@@ -15,7 +19,8 @@ class TabRoute extends StatefulWidget {
 class _TabState extends State<TabRoute> {
   List<Map<String, Object>>? _pages;
   int _selectedPageIndex = 0;
-
+  late Future<User> user = Future<User>.delayed(const Duration(seconds: 0),
+      () => RepositoryProvider.of<UserRepositories>(context).getCurrentUser());
   @override
   void initState() {
     _pages = [
@@ -59,6 +64,20 @@ class _TabState extends State<TabRoute> {
                   child: OptionsRoute(),
                 ),
               );
+            },
+          ),
+          IconButton(
+              onPressed: () {
+                BlocProvider.of<AuthBloc>(context).add(LoggedOut());
+              },
+              icon: Icon(Icons.logout_outlined)),
+          FutureBuilder(
+            future: user,
+            builder: (BuildContext context, AsyncSnapshot<User> snapshot) {
+              if (snapshot.hasData) {
+                return Text(snapshot.data!.role!);
+              }
+              return CircularProgressIndicator();
             },
           ),
         ],
