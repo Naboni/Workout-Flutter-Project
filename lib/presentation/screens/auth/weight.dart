@@ -1,15 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:project/data/models/user/registration_data.dart';
+import 'package:project/tab_route.dart';
 
-class Weight extends StatelessWidget {
+class Weight extends StatefulWidget {
+  final RegistrationData data;
+  Weight({required this.data});
+  static const routeName = 'gender';
+
+  @override
+  _WeightState createState() => _WeightState();
+}
+
+class _WeightState extends State<Weight> {
   TextEditingController weight = TextEditingController();
+
   bool fieldIsEmpty = true;
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    print('(#############');
-
     return Scaffold(
-      // resizeToAvoidBottomInset: false,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
@@ -40,6 +50,7 @@ class Weight extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.only(left: 40, right: 40),
                 child: TextField(
+                  keyboardType: TextInputType.number,
                   controller: weight,
                   decoration: InputDecoration(
                     labelText: 'Weight',
@@ -51,10 +62,19 @@ class Weight extends StatelessWidget {
                       borderSide: BorderSide(color: Colors.cyan.shade300),
                     ),
                   ),
-                  //###############edit the submit function################3
-                  onSubmitted: (val) => {
-                    double.parse(weight.text),
-                    fieldIsEmpty = false,
+                  onChanged: (val) => {
+                    if (val.length > 0)
+                      {
+                        setState(() {
+                          fieldIsEmpty = false;
+                        })
+                      }
+                    else
+                      {
+                        setState(() {
+                          fieldIsEmpty = true;
+                        })
+                      }
                   },
                 ),
               ),
@@ -94,9 +114,11 @@ class Weight extends StatelessWidget {
                                 fontWeight: FontWeight.w400),
                           ),
                           onPressed: () {
-                            // Navigator.of(context).push(MaterialPageRoute(
-                            //   builder: (ctx) => Weight(),
-                            // ));
+                            Navigator.of(context).push(MaterialPageRoute(
+                              builder: (ctx) => TabRoute(
+                                data: widget.data,
+                              ),
+                            ));
                           },
                         )),
             ),

@@ -9,3 +9,7 @@ export './my_plan.dart';
 export './exercise_type.dart';
 export './feed_detail.dart';
 // auth
+export 'auth/age.dart';
+export 'auth/gender.dart';
+export 'auth/height.dart';
+export 'auth/weight.dart';

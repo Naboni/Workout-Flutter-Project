@@ -1,15 +1,26 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:project/data/models/user/registration_data.dart';
 
 import 'weight.dart';
 
-class Height extends StatelessWidget {
-  TextEditingController height = TextEditingController();
+class Height extends StatefulWidget {
+  final RegistrationData data;
+  Height({required this.data});
+
+  static const routeName = 'gender';
+
+  @override
+  _HeightState createState() => _HeightState();
+}
+
+class _HeightState extends State<Height> {
+  final TextEditingController height = TextEditingController();
+
   bool fieldIsEmpty = true;
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    print('(#############');
 
     return Scaffold(
       // resizeToAvoidBottomInset: false,
@@ -43,6 +54,7 @@ class Height extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.only(left: 40, right: 40),
                 child: TextField(
+                  keyboardType: TextInputType.number,
                   controller: height,
                   decoration: InputDecoration(
                     labelText: 'Height',
@@ -54,10 +66,19 @@ class Height extends StatelessWidget {
                       borderSide: BorderSide(color: Colors.cyan.shade300),
                     ),
                   ),
-                  //###############edit the submit function################3
-                  onSubmitted: (val) => {
-                    double.parse(height.text),
-                    fieldIsEmpty = false,
+                  onChanged: (val) => {
+                    if (val.length > 0)
+                      {
+                        setState(() {
+                          fieldIsEmpty = false;
+                        })
+                      }
+                    else
+                      {
+                        setState(() {
+                          fieldIsEmpty = true;
+                        })
+                      }
                   },
                 ),
               ),
@@ -98,7 +119,9 @@ class Height extends StatelessWidget {
                           ),
                           onPressed: () {
                             Navigator.of(context).push(MaterialPageRoute(
-                              builder: (ctx) => Weight(),
+                              builder: (ctx) => Weight(
+                                data: widget.data,
+                              ),
                             ));
                           },
                         )),

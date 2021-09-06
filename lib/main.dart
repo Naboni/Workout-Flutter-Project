@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:project/data/models/user/registration_data.dart';
 import 'package:project/presentation/screens/auth/login.dart';
 
 // bloc
@@ -119,7 +120,7 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   final appRouter = AppRouter();
-
+  final data = RegistrationData();
   @override
   void initState() {
     // ? Future delayed b/c cant use async/await on init
@@ -147,7 +148,7 @@ class _MyAppState extends State<MyApp> {
       home: BlocBuilder<AuthBloc, AuthState>(
         builder: (context, state) {
           if (state is AuthAuthenticated) {
-            return TabRoute();
+            return TabRoute(data: data);
           }
           if (state is AuthUnauthenticated) {
             //! MAKE THIS TO THE PAGE ROUTE VIEW LATTER
