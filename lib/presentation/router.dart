@@ -14,11 +14,13 @@ class AppRouter {
       case ReminderScreen.routeName:
         return MaterialPageRoute(builder: (ctx) => ReminderScreen());
       case ExerciseType.routeName:
-        return MaterialPageRoute(
-            builder: (ctx) =>
-                ExerciseType(settings.arguments as List<Exercise>));
+        return MaterialPageRoute(builder: (ctx) {
+          List set = settings.arguments! as List;
+          return ExerciseType(set[0], set[1], set[2] as List<Exercise>);
+        });
       case Training.routeName:
-        return MaterialPageRoute(builder: (ctx) => Training());
+        return MaterialPageRoute(
+            builder: (ctx) => Training(settings.arguments as List<Exercise>));
       case MyPlan.routeName:
         return MaterialPageRoute(builder: (ctx) => MyPlan());
       default:

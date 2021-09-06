@@ -32,7 +32,10 @@ class ExerciseItem extends StatelessWidget {
         padding: EdgeInsets.symmetric(vertical: 10, horizontal: 18),
         child: Row(
           children: [
-            Icon(Icons.menu),
+            Icon(
+              Icons.menu,
+              color: Colors.grey,
+            ),
             SizedBox(
               width: 15,
             ),
@@ -50,7 +53,7 @@ class ExerciseItem extends StatelessWidget {
               children: [
                 Text(exercise.name),
                 Text(
-                  exercise.duration,
+                  '${exercise.duration}sec',
                   style: TextStyle(
                     color: Colors.grey,
                     fontSize: 14,

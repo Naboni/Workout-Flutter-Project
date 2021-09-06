@@ -11,6 +11,8 @@ import './logic/bloc/auth/auth.dart';
 import './logic/bloc/login/login_bloc.dart';
 import './logic/bloc/reminder/reminder.dart';
 import './logic/bloc/workout/workout.dart';
+import 'logic/bloc/ticker/timer_bloc.dart';
+import 'logic/bloc/ticker/ticker.dart';
 
 // repository
 import './data/repositories/user_repository.dart';
@@ -134,7 +136,8 @@ class _MyAppState extends State<MyApp> {
               GetReminders(),
             ),
         ),
-        BlocProvider(create: (_) => WorkoutBloc())
+        BlocProvider(create: (_) => WorkoutBloc()),
+        BlocProvider(create: (_) => TimerBloc(ticker: Ticker())),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

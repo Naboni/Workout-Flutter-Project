@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 
 class ExerciseAppBar extends StatelessWidget {
+  final String imgUrl;
+  final String name;
   const ExerciseAppBar({
     Key? key,
+    required this.imgUrl,
+    required this.name,
   }) : super(key: key);
 
   @override
@@ -15,7 +19,7 @@ class ExerciseAppBar extends StatelessWidget {
           Container(
             decoration: BoxDecoration(
                 image: DecorationImage(
-              image: AssetImage('assets/images/course1.jpg'),
+              image: AssetImage(imgUrl),
               fit: BoxFit.cover,
             )),
           ),
@@ -24,27 +28,15 @@ class ExerciseAppBar extends StatelessWidget {
             child: Container(
               padding: EdgeInsets.symmetric(vertical: 8, horizontal: 20),
               height: 90,
-              // width: 120,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   Text(
-                    'Day 1',
+                    name,
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 24,
-                      // fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Text(
-                    'FULL BODY',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 16,
-                      // fontWeight: FontWeight.bold,
                     ),
                   ),
                 ],
