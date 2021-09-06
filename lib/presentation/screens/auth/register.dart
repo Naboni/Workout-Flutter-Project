@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:project/data/models/user/registration_data.dart';
+
+import 'package:project/presentation/screens/auth/gender.dart';
 
 import 'login.dart';
 
@@ -18,7 +21,7 @@ class _RegisterState extends State<Register> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     // print(password.value);
-
+    final newRegData = new RegistrationData();
     return Scaffold(
         body: SingleChildScrollView(
       child: Container(
@@ -62,7 +65,7 @@ class _RegisterState extends State<Register> {
                         child: Column(
                           children: [
                             FormField(
-                              controller: password,
+                              controller: username,
                               labelText: 'Username',
                               validatorMessage: 'Enter your username',
                             ),
@@ -97,7 +100,21 @@ class _RegisterState extends State<Register> {
                               ),
                             ),
                             onPressed: () {
-                              if (_formKey.currentState!.validate()) {}
+                              if (_formKey.currentState!.validate()) {
+                                setState(() {
+                                  newRegData.username = username.text;
+                                  newRegData.password = password.text;
+                                });
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => Gender(newRegData),
+                                  ),
+                                );
+                                print('-------------------');
+                                print(newRegData.username);
+                                print(newRegData.password);
+                              }
                             },
                           ),
                         ),

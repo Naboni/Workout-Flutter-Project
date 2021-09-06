@@ -23,6 +23,8 @@ class AppRouter {
         return MaterialPageRoute(builder: (ctx) => Training());
       case MyPlan.routeName:
         return MaterialPageRoute(builder: (ctx) => MyPlan());
+      // case Gender.routeName:
+      //   return MaterialPageRoute(builder: (ctx) => Gender());
       default:
         return MaterialPageRoute(builder: (ctx) => ProfileRoute());
     }

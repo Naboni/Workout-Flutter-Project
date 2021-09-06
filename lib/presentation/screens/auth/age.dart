@@ -1,15 +1,24 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:project/data/models/user/registration_data.dart';
 import 'height.dart';
-import 'weight.dart';
 
-class Age extends StatelessWidget {
+class Age extends StatefulWidget {
+  final RegistrationData data;
+  Age({required this.data});
+
+  static const routeName = 'gender';
+
+  @override
+  _AgeState createState() => _AgeState();
+}
+
+class _AgeState extends State<Age> {
   TextEditingController age = TextEditingController();
+
   bool fieldIsEmpty = true;
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    print('(#############');
 
     return Scaffold(
       // resizeToAvoidBottomInset: false,
@@ -43,6 +52,7 @@ class Age extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.only(left: 40, right: 40),
                 child: TextField(
+                  keyboardType: TextInputType.number,
                   controller: age,
                   decoration: InputDecoration(
                     labelText: 'Age ',
@@ -53,10 +63,19 @@ class Age extends StatelessWidget {
                       borderSide: BorderSide(color: Colors.cyan.shade300),
                     ),
                   ),
-                  //###############edit the submit function################3
-                  onSubmitted: (val) => {
-                    double.parse(age.text),
-                    fieldIsEmpty = false,
+                  onChanged: (val) => {
+                    if (val.length > 0)
+                      {
+                        setState(() {
+                          fieldIsEmpty = false;
+                        })
+                      }
+                    else
+                      {
+                        setState(() {
+                          fieldIsEmpty = true;
+                        })
+                      }
                   },
                 ),
               ),
@@ -65,7 +84,6 @@ class Age extends StatelessWidget {
               padding: const EdgeInsets.all(8.0),
               child: Container(
                   decoration: BoxDecoration(
-                      // border: Border.all(width: 1, color: Colors.cyan),
                       borderRadius: BorderRadius.circular(1000.0)),
                   width: size.width * 0.4,
                   height: size.height * 0.06,
@@ -97,7 +115,9 @@ class Age extends StatelessWidget {
                           ),
                           onPressed: () {
                             Navigator.of(context).push(MaterialPageRoute(
-                              builder: (ctx) => Height(),
+                              builder: (ctx) => Height(
+                                data: widget.data,
+                              ),
                             ));
                           },
                         )),

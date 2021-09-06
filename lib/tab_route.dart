@@ -2,11 +2,14 @@ import 'package:flutter/material.dart';
 
 //dep
 import 'package:page_transition/page_transition.dart';
+import 'package:project/data/models/user/registration_data.dart';
 
 // import 'presentation/widgets/main_drawer.dart';
 import 'presentation/screens/_routes.dart';
 
 class TabRoute extends StatefulWidget {
+  final RegistrationData data;
+  TabRoute({required this.data});
   static const routeName = "tab";
   @override
   _TabState createState() => _TabState();

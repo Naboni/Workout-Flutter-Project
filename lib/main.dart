@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:project/presentation/screens/auth/register.dart';
 
 // bloc
 import './logic/bloc/auth/auth.dart';
@@ -142,7 +143,7 @@ class _MyAppState extends State<MyApp> {
         theme: ThemeData(
           primaryColor: Colors.blue.shade300,
         ),
-        home: TabRoute(),
+        home: Register(),
         onGenerateRoute: appRouter.onGenerateRoute,
       ),
     );
