@@ -1,29 +1,62 @@
-import 'package:flutter/material.dart';
+import 'dart:convert';
+import 'package:dio/dio.dart';
 
-class UserRepository {
-  Future<String> authenticate({
-    @required String? username,
-    @required String? password,
-  }) async {
-    await Future.delayed(Duration(seconds: 1));
-    return 'token';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:project/data/models/user/user.dart';
+
+class UserRepositories {
+  final FlutterSecureStorage _storage = FlutterSecureStorage();
+  static String baseUrl = "http://192.168.137.1:3000/api";
+  var loginUrl = '$baseUrl/users/login';
+  User? currentUser;
+  // UserRepositories() {
+  //   _storage.delete(key: "user");
+  //   _storage.deleteAll();
+  // }
+  Future<User> getCurrentUser() async {
+    return User.fromJson(await _storage.read(key: "user"));
   }
 
-  Future<void> deleteToken() async {
-    /// delete from keystore/keychain
-    await Future.delayed(Duration(seconds: 1));
-    return;
+  Future<bool> hasUser() async {
+    var value = await _storage.read(key: "user");
+    if (value != null) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
-  Future<void> persistToken(String token) async {
-    /// write to keystore/keychain
-    await Future.delayed(Duration(seconds: 1));
-    return;
+  Future<void> persisteUser(String user) async {
+    //SAVE THE USER INSTANCE
+    await _storage.write(key: "user", value: user);
   }
 
-  Future<bool> hasToken() async {
-    /// read from keystore/keychain
-    await Future.delayed(Duration(seconds: 1));
-    return false;
+  //!IF YOU DECIDE TO UPDATE THIS LATTER THEN CALL CURRENT USER DELETE THE KEY FIRST
+  Future<void> deleteUser() async {
+    await _storage.delete(key: "user");
+    await _storage.deleteAll();
+  }
+
+  Future<Map<String, dynamic>> login(String email, String password) async {
+    print("POST $loginUrl");
+    //! DOESNT CATCH SHIT!!!! DONT TRUST IT;
+    Map<String, String> res;
+    try {
+      var response = await Dio()
+          .post(loginUrl, data: {'email': email, 'password': password});
+      var responseBody = response.data;
+      return {
+        "body": json.encode(responseBody),
+        "status": response.statusCode.toString(),
+        "message": responseBody["message"]
+      };
+    } on DioError catch (e) {
+      return {
+        "status": e.response!.statusCode,
+        "message": e.response!.data["message"]
+      };
+    } catch (e) {
+      return {"status": "69", "message": "Wrong URL or sth"};
+    }
   }
 }

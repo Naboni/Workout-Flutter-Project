@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:project/data/models/user/registration_data.dart';
 
 import 'age.dart';
 // import 'package:flutter_emoji/flutter_emoji.dart';
 
 class Gender extends StatefulWidget {
   // const Gender({Key? key}) : super(key: key);
-
+  final RegistrationData data;
+  Gender(this.data);
   @override
   _GenderState createState() => _GenderState();
 }
@@ -21,7 +23,6 @@ class _GenderState extends State<Gender> {
   // late final bool isGenderSelected;
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-
     return Scaffold(
       appBar: AppBar(
         // title: Text("AppBar"),
@@ -118,6 +119,7 @@ class _GenderState extends State<Gender> {
                                 ),
                                 onPressed: () {
                                   setState(() {
+                                    widget.data.gender = 'Male';
                                     male = true;
                                     isclicked = true;
                                     female = false;
@@ -216,6 +218,7 @@ class _GenderState extends State<Gender> {
                                 ),
                                 onPressed: () {
                                   setState(() {
+                                    widget.data.gender = 'Female';
                                     female = true;
                                     isclicked = true;
                                     male = false;
@@ -278,7 +281,9 @@ class _GenderState extends State<Gender> {
                                   onPressed: () {
                                     Navigator.of(context)
                                         .push(MaterialPageRoute(
-                                      builder: (ctx) => Age(),
+                                      builder: (ctx) => Age(
+                                        data: widget.data,
+                                      ),
                                     ));
                                   },
                                 )

@@ -43,6 +43,8 @@ dependencies:
   # NoSQL Db
   hive: ^2.0.4
   hive_flutter: ^1.1.0
+  dio: ^4.0.0
+  cool_stepper: ^1.2.1
 
 dev_dependencies:
   flutter_test:
