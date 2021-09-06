@@ -2,9 +2,8 @@ import 'dart:io';
 
 import 'package:cool_stepper/cool_stepper.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:project/data/models/user/roles.dart';
-import 'package:project/utils/image_input_adapter.dart';
-import 'package:image_form_field/image_form_field.dart';
 
 class Register extends StatefulWidget {
   const Register({Key? key}) : super(key: key);
@@ -16,12 +15,18 @@ class Register extends StatefulWidget {
 class _RegisterState extends State<Register> {
   final _formKey = GlobalKey<FormState>();
   String? selectedRole = Roles.Trainee;
+  final ImagePicker _picker = ImagePicker();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController firstNameController = TextEditingController();
   final TextEditingController lastNameController = TextEditingController();
   final TextEditingController bioController = TextEditingController();
   final TextEditingController ageController = TextEditingController();
+  XFile? pickedFile;
+  pickImage() async {
+    return await _picker.pickImage(source: ImageSource.gallery);
+  }
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -70,18 +75,16 @@ class _RegisterState extends State<Register> {
           key: _formKey,
           child: Column(
             children: [
-              ImageFormField<ImageInputAdapter>(
-                shouldAllowMultiple: false,
-                previewImageBuilder: (_, image) => image.widgetize(),
-                buttonBuilder: (_, int count) =>
-                    Container(child: Text("Upload Image")),
-                initializeFileAsImage: (File file) =>
-                    ImageInputAdapter(file: file),
-                // Even if `shouldAllowMultiple` is true, images will always be a `List` of the declared type (i.e. `ImageInputAdater`).
-                onSaved: (images) {
-                  // _images = images
-                },
-              ),
+              pickedFile != null
+                  ? Semantics(
+                      label: 'image_picker_example_picked_image',
+                      child: Image.file(File(pickedFile!.path)))
+                  : Container(),
+              IconButton(
+                  onPressed: () async {
+                    pickedFile = await pickImage();
+                  },
+                  icon: Icon(Icons.share)),
               SizedBox(height: 10),
               FormField(
                 controller: emailController,
