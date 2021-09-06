@@ -45,9 +45,7 @@ class _LoginState extends State<Login> {
         return Scaffold(
             body: SingleChildScrollView(
           child: Container(
-            decoration: BoxDecoration(
-                // color: Colors.white.withOpacity(0.8),
-                ),
+            decoration: BoxDecoration(),
             child: Column(
               children: [
                 SizedBox(
