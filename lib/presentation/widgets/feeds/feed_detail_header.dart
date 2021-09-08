@@ -8,20 +8,21 @@ class FeedDetailHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: MediaQuery.of(context).size.height * 0.21,
+      height: MediaQuery.of(context).size.height * 0.38,
       child: Stack(
         children: [
           Container(
-            height: MediaQuery.of(context).size.height * 0.21,
+            height: MediaQuery.of(context).size.height * 0.38,
             width: double.infinity,
             child: Stack(
               children: [
                 Container(
                   decoration: BoxDecoration(
-                      image: DecorationImage(
-                    image: AssetImage('assets/images/course1.jpg'),
-                    fit: BoxFit.cover,
-                  )),
+                    image: DecorationImage(
+                      image: AssetImage('assets/images/course1.jpg'),
+                      fit: BoxFit.cover,
+                    ),
+                  ),
                 ),
                 Align(
                   alignment: Alignment.bottomLeft,

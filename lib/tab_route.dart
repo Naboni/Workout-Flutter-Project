@@ -5,17 +5,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:page_transition/page_transition.dart';
 
 // import 'presentation/widgets/main_drawer.dart';
-import 'package:project/data/repositories/user_repository.dart';
-import 'package:project/data/repositories/workoutPlan_repository.dart';
-import 'data/models/user/registration_data.dart';
 import 'data/models/user/user.dart';
 import 'package:project/logic/bloc/trainer_workout/trainer_workout.dart';
+import 'data/repositories/user_repository.dart';
+import 'data/repositories/workoutPlan_repository.dart';
 import 'logic/bloc/auth_bloc/auth.dart';
 import 'presentation/screens/_routes.dart';
 
 class TabRoute extends StatefulWidget {
-  final RegistrationData data;
-  TabRoute({required this.data});
   static const routeName = "tab";
   @override
   _TabState createState() => _TabState();

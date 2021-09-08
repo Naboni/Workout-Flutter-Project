@@ -2,9 +2,14 @@ import 'dart:io';
 
 import 'package:cool_stepper/cool_stepper.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:project/data/models/user/roles.dart';
+import 'package:project/logic/bloc/register_bloc/register.dart';
+import 'package:project/presentation/screens/auth/login.dart';
 
 class Register extends StatefulWidget {
   const Register({Key? key}) : super(key: key);
@@ -14,23 +19,54 @@ class Register extends StatefulWidget {
 }
 
 class _RegisterState extends State<Register> {
+  late RegisterBloc _registerBloc;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _registerBloc = RegisterBloc();
+  }
+
   final _formKeyBasic = GlobalKey<FormState>();
   final _formKeySecond = GlobalKey<FormState>();
-  String? selectedRole = Roles.Trainee;
+  String selectedRole = Roles.Trainee;
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController firstNameController = TextEditingController();
   final TextEditingController lastNameController = TextEditingController();
   final TextEditingController bioController = TextEditingController();
   final TextEditingController ageController = TextEditingController();
-  String profileImageURL = "";
+  String profileImagePath = "";
+  String? gender = null;
   void pickImage(ImageSource source) async {
     var pickedImage = await ImagePicker().pickImage(source: source);
     if (pickedImage != null) {
       setState(() {
-        profileImageURL = pickedImage.path;
+        profileImagePath = pickedImage.path;
       });
     }
+  }
+
+  Container alert({size, type, message}) {
+    return Container(
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.all(Radius.circular(8)),
+          color: type == "success" ? Colors.green[200] : Colors.amber[200]),
+      width: size.width * 0.8,
+      height: size.height * 0.05,
+      child: Align(
+        alignment: Alignment.center,
+        child: Text(
+          message,
+          style: GoogleFonts.montserrat(
+              textStyle: TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.w400,
+            color: Colors.blue.shade700,
+          )),
+        ),
+      ),
+    );
   }
 
   @override
@@ -59,7 +95,7 @@ class _RegisterState extends State<Register> {
             groupValue: selectedRole,
             onChanged: (String? v) {
               setState(() {
-                selectedRole = v;
+                selectedRole = v!;
               });
             },
             title: Text(
@@ -97,13 +133,13 @@ class _RegisterState extends State<Register> {
                     fit: StackFit.expand,
                     clipBehavior: Clip.none,
                     children: [
-                      profileImageURL != ""
+                      profileImagePath != ""
                           ? CircleAvatar(
                               child: Container(
                                 decoration: BoxDecoration(
                                     borderRadius:
                                         BorderRadius.all(Radius.circular(100))),
-                                child: Image.file(File(profileImageURL)),
+                                child: Image.file(File(profileImagePath)),
                                 clipBehavior: Clip.antiAlias,
                               ),
                             )
@@ -227,9 +263,11 @@ class _RegisterState extends State<Register> {
                   controller: ageController,
                   labelText: 'Age',
                   validatorMessage: 'Enter your age',
+                  inputType: TextInputType.number,
                 ),
                 SizedBox(height: 20),
                 DropdownButtonFormField<String>(
+                  value: gender,
                   isExpanded: true,
                   hint: Text(
                     "Gender",
@@ -237,9 +275,9 @@ class _RegisterState extends State<Register> {
                   ),
                   elevation: 0,
                   onChanged: (String? newValue) {
-                    // setState(() {
-                    //   dropdownValue = newValue!;
-                    // });
+                    setState(() {
+                      gender = newValue!;
+                    });
                   },
                   items: <String>['Male', 'Female']
                       .map<DropdownMenuItem<String>>((String value) {
@@ -288,13 +326,13 @@ class _RegisterState extends State<Register> {
                     fit: StackFit.expand,
                     clipBehavior: Clip.none,
                     children: [
-                      profileImageURL != ""
+                      profileImagePath != ""
                           ? CircleAvatar(
                               child: Container(
                                 decoration: BoxDecoration(
                                     borderRadius:
                                         BorderRadius.all(Radius.circular(100))),
-                                child: Image.file(File(profileImageURL)),
+                                child: Image.file(File(profileImagePath)),
                                 clipBehavior: Clip.antiAlias,
                               ),
                             )
@@ -418,6 +456,7 @@ class _RegisterState extends State<Register> {
                   controller: ageController,
                   labelText: 'Age',
                   validatorMessage: 'Enter your age',
+                  inputType: TextInputType.number,
                 ),
                 SizedBox(height: 20),
                 DropdownButtonFormField<String>(
@@ -428,9 +467,9 @@ class _RegisterState extends State<Register> {
                   ),
                   elevation: 0,
                   onChanged: (String? newValue) {
-                    // setState(() {
-                    //   dropdownValue = newValue!;
-                    // });
+                    setState(() {
+                      gender = newValue!;
+                    });
                   },
                   items: <String>['Male', 'Female']
                       .map<DropdownMenuItem<String>>((String value) {
@@ -497,28 +536,101 @@ class _RegisterState extends State<Register> {
         },
       ),
     ];
-    return Scaffold(
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: Container(
-            height: size.height - AppBar().preferredSize.height,
-            child: CoolStepper(
-              showErrorSnackbar: false,
-              onCompleted: () {
-                print('Steps completed!');
-              },
-              steps: selectedRole == Roles.Trainee
-                  ? [...roleChoose, ...traineeSteps]
-                  : [...roleChoose, ...trainerSteps],
-              config: CoolStepperConfig(
-                  finalText: "Finish",
-                  nextText: "Next",
-                  backText: 'Prev',
-                  stepText: "Step",
-                  ofText: "of"),
+    _onRegisterButtonPressed() {
+      _registerBloc.add(RegisterButtonPressed(
+          role: selectedRole,
+          email: emailController.text,
+          firstName: firstNameController.text,
+          password: passwordController.text,
+          lastName: lastNameController.text,
+          bio: bioController.text,
+          age: ageController.text,
+          profileImagePath: profileImagePath,
+          gender: gender!));
+    }
+
+    return BlocProvider(
+      create: (context) => _registerBloc,
+      child: BlocConsumer<RegisterBloc, RegisterState>(
+        listener: (context, state) {
+          if (state is RegisterLoading) {
+            //TODO Find a way to give feedback
+            print("Registration Loading...");
+          }
+          if (state is RegisterSuccess) {
+            final snackBar = SnackBar(
+              content: alert(
+                  message: "Registration succesful.",
+                  size: size,
+                  type: "success"),
+              backgroundColor: Colors.transparent,
+              elevation: 0,
+              margin: EdgeInsets.fromLTRB(0, 0, 0, 80),
+              behavior: SnackBarBehavior.floating,
+              duration: Duration(seconds: 2),
+            );
+            ScaffoldMessenger.of(context).showSnackBar(
+              snackBar,
+            );
+            Future.delayed(Duration(seconds: 2), () {
+              Navigator.push(
+                context,
+                PageTransition(
+                  type: PageTransitionType.rightToLeft,
+                  duration: Duration(milliseconds: 350),
+                  child: Login(),
+                ),
+              );
+            });
+          }
+          if (state is RegisterFaliure) {
+            final snackBar = SnackBar(
+              content: alert(message: state.error, size: size, type: "error"),
+              backgroundColor: Colors.transparent,
+              elevation: 0,
+              margin: EdgeInsets.fromLTRB(0, 0, 0, 100),
+              behavior: SnackBarBehavior.floating,
+              duration: Duration(seconds: 2),
+            );
+            ScaffoldMessenger.of(context).showSnackBar(
+              snackBar,
+            );
+          }
+        },
+        builder: (context, state) {
+          return Scaffold(
+            body: SafeArea(
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    Container(
+                      height: size.height - AppBar().preferredSize.height,
+                      child: CoolStepper(
+                        showErrorSnackbar: false,
+                        onCompleted: () {
+                          print('Steps completed!');
+                          _onRegisterButtonPressed();
+                        },
+                        steps: selectedRole == Roles.Trainee
+                            ? [
+                                ...roleChoose,
+                                ...traineeSteps,
+                              ]
+                            : [...roleChoose, ...trainerSteps],
+                        config: CoolStepperConfig(
+                            finalText: "Finish",
+                            nextText: "Next",
+                            backText: 'Prev',
+                            stepText: "Step",
+                            ofText: "of"),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             ),
-          ),
-        ),
+          );
+        },
       ),
     );
   }
@@ -527,18 +639,19 @@ class _RegisterState extends State<Register> {
 class FormField extends StatelessWidget {
   final String labelText;
   final String validatorMessage;
-
   final TextEditingController controller;
-
+  final TextInputType inputType;
   FormField({
     required this.labelText,
     required this.validatorMessage,
     required this.controller,
+    this.inputType = TextInputType.text,
   });
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      keyboardType: inputType,
       controller: controller,
       decoration: InputDecoration(
         labelText: labelText,
