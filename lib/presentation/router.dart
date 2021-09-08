@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 
-import './screens/_routes.dart';
+// deps
+import 'package:flutter_bloc/flutter_bloc.dart';
+// repo
+import '../data/repositories/workout_repository.dart';
 // model
 import 'package:project/data/models/exercise/exercise.dart';
+import './screens/_routes.dart';
 
 class AppRouter {
   Route onGenerateRoute(RouteSettings settings) {
@@ -23,10 +27,14 @@ class AppRouter {
       case Training.routeName:
         return MaterialPageRoute(
             builder: (ctx) => Training(settings.arguments as List<Exercise>));
-      case MyPlan.routeName:
-        return MaterialPageRoute(builder: (ctx) => MyPlan());
+      // case MyPlan.routeName:
+      //   return MaterialPageRoute(builder: (ctx) => MyPlan());
       case AddPlan.routeName:
-        return MaterialPageRoute(builder: (ctx) => AddPlan());
+        return MaterialPageRoute(
+            builder: (ctx) => RepositoryProvider(
+                  create: (context) => WorkoutRepository(),
+                  child: AddPlan(),
+                ));
       default:
         return MaterialPageRoute(builder: (ctx) => ProfileRoute());
     }
