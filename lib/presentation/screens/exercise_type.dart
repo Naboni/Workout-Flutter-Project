@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
 //widgets
 import '../widgets/exercise_type/exercise_appbar.dart';
-import '../widgets/exercise_type/exercise_footer.dart';
 import '../widgets/exercise_type/exercise_item.dart';
 //model
 import '../../data/models/exercise/exercise.dart';
+// screen
+import '../screens/training.dart';
 
 class ExerciseType extends StatefulWidget {
   static const routeName = "exercise_type";
   final List<Exercise> exercises;
-  ExerciseType(this.exercises);
+  final String name;
+  final String img;
+  ExerciseType(this.name, this.img, this.exercises);
 
   @override
   _ExerciseTypeState createState() => _ExerciseTypeState();
@@ -23,11 +26,15 @@ class _ExerciseTypeState extends State<ExerciseType> {
       appBar: AppBar(
         elevation: 0,
         backgroundColor: Colors.transparent,
+        iconTheme: IconThemeData(color: Colors.white),
       ),
       body: Container(
         child: Column(
           children: [
-            ExerciseAppBar(),
+            ExerciseAppBar(
+              name: widget.name,
+              imgUrl: widget.img,
+            ),
             SizedBox(
               height: 8,
             ),
@@ -37,7 +44,7 @@ class _ExerciseTypeState extends State<ExerciseType> {
               child: Row(
                 children: [
                   Text(
-                    '10 mins ',
+                    '${widget.exercises.length * 20} mins',
                     style: TextStyle(
                       // color: Colors.white,
                       fontSize: 16,
@@ -46,7 +53,7 @@ class _ExerciseTypeState extends State<ExerciseType> {
                   ),
                   Icon(Icons.brightness_1, size: 5),
                   Text(
-                    ' 11 Workouts',
+                    ' ${widget.exercises.length} Workouts',
                     style: TextStyle(
                       // color: Colors.white,
                       fontSize: 16,
@@ -78,8 +85,27 @@ class _ExerciseTypeState extends State<ExerciseType> {
                 ),
               ),
             ),
-            Divider(),
-            ExerciseFooter(),
+            // Divider(),
+            Container(
+              child: ElevatedButton(
+                onPressed: () {
+                  Navigator.of(context).pushNamed(Training.routeName,
+                      arguments: widget.exercises);
+                },
+                style: ButtonStyle(
+                  shape: MaterialStateProperty.all(RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30.0))),
+                ),
+                child: Container(
+                  child: Center(
+                    child: Text("START"),
+                  ),
+                  height: MediaQuery.of(context).size.height * 0.06,
+                  width: MediaQuery.of(context).size.width * 0.7,
+                ),
+              ),
+            ),
+            SizedBox(height: 10)
           ],
         ),
       ),

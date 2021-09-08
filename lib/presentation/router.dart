@@ -16,15 +16,17 @@ class AppRouter {
       case FeedDetail.routeName:
         return MaterialPageRoute(builder: (ctx) => FeedDetail());
       case ExerciseType.routeName:
-        return MaterialPageRoute(
-            builder: (ctx) =>
-                ExerciseType(settings.arguments as List<Exercise>));
+        return MaterialPageRoute(builder: (ctx) {
+          List set = settings.arguments! as List;
+          return ExerciseType(set[0], set[1], set[2] as List<Exercise>);
+        });
       case Training.routeName:
-        return MaterialPageRoute(builder: (ctx) => Training());
+        return MaterialPageRoute(
+            builder: (ctx) => Training(settings.arguments as List<Exercise>));
       case MyPlan.routeName:
         return MaterialPageRoute(builder: (ctx) => MyPlan());
-      // case Gender.routeName:
-      //   return MaterialPageRoute(builder: (ctx) => Gender());
+      case AddPlan.routeName:
+        return MaterialPageRoute(builder: (ctx) => AddPlan());
       default:
         return MaterialPageRoute(builder: (ctx) => ProfileRoute());
     }

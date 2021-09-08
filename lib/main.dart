@@ -11,6 +11,8 @@ import 'package:project/presentation/screens/auth/login.dart';
 // bloc
 import './logic/bloc/reminder/reminder.dart';
 import './logic/bloc/workout/workout.dart';
+import 'logic/bloc/ticker/timer_bloc.dart';
+import 'logic/bloc/ticker/ticker.dart';
 
 // repository
 import './data/repositories/user_repository.dart';
@@ -152,7 +154,6 @@ class _MyAppState extends State<MyApp> {
           }
           if (state is AuthUnauthenticated) {
             //! MAKE THIS TO THE PAGE ROUTE VIEW LATTER
-
             return Login();
             // return Intro();
           }

@@ -123,16 +123,11 @@ class _ExerciseModalState extends State<ExerciseModal> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   _prevControllerButtonBuilder(_isPrevDisabled!, _prev),
-                  TextButton(
-                    onPressed: () {
-                      Navigator.of(context).pop("yes");
-                    },
-                    child: Text(
-                      '${widget.position + 1 + _modalControllerIndex}/${widget.length}',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 15.0,
-                      ),
+                  Text(
+                    '${widget.position + 1 + _modalControllerIndex}/${widget.length}',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 15.0,
                     ),
                   ),
                   _nextControllerButtonBuilder(_isNextDisabled!, _next),

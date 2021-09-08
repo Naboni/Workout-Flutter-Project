@@ -21,7 +21,7 @@ class WorkoutsListItem extends StatelessWidget {
       onTap: () {
         Navigator.of(context).pushNamed(
           ExerciseType.routeName,
-          arguments: exercises,
+          arguments: [title, image, exercises],
         );
       },
       child: Container(

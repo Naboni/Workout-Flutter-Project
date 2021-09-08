@@ -37,18 +37,15 @@ dependencies:
   weekday_selector: ^1.0.0
   lottie: ^1.1.0
   google_fonts: ^2.1.0
-  cool_stepper: ^1.2.1
-  
-  get: any
-  get_storage: any
-  dio: ^4.0.0
-  cached_network_image: ^2.5.1
   image_picker: any
   flutter_svg: any
-
+  dio: ^4.0.0
+  cool_stepper: ^1.2.1
   # NoSQL Db
   hive: ^2.0.4
   hive_flutter: ^1.1.0
+  path_provider: ^2.0.3
+  path: ^1.8.0
 
 dev_dependencies:
   flutter_test:
