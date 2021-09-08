@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:project/data/models/user/roles.dart';
-import 'package:get/get.dart';
 
 class Register extends StatefulWidget {
   const Register({Key? key}) : super(key: key);
