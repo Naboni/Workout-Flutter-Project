@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:project/presentation/screens/auth/height.dart';
 
 class FeedDetailHeader extends StatelessWidget {
   const FeedDetailHeader({

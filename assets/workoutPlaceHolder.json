@@ -20,7 +20,7 @@
                     "duration" : "20",
                     "lottieUrl" : "assets/anim/workouts/abs/seated-abs-circles.json",
                     "category" : "abs",
-                    "description" : "",
+                    "description" : "Seated abs circle is basically sitting on a mat, raising your legs and moving them in circles clockwise and counter clock wise",
                     "difficulty" : "medium"
                 },
                 {
@@ -29,7 +29,7 @@
                     "duration" : "20",
                     "lottieUrl" : "assets/anim/workouts/abs/squat-kick.json",
                     "category" : "abs",
-                    "description" : "",
+                    "description" : "The squat side kick is a dynamic variation of the bodyweight squat with an additional lateral movement.",
                     "difficulty" : "medium"
                 },
                 {
@@ -38,7 +38,7 @@
                     "duration" : "20",
                     "lottieUrl" : "assets/anim/workouts/abs/inchworm.json",
                     "category" : "abs",
-                    "description" : "",
+                    "description" : "Inch worm is a multi-joint exercise that targets the muscles of your anterior chain while stretching the muscles of your posterior chain.",
                     "difficulty" : "hard"
                 }
             ]
@@ -54,16 +54,16 @@
                     "duration" : "20",
                     "lottieUrl" : "assets/anim/workouts/leg/jumping-jack.json",
                     "category" : "legs",
-                    "description" : "",
+                    "description" : "Jumping jack is a physical jumping exercise that targets muscles throughout your arms, legs and core",
                     "difficulty" : "medium"
                 },
                 {
                     "id" : "1",
-                    "name" : "JUMPING SQUAT",
+                    "name" : "JUMP SQUAT",
                     "duration" : "20",
                     "lottieUrl" : "assets/anim/workouts/leg/jumping-squats.json",
                     "category" : "legs",
-                    "description" : "",
+                    "description" : "Jump squats are a high-intensity plyometric exercise that are excellent for building explosive power, conditioning the muscles and joints of the lower body and increasing the height of your vertical jump.",
                     "difficulty" : "easy"
                 },
                 {
@@ -72,7 +72,7 @@
                     "duration" : "20",
                     "lottieUrl" : "assets/anim/workouts/leg/step-up-on-chair.json",
                     "category" : "legs",
-                    "description" : "",
+                    "description" : "Step-up onto the chair is an exercise for balance and improving the strength of your lower body, quadriceps, glutes, and the hamstring.",
                     "difficulty" : "medium"
                 },
                 {
@@ -81,7 +81,7 @@
                     "duration" : "20",
                     "lottieUrl" : "assets/anim/workouts/leg/reverse-crunches.json",
                     "category" : "legs",
-                    "description" : "",
+                    "description" : "The crunch is an abdominal exercise that target the lower part of your abs.",
                     "difficulty" : "hard"
                 }
             ]
@@ -97,7 +97,7 @@
                     "duration" : "20",
                     "lottieUrl" : "assets/anim/workouts/warmup/lunge.json",
                     "category" : "warmup",
-                    "description" : "",
+                    "description" : "Lunge is an exercise that targets the quadriceps in your thighs and the glutes in your hips and butt. ",
                     "difficulty" : "easy"
                 },
                 {
@@ -106,7 +106,7 @@
                     "duration" : "20",
                     "lottieUrl" : "assets/anim/workouts/warmup/shoulder-stretch.json",
                     "category" : "warmup",
-                    "description" : "",
+                    "description" : "Shoulder stretch focuses on stretching the triceps and upper chest area. It helps improve flexibility and range of motion in your shoulder muscles.",
                     "difficulty" : "medium"
                 }
             ]

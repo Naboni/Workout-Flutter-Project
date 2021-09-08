@@ -88,38 +88,39 @@ class _TrainingState extends State<Training> {
                       width: double.infinity,
                       child: Row(
                         children: [
-                          Container(
-                            height: 50,
-                            width: MediaQuery.of(context).size.width * 0.45,
-                            // decoration: BoxDecoration(color: Colors.white),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Icon(Icons.skip_previous),
-                                Text(
-                                  'Previous',
-                                  style: TextStyle(fontSize: 18),
-                                )
-                              ],
-                            ),
-                          ),
-                          Container(
-                              height: 30,
-                              child: VerticalDivider(color: Colors.grey)),
-                          Container(
-                            height: 50,
-                            width: MediaQuery.of(context).size.width * 0.45,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Icon(Icons.skip_next),
-                                Text(
-                                  'Next',
-                                  style: TextStyle(fontSize: 18),
-                                ),
-                              ],
-                            ),
-                          )
+                          //#########removed prev and next buttons"###################
+                          // Container(
+                          //   height: 50,
+                          //   width: MediaQuery.of(context).size.width * 0.45,
+                          //   // decoration: BoxDecoration(color: Colors.white),
+                          //   child: Row(
+                          //     mainAxisAlignment: MainAxisAlignment.center,
+                          //     children: [
+                          //       Icon(Icons.skip_previous),
+                          //       Text(
+                          //         'Previous',
+                          //         style: TextStyle(fontSize: 18),
+                          //       )
+                          //     ],
+                          //   ),
+                          // ),
+                          // Container(
+                          //     height: 30,
+                          //     child: VerticalDivider(color: Colors.grey)),
+                          // Container(
+                          //   height: 50,
+                          //   width: MediaQuery.of(context).size.width * 0.45,
+                          //   child: Row(
+                          //     mainAxisAlignment: MainAxisAlignment.center,
+                          //     children: [
+                          //       Icon(Icons.skip_next),
+                          //       Text(
+                          //         'Next',
+                          //         style: TextStyle(fontSize: 18),
+                          //       ),
+                          //     ],
+                          //   ),
+                          // )
                         ],
                       ),
                     )
