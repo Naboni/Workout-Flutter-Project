@@ -25,7 +25,7 @@ class WorkoutsListItem extends StatelessWidget {
         );
       },
       child: Container(
-        height: MediaQuery.of(context).size.height * 0.2,
+        height: MediaQuery.of(context).size.height * 0.17,
         margin: EdgeInsets.all(5),
         child: Stack(
           children: [
@@ -53,12 +53,25 @@ class WorkoutsListItem extends StatelessWidget {
               ),
               child: Align(
                 alignment: Alignment.topLeft,
-                child: Text(
-                  "$title",
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 25,
-                      fontWeight: FontWeight.w400),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "$title",
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 24,
+                          fontWeight: FontWeight.w700),
+                    ),
+                    // Text(
+                    //   "$title",
+                    //   textAlign: TextAlign.center,
+                    //   style: TextStyle(
+                    //       color: Colors.white,
+                    //       fontSize: 18,
+                    //       fontWeight: FontWeight.w600),
+                    // ),
+                  ],
                 ),
               ),
             ),
