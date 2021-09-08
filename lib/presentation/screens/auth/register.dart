@@ -2,8 +2,10 @@ import 'dart:io';
 
 import 'package:cool_stepper/cool_stepper.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:project/data/models/user/roles.dart';
+import 'package:get/get.dart';
 
 class Register extends StatefulWidget {
   const Register({Key? key}) : super(key: key);
@@ -13,18 +15,23 @@ class Register extends StatefulWidget {
 }
 
 class _RegisterState extends State<Register> {
-  final _formKey = GlobalKey<FormState>();
+  final _formKeyBasic = GlobalKey<FormState>();
+  final _formKeySecond = GlobalKey<FormState>();
   String? selectedRole = Roles.Trainee;
-  final ImagePicker _picker = ImagePicker();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController firstNameController = TextEditingController();
   final TextEditingController lastNameController = TextEditingController();
   final TextEditingController bioController = TextEditingController();
   final TextEditingController ageController = TextEditingController();
-  XFile? pickedFile;
-  pickImage() async {
-    return await _picker.pickImage(source: ImageSource.gallery);
+  String profileImageURL = "";
+  void pickImage(ImageSource source) async {
+    var pickedImage = await ImagePicker().pickImage(source: source);
+    if (pickedImage != null) {
+      setState(() {
+        profileImageURL = pickedImage.path;
+      });
+    }
   }
 
   @override
@@ -67,25 +74,125 @@ class _RegisterState extends State<Register> {
       );
     }
 
-    final steps = [
+    final traineeSteps = [
       CoolStep(
         title: 'Basic Information',
         subtitle: 'Please fill some of the basic information to get started',
         content: Form(
-          key: _formKey,
+          key: _formKeyBasic,
           child: Column(
             children: [
-              pickedFile != null
-                  ? Semantics(
-                      label: 'image_picker_example_picked_image',
-                      child: Image.file(File(pickedFile!.path)))
-                  : Container(),
-              IconButton(
-                  onPressed: () async {
-                    pickedFile = await pickImage();
-                  },
-                  icon: Icon(Icons.share)),
+              Container(
+                decoration: BoxDecoration(
+                  boxShadow: <BoxShadow>[
+                    BoxShadow(
+                      color: Colors.grey.withOpacity(0.3),
+                      blurRadius: 40,
+                    ),
+                  ],
+                ),
+                child: SizedBox(
+                  height: 115,
+                  width: 115,
+                  child: Stack(
+                    fit: StackFit.expand,
+                    clipBehavior: Clip.none,
+                    children: [
+                      profileImageURL != ""
+                          ? CircleAvatar(
+                              child: Container(
+                                decoration: BoxDecoration(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(100))),
+                                child: Image.file(File(profileImageURL)),
+                                clipBehavior: Clip.antiAlias,
+                              ),
+                            )
+                          : CircleAvatar(
+                              backgroundImage:
+                                  AssetImage('assets/icons/no_user.jpg'),
+                            ),
+                      Positioned(
+                        right: -16,
+                        bottom: 0,
+                        child: SizedBox(
+                          height: 46,
+                          width: 46,
+                          child: TextButton(
+                            style: ButtonStyle(
+                              padding: MaterialStateProperty.all<EdgeInsets>(
+                                  EdgeInsets.all(15)),
+                              backgroundColor: MaterialStateProperty.all<Color>(
+                                  Colors.grey[200]!),
+                              shape: MaterialStateProperty.all<
+                                      RoundedRectangleBorder>(
+                                  RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(50),
+                                side: BorderSide(color: Colors.white),
+                              )),
+                            ),
+                            onPressed: () {
+                              showModalBottomSheet(
+                                  context: context,
+                                  builder: (context) {
+                                    return Container(
+                                      decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        borderRadius: const BorderRadius.only(
+                                            topLeft: Radius.circular(16.0),
+                                            topRight: Radius.circular(16.0)),
+                                      ),
+                                      child: Wrap(
+                                        alignment: WrapAlignment.end,
+                                        crossAxisAlignment:
+                                            WrapCrossAlignment.end,
+                                        children: [
+                                          ListTile(
+                                            leading: Icon(Icons.camera),
+                                            title: Text('Camera'),
+                                            onTap: () async {
+                                              Navigator.pop(context);
+                                              pickImage(ImageSource.camera);
+                                            },
+                                          ),
+                                          ListTile(
+                                            leading: Icon(Icons.image),
+                                            title: Text('Gallery'),
+                                            onTap: () async {
+                                              Navigator.pop(context);
+                                              pickImage(ImageSource.gallery);
+                                            },
+                                          ),
+                                        ],
+                                      ),
+                                    );
+                                  });
+                            },
+                            child: SvgPicture.asset(
+                                "assets/icons/Camera Icon.svg"),
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              ),
               SizedBox(height: 10),
+              FormField(
+                controller: firstNameController,
+                labelText: 'First name',
+                validatorMessage: 'Enter your First Name',
+              ),
+              SizedBox(height: 10),
+              SizedBox(height: 10),
+              FormField(
+                controller: lastNameController,
+                labelText: 'Last name',
+                validatorMessage: 'Enter your Last name',
+              ),
+              SizedBox(
+                height: 10,
+              ),
               FormField(
                 controller: emailController,
                 labelText: 'Email',
@@ -103,15 +210,274 @@ class _RegisterState extends State<Register> {
           ),
         ),
         validation: () {
-          // if (!_formKey.currentState!.validate()) {
-          //   return 'Fill form correctly';
-          // }
+          if (!_formKeyBasic.currentState!.validate()) {
+            return 'Fill form correctly';
+          }
           return null;
         },
       ),
       CoolStep(
-        title: 'Select your role',
-        subtitle: 'Select your role',
+        title: "Additional Information",
+        subtitle: "You're almost there :)",
+        content: Form(
+            key: _formKeySecond,
+            child: Column(
+              children: [
+                SizedBox(height: 10),
+                FormField(
+                  controller: ageController,
+                  labelText: 'Age',
+                  validatorMessage: 'Enter your age',
+                ),
+                SizedBox(height: 20),
+                DropdownButtonFormField<String>(
+                  isExpanded: true,
+                  hint: Text(
+                    "Gender",
+                    style: TextStyle(color: Theme.of(context).primaryColor),
+                  ),
+                  elevation: 0,
+                  onChanged: (String? newValue) {
+                    // setState(() {
+                    //   dropdownValue = newValue!;
+                    // });
+                  },
+                  items: <String>['Male', 'Female']
+                      .map<DropdownMenuItem<String>>((String value) {
+                    return DropdownMenuItem<String>(
+                      value: value,
+                      child: Text(value),
+                    );
+                  }).toList(),
+                  validator: (value) {
+                    if (value == null) {
+                      return 'This field is required';
+                    }
+                  },
+                ),
+              ],
+            )),
+        validation: () {
+          if (!_formKeySecond.currentState!.validate()) {
+            return 'Fill form correctly';
+          }
+          return null;
+        },
+      )
+    ];
+    final trainerSteps = [
+      CoolStep(
+        title: 'Basic Information',
+        subtitle: 'Please fill some of the basic information to get started',
+        content: Form(
+          key: _formKeyBasic,
+          child: Column(
+            children: [
+              Container(
+                decoration: BoxDecoration(
+                  boxShadow: <BoxShadow>[
+                    BoxShadow(
+                      color: Colors.grey.withOpacity(0.3),
+                      blurRadius: 40,
+                    ),
+                  ],
+                ),
+                child: SizedBox(
+                  height: 115,
+                  width: 115,
+                  child: Stack(
+                    fit: StackFit.expand,
+                    clipBehavior: Clip.none,
+                    children: [
+                      profileImageURL != ""
+                          ? CircleAvatar(
+                              child: Container(
+                                decoration: BoxDecoration(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(100))),
+                                child: Image.file(File(profileImageURL)),
+                                clipBehavior: Clip.antiAlias,
+                              ),
+                            )
+                          : CircleAvatar(
+                              backgroundImage:
+                                  AssetImage('assets/icons/no_user.jpg'),
+                            ),
+                      Positioned(
+                        right: -16,
+                        bottom: 0,
+                        child: SizedBox(
+                          height: 46,
+                          width: 46,
+                          child: TextButton(
+                            style: ButtonStyle(
+                              padding: MaterialStateProperty.all<EdgeInsets>(
+                                  EdgeInsets.all(15)),
+                              backgroundColor: MaterialStateProperty.all<Color>(
+                                  Colors.grey[200]!),
+                              shape: MaterialStateProperty.all<
+                                      RoundedRectangleBorder>(
+                                  RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(50),
+                                side: BorderSide(color: Colors.white),
+                              )),
+                            ),
+                            onPressed: () {
+                              showModalBottomSheet(
+                                  context: context,
+                                  builder: (context) {
+                                    return Container(
+                                      decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        borderRadius: const BorderRadius.only(
+                                            topLeft: Radius.circular(16.0),
+                                            topRight: Radius.circular(16.0)),
+                                      ),
+                                      child: Wrap(
+                                        alignment: WrapAlignment.end,
+                                        crossAxisAlignment:
+                                            WrapCrossAlignment.end,
+                                        children: [
+                                          ListTile(
+                                            leading: Icon(Icons.camera),
+                                            title: Text('Camera'),
+                                            onTap: () async {
+                                              Navigator.pop(context);
+                                              pickImage(ImageSource.camera);
+                                            },
+                                          ),
+                                          ListTile(
+                                            leading: Icon(Icons.image),
+                                            title: Text('Gallery'),
+                                            onTap: () async {
+                                              Navigator.pop(context);
+                                              pickImage(ImageSource.gallery);
+                                            },
+                                          ),
+                                        ],
+                                      ),
+                                    );
+                                  });
+                            },
+                            child: SvgPicture.asset(
+                                "assets/icons/Camera Icon.svg"),
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              ),
+              SizedBox(height: 10),
+              FormField(
+                controller: firstNameController,
+                labelText: 'First name',
+                validatorMessage: 'Enter your First Name',
+              ),
+              SizedBox(height: 10),
+              SizedBox(height: 10),
+              FormField(
+                controller: lastNameController,
+                labelText: 'Last name',
+                validatorMessage: 'Enter your Last name',
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              FormField(
+                controller: emailController,
+                labelText: 'Email',
+                validatorMessage: 'Enter your email',
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              FormField(
+                controller: passwordController,
+                labelText: 'Password',
+                validatorMessage: 'Enter your password',
+              ),
+            ],
+          ),
+        ),
+        validation: () {
+          if (!_formKeyBasic.currentState!.validate()) {
+            return 'Fill form correctly';
+          }
+          return null;
+        },
+      ),
+      CoolStep(
+        title: "Additional Information",
+        subtitle: "You're almost there :)",
+        content: Form(
+            key: _formKeySecond,
+            child: Column(
+              children: [
+                SizedBox(height: 10),
+                FormField(
+                  controller: ageController,
+                  labelText: 'Age',
+                  validatorMessage: 'Enter your age',
+                ),
+                SizedBox(height: 20),
+                DropdownButtonFormField<String>(
+                  isExpanded: true,
+                  hint: Text(
+                    "Gender",
+                    style: TextStyle(color: Theme.of(context).primaryColor),
+                  ),
+                  elevation: 0,
+                  onChanged: (String? newValue) {
+                    // setState(() {
+                    //   dropdownValue = newValue!;
+                    // });
+                  },
+                  items: <String>['Male', 'Female']
+                      .map<DropdownMenuItem<String>>((String value) {
+                    return DropdownMenuItem<String>(
+                      value: value,
+                      child: Text(value),
+                    );
+                  }).toList(),
+                  validator: (value) {
+                    if (value == null) {
+                      return 'This field is required';
+                    }
+                  },
+                ),
+                SizedBox(height: 10),
+                TextFormField(
+                  maxLines: null,
+                  keyboardType: TextInputType.multiline,
+                  controller: bioController,
+                  decoration: InputDecoration(
+                    labelText: "Bio",
+                    labelStyle: TextStyle(color: Colors.blue[400]),
+                    // hintText: "your email",
+                    hintStyle: TextStyle(fontSize: 14, color: Colors.black26),
+                    enabledBorder: new UnderlineInputBorder(
+                      borderSide: BorderSide(color: Colors.black12),
+                    ),
+                    focusedBorder: new UnderlineInputBorder(
+                      borderSide: BorderSide(color: Colors.blue.shade400),
+                    ),
+                  ),
+                )
+              ],
+            )),
+        validation: () {
+          if (!_formKeySecond.currentState!.validate()) {
+            return 'Fill form correctly';
+          }
+          return null;
+        },
+      )
+    ];
+    final roleChoose = [
+      CoolStep(
+        title: 'Select a role',
+        subtitle: 'Please select a role you wish to sign up on',
         content: Container(
           child: Row(
             children: <Widget>[
@@ -136,18 +502,21 @@ class _RegisterState extends State<Register> {
       body: SafeArea(
         child: SingleChildScrollView(
           child: Container(
-            height: size.height -
-                AppBar().preferredSize.height -
-                MediaQuery.of(context).padding.top,
+            height: size.height - AppBar().preferredSize.height,
             child: CoolStepper(
               showErrorSnackbar: false,
               onCompleted: () {
                 print('Steps completed!');
               },
-              steps: steps,
+              steps: selectedRole == Roles.Trainee
+                  ? [...roleChoose, ...traineeSteps]
+                  : [...roleChoose, ...trainerSteps],
               config: CoolStepperConfig(
-                backText: 'PREV',
-              ),
+                  finalText: "Finish",
+                  nextText: "Next",
+                  backText: 'Prev',
+                  stepText: "Step",
+                  ofText: "of"),
             ),
           ),
         ),
