@@ -9,25 +9,37 @@
                     "id" : "0",
                     "name" : "PLANK EXERCISE",
                     "duration" : "20",
-                    "lottieUrl" : "assets/anim/workouts/abs/plank-excercise.json"
+                    "lottieUrl" : "assets/anim/workouts/abs/plank-excercise.json",
+                    "category" : "abs",
+                    "description" : "The plank is an isometric core strength exercise that involves maintaining a position similar to a push-up for the maximum possible time.",
+                    "difficulty" : "hard"
                 },
                 {
                     "id" : "1",
                     "name" : "SEATED ABS CIRCLE",
                     "duration" : "20",
-                    "lottieUrl" : "assets/anim/workouts/abs/seated-abs-circles.json"
+                    "lottieUrl" : "assets/anim/workouts/abs/seated-abs-circles.json",
+                    "category" : "abs",
+                    "description" : "",
+                    "difficulty" : "medium"
                 },
                 {
                     "id" : "2",
                     "name" : "SQUAT KICK",
                     "duration" : "20",
-                    "lottieUrl" : "assets/anim/workouts/abs/squat-kick.json"
+                    "lottieUrl" : "assets/anim/workouts/abs/squat-kick.json",
+                    "category" : "abs",
+                    "description" : "",
+                    "difficulty" : "medium"
                 },
                 {
                     "id" : "3",
                     "name" : "INCH WORM",
                     "duration" : "20",
-                    "lottieUrl" : "assets/anim/workouts/abs/inchworm.json"
+                    "lottieUrl" : "assets/anim/workouts/abs/inchworm.json",
+                    "category" : "abs",
+                    "description" : "",
+                    "difficulty" : "hard"
                 }
             ]
         },
@@ -40,25 +52,37 @@
                     "id" : "0",
                     "name" : "JUMPING JACK",
                     "duration" : "20",
-                    "lottieUrl" : "assets/anim/workouts/leg/jumping-jack.json"
+                    "lottieUrl" : "assets/anim/workouts/leg/jumping-jack.json",
+                    "category" : "legs",
+                    "description" : "",
+                    "difficulty" : "medium"
                 },
                 {
                     "id" : "1",
                     "name" : "JUMPING SQUAT",
                     "duration" : "20",
-                    "lottieUrl" : "assets/anim/workouts/leg/jumping-squats.json"
+                    "lottieUrl" : "assets/anim/workouts/leg/jumping-squats.json",
+                    "category" : "legs",
+                    "description" : "",
+                    "difficulty" : "easy"
                 },
                 {
                     "id" : "2",
                     "name" : "STEP UP ON CHAIR",
                     "duration" : "20",
-                    "lottieUrl" : "assets/anim/workouts/leg/step-up-on-chair.json"
+                    "lottieUrl" : "assets/anim/workouts/leg/step-up-on-chair.json",
+                    "category" : "legs",
+                    "description" : "",
+                    "difficulty" : "medium"
                 },
                 {
                     "id" : "3",
                     "name" : "REVERSE CRUNCHES",
                     "duration" : "20",
-                    "lottieUrl" : "assets/anim/workouts/leg/reverse-crunches.json"
+                    "lottieUrl" : "assets/anim/workouts/leg/reverse-crunches.json",
+                    "category" : "legs",
+                    "description" : "",
+                    "difficulty" : "hard"
                 }
             ]
         },
@@ -71,13 +95,19 @@
                     "id" : "0",
                     "name" : "LUNGE",
                     "duration" : "20",
-                    "lottieUrl" : "assets/anim/workouts/warmup/lunge.json"
+                    "lottieUrl" : "assets/anim/workouts/warmup/lunge.json",
+                    "category" : "warmup",
+                    "description" : "",
+                    "difficulty" : "easy"
                 },
                 {
                     "id" : "1",
                     "name" : "SHOULDER STRETCH",
                     "duration" : "20",
-                    "lottieUrl" : "assets/anim/workouts/warmup/shoulder-stretch.json"
+                    "lottieUrl" : "assets/anim/workouts/warmup/shoulder-stretch.json",
+                    "category" : "warmup",
+                    "description" : "",
+                    "difficulty" : "medium"
                 }
             ]
         }

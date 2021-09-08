@@ -4,10 +4,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 //dep
 import 'package:page_transition/page_transition.dart';
 import 'package:project/data/repositories/user_repository.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 // import 'presentation/widgets/main_drawer.dart';
 import 'data/models/user/user.dart';
 import 'logic/bloc/auth_bloc/auth.dart';
+import 'logic/bloc/workout/workout_bloc.dart';
 import 'presentation/screens/_routes.dart';
 
 class TabRoute extends StatefulWidget {
@@ -26,15 +28,15 @@ class _TabState extends State<TabRoute> {
     _pages = [
       {
         'page': Home(),
-        'title': 'Home',
       },
       {
         'page': Feeds(),
-        'title': 'Feeds',
       },
       {
-        'page': MyPlan(),
-        'title': 'Feeds',
+        'page': BlocProvider(
+          create: (context) => WorkoutBloc(),
+          child: MyPlan(),
+        ),
       },
     ];
     super.initState();

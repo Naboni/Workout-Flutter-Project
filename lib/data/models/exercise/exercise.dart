@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:hive/hive.dart';
 
 part 'exercise.g.dart';
@@ -13,6 +15,12 @@ class Exercise {
   late String duration;
   @HiveField(3)
   late String lottieUrl;
+  @HiveField(4)
+  late String category;
+  @HiveField(5)
+  late String description;
+  @HiveField(6)
+  late String difficulty;
 
   Exercise();
 
@@ -20,10 +28,20 @@ class Exercise {
       : id = json['id'],
         name = json['name'],
         duration = json['duration'],
-        lottieUrl = json['lottieUrl'];
+        lottieUrl = json['lottieUrl'],
+        category = json['category'],
+        description = json['description'],
+        difficulty = json['difficulty'];
 
-  @override
-  String toString() {
-    return 'Exercise(id: $id, name: $name, duration: $duration, lottieUrl: $lottieUrl)';
+  toMap() {
+    return {
+      'id': id,
+      'name': name,
+      'duration': duration,
+      'lottieUrl': lottieUrl,
+      'category': category,
+      'description': description,
+      'difficulty': difficulty
+    };
   }
 }

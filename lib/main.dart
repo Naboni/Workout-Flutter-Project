@@ -105,7 +105,8 @@ void main() async {
               GetReminders(),
             ),
         ),
-        BlocProvider(create: (context) => WorkoutBloc())
+        BlocProvider(create: (context) => WorkoutBloc()),
+        BlocProvider(create: (_) => TimerBloc(ticker: Ticker())),
       ],
       child: MyApp(),
     ),
@@ -124,7 +125,7 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     // ? Future delayed b/c cant use async/await on init
-    Future.delayed(Duration(seconds: 1), () async {
+    Future.delayed(Duration.zero, () async {
       // ! check if db is already populated
       var isPopulated = await Pref.checkIfPopulated();
       if (!isPopulated) {
