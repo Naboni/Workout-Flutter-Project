@@ -1,7 +1,9 @@
 import 'dart:convert';
+import 'dart:io';
 import 'package:dio/dio.dart';
 
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:project/data/models/user/roles.dart';
 import 'package:project/data/models/user/user.dart';
 
 class AuthDataProvider {
@@ -14,6 +16,59 @@ class AuthDataProvider {
     try {
       var response = await Dio()
           .post(loginUrl, data: {'email': email, 'password': password});
+      var responseBody = response.data;
+      return {
+        "body": json.encode(responseBody),
+        "status": response.statusCode.toString(),
+        "message": responseBody["message"]
+      };
+    } on DioError catch (e) {
+      return {
+        "status": e.response!.statusCode,
+        "message": e.response!.data["message"]
+      };
+    } catch (e) {
+      return {"status": "69", "message": "Wrong URL or sth"};
+    }
+  }
+
+  static Future<Map<String, dynamic>> signUp({
+    required String role,
+    required String email,
+    required String firstName,
+    required String lastName,
+    required String password,
+    required String age,
+    required String profileImagePath,
+    required String gender,
+    String? bio,
+  }) async {
+    print("Register [POST]");
+    var registerURL = "";
+    registerURL = role == Roles.Trainer
+        ? '$baseUrl/users/register-trainer'
+        : "$baseUrl/users/register-trainee";
+    //TODO Profile image
+    String? encoded_img;
+    if (profileImagePath == "") {
+      encoded_img = null;
+    } else {
+      final bytes = File(profileImagePath).readAsBytesSync();
+      encoded_img = base64Encode(bytes);
+    }
+    var data = {
+      "gender": gender,
+      "email": email,
+      "first_name": firstName,
+      "last_name": lastName,
+      "password": password,
+      "age": age,
+      "bio": bio,
+      "image_encoded": encoded_img,
+    };
+    try {
+      var response = await Dio().post(registerURL, data: data);
+
       var responseBody = response.data;
       return {
         "body": json.encode(responseBody),

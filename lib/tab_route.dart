@@ -6,14 +6,11 @@ import 'package:page_transition/page_transition.dart';
 import 'package:project/data/repositories/user_repository.dart';
 
 // import 'presentation/widgets/main_drawer.dart';
-import 'data/models/user/registration_data.dart';
 import 'data/models/user/user.dart';
 import 'logic/bloc/auth_bloc/auth.dart';
 import 'presentation/screens/_routes.dart';
 
 class TabRoute extends StatefulWidget {
-  final RegistrationData data;
-  TabRoute({required this.data});
   static const routeName = "tab";
   @override
   _TabState createState() => _TabState();

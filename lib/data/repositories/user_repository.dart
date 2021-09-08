@@ -41,4 +41,27 @@ class UserRepositories {
   Future<Map<String, dynamic>> login(String email, String password) async {
     return await AuthDataProvider.login(email, password);
   }
+
+  Future<Map<String, dynamic>> SignUp({
+    required String role,
+    required String email,
+    required String firstName,
+    required String lastName,
+    required String password,
+    required String age,
+    required String profileImagePath,
+    required String gender,
+    String? bio,
+  }) async {
+    return await AuthDataProvider.signUp(
+        gender: gender,
+        role: role,
+        email: email,
+        firstName: firstName,
+        lastName: lastName,
+        password: password,
+        age: age,
+        profileImagePath: profileImagePath,
+        bio: bio);
+  }
 }
