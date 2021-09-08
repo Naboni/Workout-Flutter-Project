@@ -3,14 +3,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 //dep
 import 'package:page_transition/page_transition.dart';
-import 'package:project/data/repositories/user_repository.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 // import 'presentation/widgets/main_drawer.dart';
+import 'package:project/data/repositories/user_repository.dart';
+import 'package:project/data/repositories/workoutPlan_repository.dart';
 import 'data/models/user/registration_data.dart';
 import 'data/models/user/user.dart';
+import 'package:project/logic/bloc/trainer_workout/trainer_workout.dart';
 import 'logic/bloc/auth_bloc/auth.dart';
-import 'logic/bloc/workout/workout_bloc.dart';
 import 'presentation/screens/_routes.dart';
 
 class TabRoute extends StatefulWidget {
@@ -22,6 +22,7 @@ class TabRoute extends StatefulWidget {
 }
 
 class _TabState extends State<TabRoute> {
+  WorkotPlanRepository workotPlanRepository = WorkotPlanRepository();
   List<Map<String, Object>>? _pages;
   int _selectedPageIndex = 0;
   late Future<User> user =
@@ -37,7 +38,8 @@ class _TabState extends State<TabRoute> {
       },
       {
         'page': BlocProvider(
-          create: (context) => WorkoutBloc(),
+          create: (context) => TrainerWorkoutBloc(workotPlanRepository)
+            ..add(GetTrainerWorkouts()),
           child: MyPlan(),
         ),
       },

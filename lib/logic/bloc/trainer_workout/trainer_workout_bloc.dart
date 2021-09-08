@@ -1,10 +1,13 @@
 import 'dart:async';
 import 'package:bloc/bloc.dart';
+import 'package:project/data/repositories/workoutPlan_repository.dart';
 import 'trainer_workout.dart';
 
 class TrainerWorkoutBloc
     extends Bloc<TrainerWorkoutEvent, TrainerWorkoutState> {
-  TrainerWorkoutBloc() : super(TrainerWorkoutInitial());
+  final WorkotPlanRepository workotPlanRepository;
+  TrainerWorkoutBloc(this.workotPlanRepository)
+      : super(TrainerWorkoutInitial());
 
   @override
   Stream<TrainerWorkoutState> mapEventToState(
@@ -14,10 +17,11 @@ class TrainerWorkoutBloc
     if (event is GetTrainerWorkouts) {
       yield TrainerWorkoutInitial();
       // fetch from repo
-      // yield TrainerWorkoutLoaded(workoutPlans);
+      final workoutPlans = await workotPlanRepository.getWorkoutPlans();
+      yield TrainerWorkoutLoaded(workoutPlans);
     }
     if (event is AddTrainerWorkout) {
-      final workout = event.trainerWorkout;
+      final trainerworkout = event.trainerWorkout;
       // add repo
       // get again
       // yield TrainerWorkoutLoaded(workoutPlans);

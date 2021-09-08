@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:project/data/models/workoutPlan/workoutPlan.dart';
 
 class PlanStat extends StatelessWidget {
-  const PlanStat({Key? key}) : super(key: key);
+  final List<WorkoutPlan> workouts;
+  const PlanStat(this.workouts, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -13,20 +15,11 @@ class PlanStat extends StatelessWidget {
         children: [
           Column(
             children: [
-              Text("2"),
-              Text("Workout Plans"),
-            ],
-          ),
-          Column(
-            children: [
-              Text("2"),
-              Text("Workout Plans"),
-            ],
-          ),
-          Column(
-            children: [
-              Text("2"),
-              Text("Workout Plans"),
+              Text(
+                workouts.length.toString(),
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+              ),
+              Text("WORKOUT"),
             ],
           ),
         ],

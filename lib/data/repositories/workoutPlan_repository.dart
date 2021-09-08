@@ -5,15 +5,15 @@ class WorkotPlanRepository {
   // ? Instantiate workoutPlan data provider
   final workoutPlanDataProvider = WorkoutPlanDataProvider();
 
-  Future<void> saveReminder(WorkoutPlan workoutPlan) async {
+  Future<void> addWorkoutPlan(WorkoutPlan workoutPlan) async {
     await workoutPlanDataProvider.addWorkoutPlan(workoutPlan);
   }
 
-  Future<List<WorkoutPlan>> getReminders() async {
+  Future<List<WorkoutPlan>> getWorkoutPlans() async {
     return await workoutPlanDataProvider.getWorkoutPlans();
   }
 
-  Future<void> deleteReminder(WorkoutPlan workoutPlan) async {
+  Future<void> deleteWorkoutPlan(WorkoutPlan workoutPlan) async {
     return await workoutPlanDataProvider.deleteWorkoutPlan(workoutPlan);
   }
 }

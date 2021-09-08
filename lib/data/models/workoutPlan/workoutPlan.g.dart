@@ -19,7 +19,7 @@ class WorkoutPlanAdapter extends TypeAdapter<WorkoutPlan> {
     return WorkoutPlan()
       ..title = fields[0] as String
       ..description = fields[1] as String
-      ..exercise = (fields[2] as List).cast<Exercise>();
+      ..days = (fields[2] as List).cast<Day>();
   }
 
   @override
@@ -31,7 +31,7 @@ class WorkoutPlanAdapter extends TypeAdapter<WorkoutPlan> {
       ..writeByte(1)
       ..write(obj.description)
       ..writeByte(2)
-      ..write(obj.exercise);
+      ..write(obj.days);
   }
 
   @override

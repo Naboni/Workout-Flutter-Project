@@ -30,11 +30,7 @@ class AppRouter {
       // case MyPlan.routeName:
       //   return MaterialPageRoute(builder: (ctx) => MyPlan());
       case AddPlan.routeName:
-        return MaterialPageRoute(
-            builder: (ctx) => RepositoryProvider(
-                  create: (context) => WorkoutRepository(),
-                  child: AddPlan(),
-                ));
+        return MaterialPageRoute(builder: (ctx) => AddPlan());
       default:
         return MaterialPageRoute(builder: (ctx) => ProfileRoute());
     }
