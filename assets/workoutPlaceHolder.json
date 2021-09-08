@@ -12,7 +12,8 @@
                     "lottieUrl" : "assets/anim/workouts/abs/plank-excercise.json",
                     "category" : "abs",
                     "description" : "The plank is an isometric core strength exercise that involves maintaining a position similar to a push-up for the maximum possible time.",
-                    "difficulty" : "hard"
+                    "difficulty" : "hard",
+                    "isCompleted" : false
                 },
                 {
                     "id" : "1",
@@ -21,7 +22,8 @@
                     "lottieUrl" : "assets/anim/workouts/abs/seated-abs-circles.json",
                     "category" : "abs",
                     "description" : "Seated abs circle is basically sitting on a mat, raising your legs and moving them in circles clockwise and counter clock wise",
-                    "difficulty" : "medium"
+                    "difficulty" : "medium",
+                    "isCompleted" : false
                 },
                 {
                     "id" : "2",
@@ -30,7 +32,8 @@
                     "lottieUrl" : "assets/anim/workouts/abs/squat-kick.json",
                     "category" : "abs",
                     "description" : "The squat side kick is a dynamic variation of the bodyweight squat with an additional lateral movement.",
-                    "difficulty" : "medium"
+                    "difficulty" : "medium",
+                    "isCompleted" : false
                 },
                 {
                     "id" : "3",
@@ -39,7 +42,8 @@
                     "lottieUrl" : "assets/anim/workouts/abs/inchworm.json",
                     "category" : "abs",
                     "description" : "Inch worm is a multi-joint exercise that targets the muscles of your anterior chain while stretching the muscles of your posterior chain.",
-                    "difficulty" : "hard"
+                    "difficulty" : "hard",
+                    "isCompleted" : false
                 }
             ]
         },
@@ -55,7 +59,8 @@
                     "lottieUrl" : "assets/anim/workouts/leg/jumping-jack.json",
                     "category" : "legs",
                     "description" : "Jumping jack is a physical jumping exercise that targets muscles throughout your arms, legs and core",
-                    "difficulty" : "medium"
+                    "difficulty" : "medium",
+                    "isCompleted" : false
                 },
                 {
                     "id" : "1",
@@ -64,7 +69,8 @@
                     "lottieUrl" : "assets/anim/workouts/leg/jumping-squats.json",
                     "category" : "legs",
                     "description" : "Jump squats are a high-intensity plyometric exercise that are excellent for building explosive power, conditioning the muscles and joints of the lower body and increasing the height of your vertical jump.",
-                    "difficulty" : "easy"
+                    "difficulty" : "easy",
+                    "isCompleted" : false
                 },
                 {
                     "id" : "2",
@@ -73,7 +79,8 @@
                     "lottieUrl" : "assets/anim/workouts/leg/step-up-on-chair.json",
                     "category" : "legs",
                     "description" : "Step-up onto the chair is an exercise for balance and improving the strength of your lower body, quadriceps, glutes, and the hamstring.",
-                    "difficulty" : "medium"
+                    "difficulty" : "medium",
+                    "isCompleted" : false
                 },
                 {
                     "id" : "3",
@@ -82,7 +89,8 @@
                     "lottieUrl" : "assets/anim/workouts/leg/reverse-crunches.json",
                     "category" : "legs",
                     "description" : "The crunch is an abdominal exercise that target the lower part of your abs.",
-                    "difficulty" : "hard"
+                    "difficulty" : "hard",
+                    "isCompleted" : false
                 }
             ]
         },
@@ -98,7 +106,8 @@
                     "lottieUrl" : "assets/anim/workouts/warmup/lunge.json",
                     "category" : "warmup",
                     "description" : "Lunge is an exercise that targets the quadriceps in your thighs and the glutes in your hips and butt. ",
-                    "difficulty" : "easy"
+                    "difficulty" : "easy",
+                    "isCompleted" : false
                 },
                 {
                     "id" : "1",
@@ -107,7 +116,8 @@
                     "lottieUrl" : "assets/anim/workouts/warmup/shoulder-stretch.json",
                     "category" : "warmup",
                     "description" : "Shoulder stretch focuses on stretching the triceps and upper chest area. It helps improve flexibility and range of motion in your shoulder muscles.",
-                    "difficulty" : "medium"
+                    "difficulty" : "medium",
+                    "isCompleted" : false
                 }
             ]
         }
