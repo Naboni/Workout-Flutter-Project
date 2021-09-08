@@ -37,13 +37,18 @@ dependencies:
   weekday_selector: ^1.0.0
   lottie: ^1.1.0
   google_fonts: ^2.1.0
+  cool_stepper: ^1.2.1
   
+  get: any
+  get_storage: any
+  dio: ^4.0.0
+  cached_network_image: ^2.5.1
+  image_picker: any
+  flutter_svg: any
+
   # NoSQL Db
   hive: ^2.0.4
   hive_flutter: ^1.1.0
-  dio: ^4.0.0
-  cool_stepper: ^1.2.1
-  image_picker: ^0.8.4
 
 dev_dependencies:
   flutter_test:
@@ -62,6 +67,8 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
+    #icons
+    - assets/icons/
     # workout place holder
     - assets/workoutPlaceHolder.json
     - assets/images/
