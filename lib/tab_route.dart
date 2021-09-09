@@ -11,6 +11,7 @@ import 'data/repositories/user_repository.dart';
 import 'data/repositories/workoutPlan_repository.dart';
 import 'logic/bloc/auth_bloc/auth.dart';
 import 'presentation/screens/_routes.dart';
+import './presentation/widgets/navigation_drawer.dart';
 
 class TabRoute extends StatefulWidget {
   static const routeName = "tab";
@@ -53,23 +54,11 @@ class _TabState extends State<TabRoute> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: NavigationDrawerWidget(),
       appBar: AppBar(
         elevation: 0,
         backgroundColor: Colors.white,
         actions: [
-          IconButton(
-            icon: Icon(Icons.menu),
-            onPressed: () {
-              Navigator.push(
-                context,
-                PageTransition(
-                  type: PageTransitionType.rightToLeft,
-                  duration: Duration(milliseconds: 350),
-                  child: OptionsRoute(),
-                ),
-              );
-            },
-          ),
           IconButton(
               onPressed: () {
                 BlocProvider.of<AuthBloc>(context).add(LoggedOut());

@@ -3,7 +3,7 @@
         {
             "id" : "0",
             "name" : "ABS",
-            "imgUrl" : "assets/images/course1.jpg",
+            "imgUrl" : "assets/images/asd.jpg",
             "exercise" : [
                 {
                     "id" : "0",
@@ -50,7 +50,7 @@
         {
             "id" : "1",
             "name" : "LEGS",
-            "imgUrl" : "assets/images/course1.jpg",
+            "imgUrl" : "assets/images/asd2.jpg",
             "exercise" : [
                 {
                     "id" : "0",
@@ -97,7 +97,7 @@
         {
             "id" : "2",
             "name" : "WARMUP",
-            "imgUrl" : "assets/images/course1.jpg",
+            "imgUrl" : "assets/images/cover_female_full_body.jpg",
             "exercise" : [
                 {
                     "id" : "0",
