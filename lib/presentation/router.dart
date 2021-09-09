@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 // deps
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:project/data/models/workout/workout.dart';
 // repo
 import '../data/repositories/workout_repository.dart';
 // model
@@ -21,12 +22,11 @@ class AppRouter {
         return MaterialPageRoute(builder: (ctx) => FeedDetail());
       case ExerciseType.routeName:
         return MaterialPageRoute(builder: (ctx) {
-          List set = settings.arguments! as List;
-          return ExerciseType(set[0], set[1], set[2] as List<Exercise>);
+          return ExerciseType(settings.arguments as Workout);
         });
       case Training.routeName:
         return MaterialPageRoute(
-            builder: (ctx) => Training(settings.arguments as List<Exercise>));
+            builder: (ctx) => Training((settings.arguments as Workout)));
       case AddPlan.routeName:
         return MaterialPageRoute(builder: (ctx) => AddPlan());
       case SetGoal.routeName:

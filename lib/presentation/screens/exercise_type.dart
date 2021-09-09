@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:project/data/models/workout/workout.dart';
 //widgets
 import '../widgets/exercise_type/exercise_appbar.dart';
 import '../widgets/exercise_type/exercise_item.dart';
@@ -9,10 +10,9 @@ import '../screens/training.dart';
 
 class ExerciseType extends StatefulWidget {
   static const routeName = "exercise_type";
-  final List<Exercise> exercises;
-  final String name;
-  final String img;
-  ExerciseType(this.name, this.img, this.exercises);
+
+  final Workout workout;
+  ExerciseType(this.workout);
 
   @override
   _ExerciseTypeState createState() => _ExerciseTypeState();
@@ -32,19 +32,18 @@ class _ExerciseTypeState extends State<ExerciseType> {
         child: Column(
           children: [
             ExerciseAppBar(
-              name: widget.name,
-              imgUrl: widget.img,
+              name: widget.workout.name,
+              imgUrl: widget.workout.imgUrl,
             ),
             SizedBox(
               height: 8,
             ),
             Container(
               padding: EdgeInsets.symmetric(vertical: 10, horizontal: 28),
-              // margin: EdgeInsets.all(10),
               child: Row(
                 children: [
                   Text(
-                    '${widget.exercises.length * 20} mins',
+                    '${widget.workout.exercise.length * 20} secs',
                     style: TextStyle(
                       // color: Colors.white,
                       fontSize: 16,
@@ -53,7 +52,7 @@ class _ExerciseTypeState extends State<ExerciseType> {
                   ),
                   Icon(Icons.brightness_1, size: 5),
                   Text(
-                    ' ${widget.exercises.length} Workouts',
+                    ' ${widget.workout.exercise.length} Workouts',
                     style: TextStyle(
                       // color: Colors.white,
                       fontSize: 16,
@@ -74,13 +73,13 @@ class _ExerciseTypeState extends State<ExerciseType> {
                     shrinkWrap: true,
                     itemBuilder: (context, index) {
                       return ExerciseItem(
-                        exercise: widget.exercises[index],
+                        exercise: widget.workout.exercise[index],
                         position: index,
-                        length: widget.exercises.length,
-                        exerciseList: widget.exercises,
+                        length: widget.workout.exercise.length,
+                        exerciseList: widget.workout.exercise,
                       );
                     },
-                    itemCount: widget.exercises.length,
+                    itemCount: widget.workout.exercise.length,
                   ),
                 ),
               ),
@@ -89,8 +88,8 @@ class _ExerciseTypeState extends State<ExerciseType> {
             Container(
               child: ElevatedButton(
                 onPressed: () {
-                  Navigator.of(context).pushNamed(Training.routeName,
-                      arguments: widget.exercises);
+                  Navigator.of(context)
+                      .pushNamed(Training.routeName, arguments: widget.workout);
                 },
                 style: ButtonStyle(
                   shape: MaterialStateProperty.all(RoundedRectangleBorder(

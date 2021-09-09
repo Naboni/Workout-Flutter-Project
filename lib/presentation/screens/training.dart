@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 // deps
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
+import 'package:project/data/models/workout/workout.dart';
+import 'package:project/logic/bloc/workout/workout.dart';
 // bloc
 import '../../logic/bloc/ticker/timer_bloc.dart';
 // models
@@ -11,8 +13,8 @@ import '../widgets/training/congraModal.dart';
 
 class Training extends StatefulWidget {
   static const routeName = "training";
-  final List<Exercise> exercises;
-  const Training(this.exercises, {Key? key}) : super(key: key);
+  final Workout workout;
+  const Training(this.workout, {Key? key}) : super(key: key);
 
   @override
   _TrainingState createState() => _TrainingState();
@@ -20,6 +22,11 @@ class Training extends StatefulWidget {
 
 class _TrainingState extends State<Training> {
   int _index = 0;
+  void _showSnackBar(String value) {
+    ScaffoldMessenger.of(context).hideCurrentSnackBar();
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(value)));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,8 +40,13 @@ class _TrainingState extends State<Training> {
           listener: (context, state) {
             if (state is TimerRunComplete) {
               context.read<TimerBloc>().add(TimerReset());
+              context
+                  .read<WorkoutBloc>()
+                  .add(UpdateWorkout(_index, widget.workout));
+              _showSnackBar("Keep up the good work! You got +20 points.");
+
               setState(() {
-                if (_index + 1 < widget.exercises.length) {
+                if (_index + 1 < widget.workout.exercise.length) {
                   _index++;
                 } else {
                   _showCongratulations(context);
@@ -42,8 +54,6 @@ class _TrainingState extends State<Training> {
               });
             }
           },
-          // ! play will always increment _index
-          // ! prev and next not implemented
           child: Column(
             children: [
               Container(
@@ -51,7 +61,7 @@ class _TrainingState extends State<Training> {
                 child: Container(
                   width: double.infinity,
                   child: Lottie.asset(
-                    widget.exercises[_index].lottieUrl,
+                    widget.workout.exercise[_index].lottieUrl,
                   ),
                 ),
               ),
@@ -59,71 +69,23 @@ class _TrainingState extends State<Training> {
                 height: MediaQuery.of(context).size.height * 0.5,
                 width: double.infinity,
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  mainAxisSize: MainAxisSize.min,
                   children: [
+                    SizedBox(height: 25),
                     Container(
                       height: MediaQuery.of(context).size.height * 0.1,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            widget.exercises[_index].name,
-                            style: TextStyle(
-                              fontSize: 24,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          Icon(
-                            Icons.info,
-                            size: 24,
-                            color: Colors.grey,
-                          ),
-                        ],
+                      child: Text(
+                        widget.workout.exercise[_index].name,
+                        style: TextStyle(
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
                     TimerText(),
+                    SizedBox(height: 25),
                     Actions(),
-                    Container(
-                      height: MediaQuery.of(context).size.height * 0.08,
-                      width: double.infinity,
-                      child: Row(
-                        children: [
-                          //#########removed prev and next buttons"###################
-                          // Container(
-                          //   height: 50,
-                          //   width: MediaQuery.of(context).size.width * 0.45,
-                          //   // decoration: BoxDecoration(color: Colors.white),
-                          //   child: Row(
-                          //     mainAxisAlignment: MainAxisAlignment.center,
-                          //     children: [
-                          //       Icon(Icons.skip_previous),
-                          //       Text(
-                          //         'Previous',
-                          //         style: TextStyle(fontSize: 18),
-                          //       )
-                          //     ],
-                          //   ),
-                          // ),
-                          // Container(
-                          //     height: 30,
-                          //     child: VerticalDivider(color: Colors.grey)),
-                          // Container(
-                          //   height: 50,
-                          //   width: MediaQuery.of(context).size.width * 0.45,
-                          //   child: Row(
-                          //     mainAxisAlignment: MainAxisAlignment.center,
-                          //     children: [
-                          //       Icon(Icons.skip_next),
-                          //       Text(
-                          //         'Next',
-                          //         style: TextStyle(fontSize: 18),
-                          //       ),
-                          //     ],
-                          //   ),
-                          // )
-                        ],
-                      ),
-                    )
                   ],
                 ),
               )

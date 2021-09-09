@@ -105,7 +105,7 @@ class _ExerciseModalState extends State<ExerciseModal> {
                   Text(
                     widget.exerciseList[widget.position + _modalControllerIndex]
                         .description,
-                    style: TextStyle(fontSize: 14),
+                    style: TextStyle(fontSize: 14, color: Colors.grey[600]),
                   ),
                   Align(
                     alignment: Alignment.bottomRight,
