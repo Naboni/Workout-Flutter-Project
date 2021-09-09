@@ -3,7 +3,7 @@ export './feed_detail.dart';
 export './feed_detail.dart';
 export './feeds.dart';
 export './home.dart';
-export './options.dart';
+export './settings.dart';
 export './reminder.dart';
 export './splash.dart';
 export 'plan/add_plan.dart';
