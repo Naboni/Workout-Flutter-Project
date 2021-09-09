@@ -3,14 +3,15 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 //dep
 import 'package:page_transition/page_transition.dart';
-import 'package:project/data/repositories/user_repository.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 // import 'presentation/widgets/main_drawer.dart';
 import 'data/models/user/user.dart';
+import 'package:project/logic/bloc/trainer_workout/trainer_workout.dart';
+import 'data/repositories/user_repository.dart';
+import 'data/repositories/workoutPlan_repository.dart';
 import 'logic/bloc/auth_bloc/auth.dart';
-import 'logic/bloc/workout/workout_bloc.dart';
 import 'presentation/screens/_routes.dart';
+import 'presentation/screens/navigation_drawer.dart';
 
 class TabRoute extends StatefulWidget {
   static const routeName = "tab";
@@ -19,6 +20,7 @@ class TabRoute extends StatefulWidget {
 }
 
 class _TabState extends State<TabRoute> {
+  WorkotPlanRepository workotPlanRepository = WorkotPlanRepository();
   List<Map<String, Object>>? _pages;
   int _selectedPageIndex = 0;
   late Future<User> user =
@@ -34,7 +36,8 @@ class _TabState extends State<TabRoute> {
       },
       {
         'page': BlocProvider(
-          create: (context) => WorkoutBloc(),
+          create: (context) => TrainerWorkoutBloc(workotPlanRepository)
+            ..add(GetTrainerWorkouts()),
           child: MyPlan(),
         ),
       },
@@ -51,37 +54,32 @@ class _TabState extends State<TabRoute> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: NavigationDrawerWidget(),
       appBar: AppBar(
         elevation: 0,
         backgroundColor: Colors.white,
         actions: [
-          IconButton(
-            icon: Icon(Icons.menu),
-            onPressed: () {
-              Navigator.push(
-                context,
-                PageTransition(
-                  type: PageTransitionType.rightToLeft,
-                  duration: Duration(milliseconds: 350),
-                  child: OptionsRoute(),
-                ),
-              );
-            },
+          Container(
+            padding: EdgeInsets.symmetric(horizontal: 10),
+            child: FutureBuilder(
+              future: user,
+              builder: (BuildContext context, AsyncSnapshot<User> snapshot) {
+                if (snapshot.hasData) {
+                  return Center(
+                      child: Text(
+                    '${snapshot.data!.role![0].toUpperCase()}${snapshot.data!.role!.substring(1)}',
+                    style: TextStyle(),
+                  ));
+                }
+                return CircularProgressIndicator();
+              },
+            ),
           ),
           IconButton(
               onPressed: () {
                 BlocProvider.of<AuthBloc>(context).add(LoggedOut());
               },
               icon: Icon(Icons.logout_outlined)),
-          FutureBuilder(
-            future: user,
-            builder: (BuildContext context, AsyncSnapshot<User> snapshot) {
-              if (snapshot.hasData) {
-                return Text(snapshot.data!.role!);
-              }
-              return CircularProgressIndicator();
-            },
-          ),
         ],
         title: Row(
           children: [

@@ -10,12 +10,16 @@ class ProfileRoute extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: BackButton(),
+        title: Text('PROFILE'),
         backgroundColor: Colors.transparent,
         elevation: 0,
-        // title: Text('Profile'),
+        bottom: PreferredSize(
+            child: Container(
+              color: Colors.grey,
+              height: 0.3,
+            ),
+            preferredSize: Size.fromHeight(1.0)),
       ),
-      // drawer: MainDrawer(),
       body: SingleChildScrollView(
         child: Column(
           children: [

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:project/data/repositories/workout_repository.dart';
 
 // widgets
 import '../../widgets/plan/step_one/add_step_one.dart';
@@ -20,7 +22,10 @@ class _AddPlanState extends State<AddPlan> {
       case 0:
         return StepOne(_setSelectedIndex);
       case 1:
-        return StepTwo(_stepVals);
+        return RepositoryProvider(
+          create: (context) => WorkoutRepository(),
+          child: StepTwo(_stepVals),
+        );
     }
   }
 

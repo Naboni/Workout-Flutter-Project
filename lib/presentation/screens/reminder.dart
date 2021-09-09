@@ -12,6 +12,7 @@ import '../../data/models/reminder/reminder.dart';
 // widgets
 import '../widgets/reminder/reminder_card.dart';
 import '../widgets/reminder/day_selector.dart';
+import 'navigation_drawer.dart';
 
 // utils
 import '../../utils/notification.dart';
@@ -28,17 +29,17 @@ class _ReminderScreenState extends State<ReminderScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: NavigationDrawerWidget(),
       appBar: AppBar(
-        leading: BackButton(),
         backgroundColor: Colors.transparent,
         elevation: 0,
-        title: Text('Reminder'),
+        title: Text('REMINDER'),
         bottom: PreferredSize(
             child: Container(
               color: Colors.grey,
-              height: 0.2,
+              height: 0.3,
             ),
-            preferredSize: Size.fromHeight(4.0)),
+            preferredSize: Size.fromHeight(1.0)),
       ),
       // drawer: MainDrawer(),
       body: SingleChildScrollView(

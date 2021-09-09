@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 
 // deps
-import 'package:flutter_bloc/flutter_bloc.dart';
-// repo
-import '../data/repositories/workout_repository.dart';
-// model
-import 'package:project/data/models/exercise/exercise.dart';
+import 'package:project/data/models/workout/workout.dart';
+
+import '../tab_route.dart';
 import './screens/_routes.dart';
 
 class AppRouter {
@@ -19,22 +17,23 @@ class AppRouter {
         return MaterialPageRoute(builder: (ctx) => ReminderScreen());
       case FeedDetail.routeName:
         return MaterialPageRoute(builder: (ctx) => FeedDetail());
+      case TabRoute.routeName:
+        return MaterialPageRoute(builder: (ctx) => TabRoute());
+      case Settings.routeName:
+        return MaterialPageRoute(builder: (ctx) => Settings());
+      case History.routeName:
+        return MaterialPageRoute(builder: (ctx) => History());
       case ExerciseType.routeName:
         return MaterialPageRoute(builder: (ctx) {
-          List set = settings.arguments! as List;
-          return ExerciseType(set[0], set[1], set[2] as List<Exercise>);
+          return ExerciseType(settings.arguments as Workout);
         });
       case Training.routeName:
         return MaterialPageRoute(
-            builder: (ctx) => Training(settings.arguments as List<Exercise>));
-      // case MyPlan.routeName:
-      //   return MaterialPageRoute(builder: (ctx) => MyPlan());
+            builder: (ctx) => Training((settings.arguments as Workout)));
       case AddPlan.routeName:
-        return MaterialPageRoute(
-            builder: (ctx) => RepositoryProvider(
-                  create: (context) => WorkoutRepository(),
-                  child: AddPlan(),
-                ));
+        return MaterialPageRoute(builder: (ctx) => AddPlan());
+      case SetGoal.routeName:
+        return MaterialPageRoute(builder: (ctx) => SetGoal());
       default:
         return MaterialPageRoute(builder: (ctx) => ProfileRoute());
     }

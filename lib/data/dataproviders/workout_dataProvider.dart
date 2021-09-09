@@ -17,10 +17,15 @@ class WorkoutDataProvider {
     var wks = data["workouts"].map((workout) => Workout.fromJson(workout));
     // ! clear table before populating
     _box.clear();
-    wks.forEach((w) => {_box.add(w)});
+    wks.forEach((w) => _box.add(w));
   }
 
   Future<List<Workout>> getWorkouts() async {
     return _box.values.toList().cast<Workout>();
+  }
+
+  Future<void> updateWorkout(int index, Workout workout) async {
+    workout.exercise[index].isDone = true;
+    workout.save();
   }
 }

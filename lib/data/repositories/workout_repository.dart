@@ -1,4 +1,6 @@
 //data provider
+import 'dart:ffi';
+
 import '../dataproviders/workout_dataProvider.dart';
 // constants
 import 'package:project/constants/data.dart';
@@ -11,6 +13,10 @@ class WorkoutRepository {
 
   Future<List<Workout>> getWorkouts() async {
     return await workoutDataProvider.getWorkouts();
+  }
+
+  Future<void> updateWorkout(int index, Workout workout) async {
+    await workoutDataProvider.updateWorkout(index, workout);
   }
 
   Future<List<Exercise>> getExercises(stepResult) async {

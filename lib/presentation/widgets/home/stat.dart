@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:project/presentation/screens/_routes.dart';
 
 class Stat extends StatefulWidget {
   const Stat({Key? key}) : super(key: key);
@@ -43,7 +44,9 @@ class _StatState extends State<Stat> {
               ),
             ),
             ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.of(context).pushNamed(SetGoal.routeName);
+              },
               style: ButtonStyle(
                 shape: MaterialStateProperty.all(RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(30.0))),

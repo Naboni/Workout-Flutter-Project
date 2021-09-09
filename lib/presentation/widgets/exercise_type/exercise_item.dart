@@ -33,8 +33,8 @@ class ExerciseItem extends StatelessWidget {
         child: Row(
           children: [
             Icon(
-              Icons.menu,
-              color: Colors.grey,
+              Icons.check_circle,
+              color: exercise.isDone ? Colors.green[300] : Colors.grey[300],
             ),
             SizedBox(
               width: 15,

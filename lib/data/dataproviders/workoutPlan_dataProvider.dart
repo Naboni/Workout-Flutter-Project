@@ -1,4 +1,5 @@
 // models
+import 'package:project/data/models/day/day.dart';
 import 'package:project/data/models/exercise/exercise.dart';
 
 import '../models/workoutPlan/workoutPlan.dart';
@@ -17,15 +18,17 @@ class WorkoutPlanDataProvider {
       WorkoutPlan()
         ..title = "sample t"
         ..description = "sample d"
-        ..exercise = [
-          Exercise()
-            ..id = "1"
-            ..name = "sample n"
-            ..category = "arm"
-            ..description = "sample d"
-            ..difficulty = "1"
-            ..duration = "20"
-            ..lottieUrl = "assets/anim/workouts/abs/seated-abs-circles.json"
+        ..days = [
+          Day(1, [
+            Exercise()
+              ..id = "1"
+              ..name = "sample n"
+              ..category = "arm"
+              ..description = "sample d"
+              ..difficulty = "1"
+              ..duration = "20"
+              ..lottieUrl = "assets/anim/workouts/abs/seated-abs-circles.json"
+          ])
         ]
     ];
   }

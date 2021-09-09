@@ -25,7 +25,7 @@ class CongraModal extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Text(
-                    "Congratulations!",
+                    "Congrats",
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       color: Colors.grey[600],
@@ -40,6 +40,7 @@ class CongraModal extends StatelessWidget {
                       });
                     },
                     child: CircleAvatar(
+                      backgroundColor: Colors.blue,
                       child: Icon(
                         Icons.arrow_forward_outlined,
                         color: Colors.white,

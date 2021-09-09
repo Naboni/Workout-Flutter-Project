@@ -1,31 +1,29 @@
 import 'package:flutter/material.dart';
-//models
-import '../../../data/models/exercise/exercise.dart';
+
+// models
+import 'package:project/data/models/workout/workout.dart';
 //screen
 import '../../screens/exercise_type.dart';
+// widgets
+import 'workout_progress.dart';
 
 class WorkoutsListItem extends StatelessWidget {
-  final String title;
-  final String image;
-  final List<Exercise> exercises;
-  WorkoutsListItem({
-    Key? key,
-    required this.title,
-    required this.image,
-    required this.exercises,
-  }) : super(key: key);
+  final Workout workout;
+
+  WorkoutsListItem(this.workout, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    var _CompletedExList = workout.exercise.where((element) => element.isDone);
     return GestureDetector(
       onTap: () {
         Navigator.of(context).pushNamed(
           ExerciseType.routeName,
-          arguments: [title, image, exercises],
+          arguments: workout,
         );
       },
       child: Container(
-        height: MediaQuery.of(context).size.height * 0.2,
+        height: MediaQuery.of(context).size.height * 0.17,
         margin: EdgeInsets.all(5),
         child: Stack(
           children: [
@@ -33,7 +31,7 @@ class WorkoutsListItem extends StatelessWidget {
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(5),
                   image: DecorationImage(
-                    image: AssetImage('$image'),
+                    image: AssetImage('${workout.imgUrl}'),
                     fit: BoxFit.cover,
                   )),
               child: Container(
@@ -53,12 +51,20 @@ class WorkoutsListItem extends StatelessWidget {
               ),
               child: Align(
                 alignment: Alignment.topLeft,
-                child: Text(
-                  "$title",
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 25,
-                      fontWeight: FontWeight.w400),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "${workout.name}",
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 24,
+                          fontWeight: FontWeight.w700),
+                    ),
+                    Spacer(),
+                    WorkoutProgress(
+                        _CompletedExList.length, workout.exercise.length),
+                  ],
                 ),
               ),
             ),
