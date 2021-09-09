@@ -5,6 +5,7 @@ export './feeds.dart';
 export './home.dart';
 export './settings.dart';
 export './reminder.dart';
+export './history.dart';
 export './splash.dart';
 export 'plan/add_plan.dart';
 export 'plan/my_plan.dart';

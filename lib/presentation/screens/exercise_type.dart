@@ -3,8 +3,7 @@ import 'package:project/data/models/workout/workout.dart';
 //widgets
 import '../widgets/exercise_type/exercise_appbar.dart';
 import '../widgets/exercise_type/exercise_item.dart';
-//model
-import '../../data/models/exercise/exercise.dart';
+
 // screen
 import '../screens/training.dart';
 

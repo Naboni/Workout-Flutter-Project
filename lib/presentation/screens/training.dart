@@ -6,8 +6,7 @@ import 'package:project/data/models/workout/workout.dart';
 import 'package:project/logic/bloc/workout/workout.dart';
 // bloc
 import '../../logic/bloc/ticker/timer_bloc.dart';
-// models
-import '../../data/models/exercise/exercise.dart';
+
 // widget
 import '../widgets/training/congraModal.dart';
 

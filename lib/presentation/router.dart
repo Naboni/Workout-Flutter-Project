@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
 
 // deps
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:project/data/models/workout/workout.dart';
-// repo
-import '../data/repositories/workout_repository.dart';
-// model
-import 'package:project/data/models/exercise/exercise.dart';
+
+import '../tab_route.dart';
 import './screens/_routes.dart';
 
 class AppRouter {
@@ -20,8 +17,12 @@ class AppRouter {
         return MaterialPageRoute(builder: (ctx) => ReminderScreen());
       case FeedDetail.routeName:
         return MaterialPageRoute(builder: (ctx) => FeedDetail());
+      case TabRoute.routeName:
+        return MaterialPageRoute(builder: (ctx) => TabRoute());
       case Settings.routeName:
         return MaterialPageRoute(builder: (ctx) => Settings());
+      case History.routeName:
+        return MaterialPageRoute(builder: (ctx) => History());
       case ExerciseType.routeName:
         return MaterialPageRoute(builder: (ctx) {
           return ExerciseType(settings.arguments as Workout);

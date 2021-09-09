@@ -34,19 +34,23 @@ class NavigationDrawerWidget extends StatelessWidget {
                     icon: Icons.home,
                     routeName: TabRoute.routeName,
                   ),
-                  
                   buildMenuItem(
                     context,
                     text: 'Reminder',
                     icon: Icons.update,
                     routeName: ReminderScreen.routeName,
                   ),
-                  
                   buildMenuItem(
                     context,
                     text: 'Settings',
                     icon: Icons.settings,
                     routeName: Settings.routeName,
+                  ),
+                  buildMenuItem(
+                    context,
+                    text: 'History',
+                    icon: Icons.history,
+                    routeName: History.routeName,
                   ),
                   const SizedBox(height: 24),
                   Divider(color: Colors.white70),

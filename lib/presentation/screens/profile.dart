@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'navigation_drawer.dart';
 import '../widgets/profile/profile_field.dart';
 import '../widgets/profile/profile_pic.dart';
 
@@ -10,7 +9,6 @@ class ProfileRoute extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: NavigationDrawerWidget(),
       appBar: AppBar(
         title: Text('PROFILE'),
         backgroundColor: Colors.transparent,
@@ -21,9 +19,7 @@ class ProfileRoute extends StatelessWidget {
               height: 0.3,
             ),
             preferredSize: Size.fromHeight(1.0)),
-        // title: Text('Profile'),
       ),
-      // drawer: MainDrawer(),
       body: SingleChildScrollView(
         child: Column(
           children: [
