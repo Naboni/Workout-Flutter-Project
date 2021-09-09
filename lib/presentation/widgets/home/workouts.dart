@@ -16,13 +16,7 @@ class Workouts extends StatelessWidget {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Column(
-        children: workouts
-            .map((workout) => WorkoutsListItem(
-                  title: workout.name,
-                  image: workout.imgUrl,
-                  exercises: workout.exercise,
-                ))
-            .toList(),
+        children: workouts.map((workout) => WorkoutsListItem(workout)).toList(),
       ),
     );
   }

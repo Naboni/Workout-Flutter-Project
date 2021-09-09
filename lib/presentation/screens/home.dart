@@ -16,9 +16,9 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   @override
   void initState() {
-    // TODO: implement initState
     final _workouts = BlocProvider.of<WorkoutBloc>(context);
     _workouts.add(GetWorkouts());
+    // TODO: implement initState
     super.initState();
   }
 

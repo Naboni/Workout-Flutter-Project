@@ -72,7 +72,12 @@ class StepTwo extends StatelessWidget {
                         .where((element) =>
                             (element['exercises'] as List).length > 0)
                         .toList();
-                    // print({...stepResult,'imgUrl': "abcd", 'date': "2020/12/12",'workouts': d});
+                    print({
+                      ...stepResult,
+                      'imgUrl': "abcd",
+                      'date': "2020/12/12",
+                      'workouts': d
+                    });
                     if (_checkForValues())
                       trainerWorkoutBloc.add(AddTrainerWorkout(
                           WorkoutPlan.fromJson(stepResult, d)));

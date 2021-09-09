@@ -25,6 +25,22 @@ class _SettingsState extends State<Settings> {
         });
   }
 
+  Future<void> resetDialog(BuildContext context) async {
+    return await showDialog(
+        context: context,
+        builder: (context) {
+          return ResetDialogue();
+        });
+  }
+
+  Future<void> deleteAccountDialog(BuildContext context) async {
+    return await showDialog(
+        context: context,
+        builder: (context) {
+          return DeleteAccountDialogue();
+        });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,18 +61,20 @@ class _SettingsState extends State<Settings> {
         child: Column(
           children: [
             Container(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Container(
-                    padding: EdgeInsets.symmetric(horizontal: 25),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const SizedBox(height: 20),
-                        InkWell(
-                          onTap: () {},
-                          child: Container(
+              child: InkWell(
+                onTap: () async {
+                  await deleteAccountDialog(context);
+                },
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Container(
+                      padding: EdgeInsets.symmetric(horizontal: 25),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const SizedBox(height: 20),
+                          Container(
                             child: Text(
                               'Delete Account.',
                               style: TextStyle(
@@ -65,27 +83,27 @@ class _SettingsState extends State<Settings> {
                               ),
                             ),
                           ),
-                        ),
-                        const SizedBox(height: 5),
-                        Container(
-                          child: Text(
-                            "This action can't be reversed",
-                            style: TextStyle(
-                              color: Colors.grey[600],
-                              fontSize: 14,
-                              // fontWeight: FontWeight.bold,
+                          const SizedBox(height: 5),
+                          Container(
+                            child: Text(
+                              "This action can't be reversed",
+                              style: TextStyle(
+                                color: Colors.grey[600],
+                                fontSize: 14,
+                                // fontWeight: FontWeight.bold,
+                              ),
                             ),
                           ),
-                        ),
-                        const SizedBox(height: 20),
-                      ],
+                          const SizedBox(height: 20),
+                        ],
+                      ),
                     ),
-                  ),
-                  Container(
-                    padding: EdgeInsets.only(right: 25),
-                    child: Icon(Icons.restore),
-                  )
-                ],
+                    Container(
+                      padding: EdgeInsets.only(right: 25),
+                      child: Icon(Icons.restore),
+                    )
+                  ],
+                ),
               ),
             ),
             Divider(),
@@ -150,7 +168,9 @@ class _SettingsState extends State<Settings> {
                     child: ListTile(
                       title: Text('Reset Progress'),
                       leading: Icon(Icons.time_to_leave),
-                      onTap: () {},
+                      onTap: () async {
+                        await resetDialog(context);
+                      },
                     ),
                   ),
                   Divider(),
@@ -250,6 +270,90 @@ class CountdownTimerDialogue extends StatelessWidget {
           },
           child: Text(
             'SET',
+            style: TextStyle(fontSize: 16),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class ResetDialogue extends StatelessWidget {
+  const ResetDialogue({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return AlertDialog(
+      content: Container(
+        width: MediaQuery.of(context).size.width * 0.8,
+        child: Text(
+          'Are you sure you want to reset your progress?',
+          textAlign: TextAlign.center,
+          style: TextStyle(fontSize: 20),
+        ),
+      ),
+      actions: <Widget>[
+        TextButton(
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+          child: Text(
+            'YES',
+            style: TextStyle(
+              fontSize: 16,
+            ),
+          ),
+        ),
+        TextButton(
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+          child: Text(
+            'NO',
+            style: TextStyle(fontSize: 16),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class DeleteAccountDialogue extends StatelessWidget {
+  const DeleteAccountDialogue({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return AlertDialog(
+      content: Container(
+        width: MediaQuery.of(context).size.width * 0.8,
+        child: Text(
+          'Are you sure you want to delete your account?',
+          textAlign: TextAlign.center,
+          style: TextStyle(fontSize: 20),
+        ),
+      ),
+      actions: <Widget>[
+        TextButton(
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+          child: Text(
+            'YES',
+            style: TextStyle(
+              fontSize: 16,
+            ),
+          ),
+        ),
+        TextButton(
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+          child: Text(
+            'NO',
             style: TextStyle(fontSize: 16),
           ),
         ),

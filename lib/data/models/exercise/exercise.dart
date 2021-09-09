@@ -21,6 +21,8 @@ class Exercise {
   late String description;
   @HiveField(6)
   late String difficulty;
+  @HiveField(7)
+  late bool isDone;
 
   Exercise();
 
@@ -31,7 +33,8 @@ class Exercise {
         lottieUrl = json['lottieUrl'],
         category = json['category'],
         description = json['description'],
-        difficulty = json['difficulty'];
+        difficulty = json['difficulty'],
+        isDone = json['isDone'];
 
   toMap() {
     return {
@@ -41,7 +44,13 @@ class Exercise {
       'lottieUrl': lottieUrl,
       'category': category,
       'description': description,
-      'difficulty': difficulty
+      'difficulty': difficulty,
+      'isDone': isDone
     };
+  }
+
+  @override
+  String toString() {
+    return 'Exercise(id: $id, name: $name, duration: $duration, lottieUrl: $lottieUrl, category: $category, description: $description, difficulty: $difficulty, isDone: $isDone,)';
   }
 }

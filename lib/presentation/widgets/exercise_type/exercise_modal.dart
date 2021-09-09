@@ -101,6 +101,12 @@ class _ExerciseModalState extends State<ExerciseModal> {
                           TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                     ),
                   ),
+                  SizedBox(height: 10),
+                  Text(
+                    widget.exerciseList[widget.position + _modalControllerIndex]
+                        .description,
+                    style: TextStyle(fontSize: 14, color: Colors.grey[600]),
+                  ),
                   Align(
                     alignment: Alignment.bottomRight,
                     child: TextButton(

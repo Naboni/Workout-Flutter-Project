@@ -1,27 +1,25 @@
 import 'package:flutter/material.dart';
-//models
-import '../../../data/models/exercise/exercise.dart';
+
+// models
+import 'package:project/data/models/workout/workout.dart';
 //screen
 import '../../screens/exercise_type.dart';
+// widgets
+import 'workout_progress.dart';
 
 class WorkoutsListItem extends StatelessWidget {
-  final String title;
-  final String image;
-  final List<Exercise> exercises;
-  WorkoutsListItem({
-    Key? key,
-    required this.title,
-    required this.image,
-    required this.exercises,
-  }) : super(key: key);
+  final Workout workout;
+
+  WorkoutsListItem(this.workout, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    var _CompletedExList = workout.exercise.where((element) => element.isDone);
     return GestureDetector(
       onTap: () {
         Navigator.of(context).pushNamed(
           ExerciseType.routeName,
-          arguments: [title, image, exercises],
+          arguments: workout,
         );
       },
       child: Container(
@@ -33,7 +31,7 @@ class WorkoutsListItem extends StatelessWidget {
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(5),
                   image: DecorationImage(
-                    image: AssetImage('$image'),
+                    image: AssetImage('${workout.imgUrl}'),
                     fit: BoxFit.cover,
                   )),
               child: Container(
@@ -57,20 +55,15 @@ class WorkoutsListItem extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "$title",
+                      "${workout.name}",
                       style: TextStyle(
                           color: Colors.white,
                           fontSize: 24,
                           fontWeight: FontWeight.w700),
                     ),
-                    // Text(
-                    //   "$title",
-                    //   textAlign: TextAlign.center,
-                    //   style: TextStyle(
-                    //       color: Colors.white,
-                    //       fontSize: 18,
-                    //       fontWeight: FontWeight.w600),
-                    // ),
+                    Spacer(),
+                    WorkoutProgress(
+                        _CompletedExList.length, workout.exercise.length),
                   ],
                 ),
               ),

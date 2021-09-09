@@ -153,7 +153,7 @@ class _MyAppState extends State<MyApp> {
           }
           if (state is AuthUnauthenticated) {
             //! MAKE THIS TO THE PAGE ROUTE VIEW LATTER
-            return Login();
+            return TabRoute();
             // return Intro();
           }
           if (state is AuthLoading) {

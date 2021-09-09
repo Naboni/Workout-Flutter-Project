@@ -18,5 +18,11 @@ class WorkoutBloc extends Bloc<WorkoutEvent, WorkoutState> {
       final _workouts = await workoutRepository.getWorkouts();
       yield WorkoutLoaded(_workouts);
     }
+    if (event is UpdateWorkout) {
+      final index = event.index;
+      final workout = event.workout;
+      final _workouts = await workoutRepository.updateWorkout(index, workout);
+      // yield WorkoutLoaded(_workouts);
+    }
   }
 }
