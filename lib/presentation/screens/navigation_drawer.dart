@@ -34,14 +34,12 @@ class NavigationDrawerWidget extends StatelessWidget {
                     icon: Icons.home,
                     routeName: TabRoute.routeName,
                   ),
-                  
                   buildMenuItem(
                     context,
                     text: 'Reminder',
                     icon: Icons.update,
                     routeName: ReminderScreen.routeName,
                   ),
-                  
                   buildMenuItem(
                     context,
                     text: 'Settings',

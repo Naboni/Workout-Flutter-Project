@@ -5,26 +5,35 @@
 // gestures. You can also use WidgetTester to find child widgets in the widget
 // tree, read text, and verify that the values of widget properties are correct.
 
-import 'package:flutter/material.dart';
+// import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:project/main.dart';
+// import 'package:project/main.dart';
+import 'package:project/presentation/widgets/feeds/feeds_item.dart';
 
 void main() {
   testWidgets('Counter increments smoke test', (WidgetTester tester) async {
     // Build our app and trigger a frame.
-    await tester.pumpWidget(MyApp());
+    await tester.pumpWidget(FeedsItem(
+      title: 'Best Exercise',
+      image: 'assets/images/course1.jpg',
+    ));
 
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
+    // Create the Finders.
+    final titleFinder = find.text('Best Exercise');
+    // final messageFinder = find.text('M');
+
+    // Use the `findsOneWidget` matcher provided by flutter_test to
+    // verify that the Text widgets appear exactly once in the widget tree.
+    expect(titleFinder, findsWidgets);
+    // expect(messageFinder, findsWidgets);
 
     // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
-    await tester.pump();
+    // await tester.tap(find.byIcon(Icons.add));
+    // await tester.pump();
 
     // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
+    // expect(find.text('0'), findsNothing);
+    // expect(find.text('1'), findsOneWidget);
   });
 }

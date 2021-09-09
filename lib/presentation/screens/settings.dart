@@ -20,7 +20,7 @@ class _SettingsState extends State<Settings> {
         builder: (context) {
           return BlocProvider<CounterCubit>(
             create: (context) => CounterCubit(),
-            child: X(),
+            child: CountdownTimerDialogue(),
           );
         });
   }
@@ -54,12 +54,15 @@ class _SettingsState extends State<Settings> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         const SizedBox(height: 20),
-                        Container(
-                          child: Text(
-                            'Delete Account.',
-                            style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.w700,
+                        InkWell(
+                          onTap: () {},
+                          child: Container(
+                            child: Text(
+                              'Delete Account.',
+                              style: TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.w700,
+                              ),
                             ),
                           ),
                         ),
@@ -108,8 +111,11 @@ class _SettingsState extends State<Settings> {
                       title: Text('Profile'),
                       leading: Icon(Icons.person),
                       onTap: () {
-                        Navigator.pushNamedAndRemoveUntil(
-                            context, ProfileRoute.routeName, (route) => false);
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => ProfileRoute()),
+                        );
                       },
                     ),
                   ),
@@ -158,8 +164,8 @@ class _SettingsState extends State<Settings> {
   }
 }
 
-class X extends StatelessWidget {
-  const X({
+class CountdownTimerDialogue extends StatelessWidget {
+  const CountdownTimerDialogue({
     Key? key,
   }) : super(key: key);
 
@@ -168,6 +174,7 @@ class X extends StatelessWidget {
     return AlertDialog(
       content: Container(
         height: MediaQuery.of(context).size.height * 0.2,
+        width: MediaQuery.of(context).size.width * 0.8,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -184,17 +191,24 @@ class X extends StatelessWidget {
                   },
                   child: Container(
                     height: 100,
-                    width: 100,
+                    width: MediaQuery.of(context).size.width * 0.25,
                     decoration: BoxDecoration(),
                     child: Icon(Icons.arrow_back_ios),
                   ),
                 ),
                 BlocBuilder<CounterCubit, CounterState>(
                   builder: (context, state) {
+                    if (state.counterValue < 10) {
+                      state.counterValue = 10;
+                    }
+                    if (state.counterValue > 15) {
+                      state.counterValue = 15;
+                    }
+
                     return Container(
                       child: Text(
                         state.counterValue.toString(),
-                        style: TextStyle(fontSize: 44),
+                        style: TextStyle(fontSize: 40),
                       ),
                     );
                   },
@@ -205,7 +219,7 @@ class X extends StatelessWidget {
                   },
                   child: Container(
                     height: 100,
-                    width: 100,
+                    width: MediaQuery.of(context).size.width * 0.25,
                     decoration: BoxDecoration(),
                     child: Icon(Icons.arrow_forward_ios),
                   ),

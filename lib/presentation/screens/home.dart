@@ -8,6 +8,7 @@ import '../../presentation/widgets/home/stat.dart';
 import '../../logic/bloc/workout/workout.dart';
 
 class Home extends StatefulWidget {
+  static const routeName = 'home';
   @override
   _HomeState createState() => _HomeState();
 }
