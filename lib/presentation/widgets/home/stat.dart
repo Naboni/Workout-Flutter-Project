@@ -1,67 +1,100 @@
 import 'package:flutter/material.dart';
-import 'package:project/presentation/screens/_routes.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:project/logic/bloc/report/report_bloc.dart';
 
-class Stat extends StatefulWidget {
-  const Stat({Key? key}) : super(key: key);
-
-  @override
-  _StatState createState() => _StatState();
-}
-
-class _StatState extends State<Stat> {
+class Stat extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var mq = MediaQuery.of(context).size;
-    return Align(
-      alignment: Alignment.bottomCenter,
-      child: Container(
-        padding: EdgeInsets.all(10),
-        width: mq.width * .95,
-        height: mq.height * .22,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10),
-          color: Colors.white,
-        ),
-        child: Column(
-          // crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Align(
-              alignment: Alignment.centerLeft,
-              child: Text(
-                'WEEK GOAL',
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
+    return BlocBuilder<ReportBloc, ReportState>(
+      builder: (context, state) {
+        if (state is ReportInitial) {
+          return Container(
+            height: 50,
+            width: 50,
+            color: Colors.amber,
+          );
+        }
+        // if (state is Repor) {
+        //   print(state.report);
+        //   print("==================[[[[[[[[[]]]]]]]]]]]]]]==============");
+        //   return Container(
+        //     height: 50,
+        //     width: 50,
+        //     color: Colors.red,
+        //   );
+        // }
+        if (state is Repor) {
+          final r = state.report;
+          return Align(
+            alignment: Alignment.bottomCenter,
+            child: Container(
+                padding: EdgeInsets.all(10),
+                width: mq.width * .95,
+                height: mq.height * .15,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  color: Colors.white,
                 ),
-              ),
-            ),
-            Text(
-              "Set weekly goals for a better shape",
-              style: TextStyle(
-                fontSize: 18,
-                color: Colors.grey[500],
-              ),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.of(context).pushNamed(SetGoal.routeName);
-              },
-              style: ButtonStyle(
-                shape: MaterialStateProperty.all(RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(30.0))),
-              ),
-              child: Container(
-                child: Center(
-                  child: Text("SET A GOAL"),
-                ),
-                height: 45,
-                width: 150,
-              ),
-            )
-          ],
-        ),
-      ),
+                child: Container(
+                  width: double.infinity,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Text(
+                            '${r.length}',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20,
+                              color: Colors.grey[700],
+                            ),
+                          ),
+                          SizedBox(height: 7),
+                          Text(
+                            "WORKOUTS",
+                          ),
+                        ],
+                      ),
+                      Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Text(
+                            '${Duration(seconds: r.length * 20).inMinutes}',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20,
+                              color: Colors.grey[700],
+                            ),
+                          ),
+                          SizedBox(height: 7),
+                          Text("MINUTES"),
+                        ],
+                      ),
+                      Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Text(
+                            '${r.length * 20}',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20,
+                              color: Colors.grey[700],
+                            ),
+                          ),
+                          SizedBox(height: 7),
+                          Text("POINTS"),
+                        ],
+                      ),
+                    ],
+                  ),
+                )),
+          );
+        }
+        return Container();
+      },
     );
   }
 }

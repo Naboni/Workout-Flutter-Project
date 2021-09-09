@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 // deps
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:project/logic/bloc/report/report_bloc.dart';
 // widgets
 import '../widgets/home/workouts.dart';
 import '../../presentation/widgets/home/stat.dart';
@@ -30,11 +31,11 @@ class _HomeState extends State<Home> {
         child: Column(
           children: [
             Container(
-              height: mq.height * .25,
+              height: mq.height * .2,
               child: Stack(
                 children: [
                   Container(
-                    height: mq.height * .15,
+                    height: mq.height * .13,
                     width: double.infinity,
                     decoration: BoxDecoration(
                       gradient: LinearGradient(
@@ -48,7 +49,10 @@ class _HomeState extends State<Home> {
                           tileMode: TileMode.clamp),
                     ),
                   ),
-                  Stat(),
+                  BlocProvider(
+                    create: (context) => ReportBloc()..add(GetReport()),
+                    child: Stat(),
+                  ),
                 ],
               ),
             ),

@@ -10,6 +10,7 @@ import 'package:project/presentation/screens/auth/login.dart';
 // bloc
 import './logic/bloc/reminder/reminder.dart';
 import './logic/bloc/workout/workout.dart';
+import 'data/models/report/report.dart';
 import 'logic/bloc/ticker/timer_bloc.dart';
 import 'logic/bloc/ticker/ticker.dart';
 
@@ -25,9 +26,7 @@ import 'data/models/reminder/reminder.dart';
 // utils
 import './utils/prefrence.dart';
 
-import './presentation/screens/_routes.dart';
 import 'logic/bloc/auth_bloc/auth.dart';
-import 'logic/bloc/login_bloc/login.dart';
 import 'tab_route.dart';
 import './presentation/router.dart';
 
@@ -71,9 +70,11 @@ void main() async {
   Hive.registerAdapter(ReminderAdapter());
   Hive.registerAdapter(WorkoutAdapter());
   Hive.registerAdapter(ExerciseAdapter());
+  Hive.registerAdapter(ReportAdapter());
 
   await Hive.openBox<Reminder>("reminders");
   await Hive.openBox<Workout>("workouts");
+  await Hive.openBox<Report>("report");
 
   // ? Initialize local notification
   // for default icon
@@ -140,6 +141,7 @@ class _MyAppState extends State<MyApp> {
     // ! close hive box...not sure where to dispose
     Hive.box("reminders").close();
     Hive.box("workouts").close();
+    Hive.box("report").close();
     super.dispose();
   }
 
@@ -153,7 +155,7 @@ class _MyAppState extends State<MyApp> {
           }
           if (state is AuthUnauthenticated) {
             //! MAKE THIS TO THE PAGE ROUTE VIEW LATTER
-            return Login();
+            return TabRoute();
             // return Intro();
           }
           if (state is AuthLoading) {

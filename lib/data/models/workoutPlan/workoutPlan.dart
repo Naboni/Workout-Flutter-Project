@@ -2,16 +2,11 @@ import 'package:hive/hive.dart';
 // models
 import 'package:project/data/models/day/day.dart';
 
-part 'workoutPlan.g.dart';
-
-// extending from HiveObject lets us use .save() / .delete()
-@HiveType(typeId: 3)
 class WorkoutPlan extends HiveObject {
-  @HiveField(0)
+  // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!ID
+  late String id;
   late String title;
-  @HiveField(1)
   late String description;
-  @HiveField(2)
   late List<Day> days;
 
   WorkoutPlan();
