@@ -11,6 +11,7 @@ class AppStarted extends AuthEvent {}
 
 class LoggedIn extends AuthEvent {
   final String user;
+
   const LoggedIn({required this.user});
 
   @override
