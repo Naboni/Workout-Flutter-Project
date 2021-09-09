@@ -15,15 +15,6 @@ class Stat extends StatelessWidget {
             color: Colors.amber,
           );
         }
-        // if (state is Repor) {
-        //   print(state.report);
-        //   print("==================[[[[[[[[[]]]]]]]]]]]]]]==============");
-        //   return Container(
-        //     height: 50,
-        //     width: 50,
-        //     color: Colors.red,
-        //   );
-        // }
         if (state is Repor) {
           final r = state.report;
           return Align(

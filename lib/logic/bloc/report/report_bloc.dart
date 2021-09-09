@@ -19,8 +19,6 @@ class ReportBloc extends Bloc<ReportEvent, ReportState> {
     if (event is GetReport) {
       yield ReportInitial();
       final report = await reportRepository.getReport();
-      print("================================");
-      // print(report);
       yield Repor(report);
     }
     if (event is SaveReport) {

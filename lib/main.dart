@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:project/logic/bloc/report/report_bloc.dart';
 import 'package:project/presentation/screens/auth/login.dart';
 
 // bloc
@@ -108,6 +109,7 @@ void main() async {
         ),
         BlocProvider(create: (context) => WorkoutBloc()),
         BlocProvider(create: (_) => TimerBloc(ticker: Ticker())),
+        BlocProvider(create: (_) => ReportBloc()..add(GetReport())),
       ],
       child: MyApp(),
     ),

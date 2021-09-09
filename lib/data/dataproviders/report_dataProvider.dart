@@ -13,7 +13,7 @@ class ReportDataProvider {
         ..duration = 20
         ..point = 20
         ..execiseName = workout.exercise[index].name
-        ..dateCreated = DateTime.now().toIso8601String(),
+        ..dateCreated = DateTime.now().toString(),
     );
   }
 

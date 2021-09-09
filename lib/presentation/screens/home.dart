@@ -50,10 +50,7 @@ class _HomeState extends State<Home> {
                           tileMode: TileMode.clamp),
                     ),
                   ),
-                  BlocProvider(
-                    create: (context) => ReportBloc()..add(GetReport()),
-                    child: Stat(),
-                  ),
+                  Stat(),
                 ],
               ),
             ),
