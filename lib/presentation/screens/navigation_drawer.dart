@@ -46,6 +46,12 @@ class NavigationDrawerWidget extends StatelessWidget {
                     icon: Icons.settings,
                     routeName: Settings.routeName,
                   ),
+                  buildMenuItem(
+                    context,
+                    text: 'History',
+                    icon: Icons.history,
+                    routeName: History.routeName,
+                  ),
                   const SizedBox(height: 24),
                   Divider(color: Colors.white70),
                   const SizedBox(height: 24),

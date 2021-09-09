@@ -21,6 +21,8 @@ class AppRouter {
         return MaterialPageRoute(builder: (ctx) => TabRoute());
       case Settings.routeName:
         return MaterialPageRoute(builder: (ctx) => Settings());
+      case History.routeName:
+        return MaterialPageRoute(builder: (ctx) => History());
       case ExerciseType.routeName:
         return MaterialPageRoute(builder: (ctx) {
           return ExerciseType(settings.arguments as Workout);
