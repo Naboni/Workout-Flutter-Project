@@ -11,7 +11,7 @@ import 'data/repositories/user_repository.dart';
 import 'data/repositories/workoutPlan_repository.dart';
 import 'logic/bloc/auth_bloc/auth.dart';
 import 'presentation/screens/_routes.dart';
-import './presentation/widgets/navigation_drawer.dart';
+import 'presentation/screens/navigation_drawer.dart';
 
 class TabRoute extends StatefulWidget {
   static const routeName = "tab";
@@ -59,20 +59,27 @@ class _TabState extends State<TabRoute> {
         elevation: 0,
         backgroundColor: Colors.white,
         actions: [
+          Container(
+            padding: EdgeInsets.symmetric(horizontal: 10),
+            child: FutureBuilder(
+              future: user,
+              builder: (BuildContext context, AsyncSnapshot<User> snapshot) {
+                if (snapshot.hasData) {
+                  return Center(
+                      child: Text(
+                    '${snapshot.data!.role![0].toUpperCase()}${snapshot.data!.role!.substring(1)}',
+                    style: TextStyle(),
+                  ));
+                }
+                return CircularProgressIndicator();
+              },
+            ),
+          ),
           IconButton(
               onPressed: () {
                 BlocProvider.of<AuthBloc>(context).add(LoggedOut());
               },
               icon: Icon(Icons.logout_outlined)),
-          FutureBuilder(
-            future: user,
-            builder: (BuildContext context, AsyncSnapshot<User> snapshot) {
-              if (snapshot.hasData) {
-                return Text(snapshot.data!.role!);
-              }
-              return CircularProgressIndicator();
-            },
-          ),
         ],
         title: Row(
           children: [
