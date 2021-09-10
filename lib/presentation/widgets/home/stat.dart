@@ -2,7 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:project/logic/bloc/report/report_bloc.dart';
 
-class Stat extends StatelessWidget {
+class Stat extends StatefulWidget {
+  @override
+  _StatState createState() => _StatState();
+}
+
+class _StatState extends State<Stat> {
+  @override
+  void initState() {
+    // TODO: implement initState
+
+    context.read<ReportBloc>().add(GetReport());
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     var mq = MediaQuery.of(context).size;
@@ -10,9 +23,9 @@ class Stat extends StatelessWidget {
       builder: (context, state) {
         if (state is ReportInitial) {
           return Container(
-            height: 50,
-            width: 50,
-            color: Colors.amber,
+            height: 100,
+            width: double.infinity,
+            child: Center(child: CircularProgressIndicator()),
           );
         }
         if (state is Repor) {

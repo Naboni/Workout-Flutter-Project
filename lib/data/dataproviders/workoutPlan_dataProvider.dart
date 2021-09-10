@@ -3,8 +3,6 @@ import 'dart:convert';
 
 import 'package:dio/dio.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:project/data/models/day/day.dart';
-import 'package:project/data/models/exercise/exercise.dart';
 import 'package:project/data/models/user/user.dart';
 import 'package:project/data/models/workoutPlan/workout_plan_response.dart';
 

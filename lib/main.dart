@@ -5,8 +5,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:project/data/models/workoutPlan/workout_plan_response.dart';
+import 'package:project/data/repositories/workout_plan_repository.dart';
 import 'package:project/logic/bloc/report/report_bloc.dart';
-import 'package:project/presentation/screens/auth/login.dart';
+import 'package:project/logic/bloc/workout_plan/workout_plan_bloc.dart';
 
 // bloc
 import './logic/bloc/reminder/reminder.dart';
@@ -94,6 +96,7 @@ void main() async {
 
   // ! repository initialization
   final ReminderRepository reminderRepository = ReminderRepository();
+  final WorkoutPlanRepository workoutPlanRepository = WorkoutPlanRepository();
   runApp(RepositoryProvider(
     create: (context) => UserRepositories(),
     child: MultiBlocProvider(
@@ -109,7 +112,8 @@ void main() async {
         ),
         BlocProvider(create: (context) => WorkoutBloc()),
         BlocProvider(create: (_) => TimerBloc(ticker: Ticker())),
-        BlocProvider(create: (_) => ReportBloc()..add(GetReport())),
+        BlocProvider(create: (_) => ReportBloc()),
+        BlocProvider(create: (_) => WorkoutPlanBloc(workoutPlanRepository)),
       ],
       child: MyApp(),
     ),

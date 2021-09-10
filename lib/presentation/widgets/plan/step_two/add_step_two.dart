@@ -2,10 +2,8 @@ import 'package:flutter/material.dart';
 
 // deps
 import 'package:flutter_bloc/flutter_bloc.dart';
-// models
-import 'package:project/data/models/workoutPlan/workoutPlan.dart';
-// bloc
-import '../../../../logic/bloc/trainer_workout/trainer_workout.dart';
+import 'package:project/data/models/workoutPlan/workout_plan_response.dart';
+import 'package:project/logic/bloc/workout_plan/workout_plan_bloc.dart';
 // repository
 import '../../../../data/repositories/workout_repository.dart';
 import 'package:project/data/models/exercise/exercise.dart';
@@ -45,7 +43,7 @@ class StepTwo extends StatelessWidget {
           .showSnackBar(SnackBar(content: Text(value)));
     }
 
-    final trainerWorkoutBloc = BlocProvider.of<TrainerWorkoutBloc>(context);
+    final workoutPlanBloc = BlocProvider.of<WorkoutPlanBloc>(context);
     final workoutRepository = RepositoryProvider.of<WorkoutRepository>(context);
     final weekDays = stepResult['weekDays'] as List;
 
@@ -79,8 +77,9 @@ class StepTwo extends StatelessWidget {
                       'workouts': d
                     });
                     if (_checkForValues())
-                      trainerWorkoutBloc.add(AddTrainerWorkout(
-                          WorkoutPlan.fromJson(stepResult, d)));
+                      // !!!!!!!!!!!!!!!! step result doesnt hv full items
+                      workoutPlanBloc.add(AddWorkoutPlan(WorkoutPlan.fromJson(
+                          {...stepResult, 'workouts': d})));
                     else
                       _showSnackBar("Please choose at least one exercise");
                   },

@@ -4,9 +4,21 @@ import 'package:project/logic/bloc/report/report_bloc.dart';
 
 import 'navigation_drawer.dart';
 
-class History extends StatelessWidget {
+class History extends StatefulWidget {
   static const routeName = 'history';
   const History({Key? key}) : super(key: key);
+
+  @override
+  _HistoryState createState() => _HistoryState();
+}
+
+class _HistoryState extends State<History> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    context.read<ReportBloc>().add(GetReport());
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {

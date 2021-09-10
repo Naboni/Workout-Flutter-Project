@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 // deps
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:project/logic/bloc/workout_plan/workout_plan_bloc.dart';
 import 'package:project/presentation/screens/plan/add_plan.dart';
 
 // widgets
 import '../../widgets/plan/my_plan/plan_stat.dart';
 import '../../widgets/plan/my_plan/plan_item.dart';
 //bloc
-import '../../../logic/bloc/trainer_workout/trainer_workout.dart';
 
 class MyPlan extends StatefulWidget {
   // const FeedPage({Key? key}) : super(key: key);
@@ -20,19 +20,19 @@ class MyPlan extends StatefulWidget {
 class _MyPlanState extends State<MyPlan> {
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<TrainerWorkoutBloc, TrainerWorkoutState>(
+    return BlocBuilder<WorkoutPlanBloc, WorkoutPlanState>(
       builder: (context, state) {
-        if (state is TrainerWorkoutInitial) {
+        if (state is WorkoutPlanInitial) {
           return Center(
             child: CircularProgressIndicator(),
           );
         }
-        if (state is TrainerWorkoutFailed) {
+        if (state is WorkoutPlanFailed) {
           return Text("Sorry loading failed");
         }
-        if (state is TrainerWorkoutLoaded) {
-          final workoutplans = state.workoutPlans;
-          if (workoutplans.length == 0) {
+        if (state is WorkoutPlanLoaded) {
+          final workoutplans = state.workoutResponse;
+          if (workoutplans.plans!.length == 0) {
             return Center(child: Text("You dont have any plans posted."));
           }
           return Container(
@@ -41,12 +41,13 @@ class _MyPlanState extends State<MyPlan> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
-                PlanStat(workoutplans),
+                PlanStat(workoutplans.plans!),
                 SizedBox(height: 10),
                 Expanded(
                   child: ListView.builder(
-                    itemBuilder: (_, index) => MyPlanItem(workoutplans[index]),
-                    itemCount: workoutplans.length,
+                    itemBuilder: (_, index) =>
+                        MyPlanItem(workoutplans.plans![index]),
+                    itemCount: workoutplans.plans!.length,
                   ),
                 ),
                 FloatingActionButton.extended(
@@ -55,7 +56,7 @@ class _MyPlanState extends State<MyPlan> {
                     Navigator.of(context).push(
                       MaterialPageRoute(
                         builder: (ctx) => BlocProvider.value(
-                          value: BlocProvider.of<TrainerWorkoutBloc>(context),
+                          value: BlocProvider.of<WorkoutPlanBloc>(context),
                           child: AddPlan(),
                         ),
                       ),

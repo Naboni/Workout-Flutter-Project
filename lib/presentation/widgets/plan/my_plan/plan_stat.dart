@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:project/data/models/workoutPlan/workoutPlan.dart';
+import 'package:project/data/models/workoutPlan/workout_plan_response.dart';
 
 class PlanStat extends StatelessWidget {
   final List<WorkoutPlan> workouts;
