@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:project/data/dataproviders/workoutPlan_dataProvider.dart';
 import 'package:project/data/models/workoutPlan/workout_plan_response.dart';
 
@@ -5,20 +7,40 @@ class WorkoutPlanRepository {
   // ? Instantiate workoutPlan data provider
   final workoutPlanDataProvider = WorkoutPlanDataProvider();
 
-  Future<void> addWorkoutPlan(WorkoutPlan workoutPlan) async {
-    await workoutPlanDataProvider.addWorkoutPlan(workoutPlan);
+  Future<WorkoutPlan?> addWorkoutPlan(WorkoutPlan workoutPlan) async {
+    var plan = await workoutPlanDataProvider.addWorkoutPlan(workoutPlan);
+    if (plan["status"] == "201") {
+      return WorkoutPlan.fromJson(jsonDecode(plan["body"])["plan"]);
+    }
+    return null;
   }
 
   Future<WorkoutPlansResponse> getWorkoutPlans() async {
-    // return await workoutPlanDataProvider.getWorkoutPlans();
-    return WorkoutPlansResponse()..plans = [];
+    var plans = await workoutPlanDataProvider.getWorkoutPlans();
+    if (plans["status"] == "404") {
+      return WorkoutPlansResponse()..plans = [];
+    }
+    return WorkoutPlansResponse.fromJson(jsonDecode(plans["body"]));
   }
 
-  Future<Map<String, dynamic>> searchWorkoutPlans(String title) async {
-    return await workoutPlanDataProvider.searchWorkoutPlans(title: title);
+  Future<WorkoutPlansResponse> searchWorkoutPlans(String title) async {
+    var plans = await workoutPlanDataProvider.searchWorkoutPlans(title: title);
+    if (plans["status"] == "404") {
+      return WorkoutPlansResponse()..plans = [];
+    }
+    return WorkoutPlansResponse.fromJson(jsonDecode(plans["body"]));
   }
 
-  Future<Map<String, dynamic>> getFavoredPlan() async {
-    return await workoutPlanDataProvider.getFavoredPlan();
+  Future<WorkoutPlan?> getWorkoutPlan(String id) async {
+    var plans = await workoutPlanDataProvider.getWorkoutPlan(id: id);
+    if (plans["status"] == "404") {
+      return null;
+    }
+    return WorkoutPlan.fromJson(jsonDecode(plans["body"])["plan"]);
+  }
+
+  Future<bool> deleteWorkoutPlan(String id) async {
+    var res = await workoutPlanDataProvider.deleteWorkoutPlan(id);
+    return res;
   }
 }

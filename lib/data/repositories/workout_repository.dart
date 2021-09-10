@@ -1,6 +1,4 @@
 //data provider
-import 'dart:ffi';
-
 import '../dataproviders/workout_dataProvider.dart';
 // constants
 import 'package:project/constants/data.dart';

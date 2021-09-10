@@ -27,14 +27,14 @@ class Exercise {
   Exercise();
 
   Exercise.fromJson(Map<String, dynamic> json)
-      : id = json['id'],
+      : id = json['id'].toString(),
         name = json['name'],
-        duration = json['duration'],
+        duration = json['duration'].toString(),
         lottieUrl = json['lottieUrl'],
         category = json['category'],
         description = json['description'],
         difficulty = json['difficulty'],
-        isDone = json['isDone'];
+        isDone = json['isDone'] ?? false;
 
   toMap() {
     return {

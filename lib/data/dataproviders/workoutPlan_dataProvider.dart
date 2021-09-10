@@ -33,7 +33,7 @@ class WorkoutPlanDataProvider {
       };
     } on DioError catch (e) {
       return {
-        "status": e.response!.statusCode,
+        "status": e.response!.statusCode.toString(),
         "message": e.response!.data["message"]
       };
     } catch (e) {
@@ -64,7 +64,7 @@ class WorkoutPlanDataProvider {
       };
     } on DioError catch (e) {
       return {
-        "status": e.response!.statusCode,
+        "status": e.response!.statusCode.toString(),
         "message": e.response!.data["message"]
       };
     } catch (e) {
@@ -96,7 +96,7 @@ class WorkoutPlanDataProvider {
       };
     } on DioError catch (e) {
       return {
-        "status": e.response!.statusCode,
+        "status": e.response!.statusCode.toString(),
         "message": e.response!.data["message"]
       };
     } catch (e) {
@@ -127,7 +127,7 @@ class WorkoutPlanDataProvider {
       };
     } on DioError catch (e) {
       return {
-        "status": e.response!.statusCode,
+        "status": e.response!.statusCode.toString(),
         "message": e.response!.data["message"]
       };
     } catch (e) {
@@ -183,7 +183,7 @@ class WorkoutPlanDataProvider {
       };
     } on DioError catch (e) {
       return {
-        "status": e.response!.statusCode,
+        "status": e.response!.statusCode.toString(),
         "message": e.response!.data["message"]
       };
     } catch (e) {
@@ -216,7 +216,7 @@ class WorkoutPlanDataProvider {
       };
     } on DioError catch (e) {
       return {
-        "status": e.response!.statusCode,
+        "status": e.response!.statusCode.toString(),
         "message": e.response!.data["message"]
       };
     } catch (e) {
@@ -247,7 +247,7 @@ class WorkoutPlanDataProvider {
       };
     } on DioError catch (e) {
       return {
-        "status": e.response!.statusCode,
+        "status": e.response!.statusCode.toString(),
         "message": e.response!.data["message"]
       };
     } catch (e) {
@@ -278,7 +278,7 @@ class WorkoutPlanDataProvider {
       };
     } on DioError catch (e) {
       return {
-        "status": e.response!.statusCode,
+        "status": e.response!.statusCode.toString(),
         "message": e.response!.data["message"]
       };
     } catch (e) {
