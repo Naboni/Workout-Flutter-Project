@@ -15,7 +15,7 @@ Widget buildHeader(
         children: [
           CircleAvatar(
             radius: 30,
-            backgroundImage: AssetImage(img),
+            backgroundImage: NetworkImage(img),
           ),
           SizedBox(
             width: 20,
