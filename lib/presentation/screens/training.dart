@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 // deps
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
+import 'package:project/data/models/report/report.dart';
 import 'package:project/data/models/workout/workout.dart';
+import 'package:project/logic/bloc/report/report_bloc.dart';
 import 'package:project/logic/bloc/workout/workout.dart';
 // bloc
 import '../../logic/bloc/ticker/timer_bloc.dart';
@@ -39,6 +41,9 @@ class _TrainingState extends State<Training> {
           listener: (context, state) {
             if (state is TimerRunComplete) {
               context.read<TimerBloc>().add(TimerReset());
+              context
+                  .read<ReportBloc>()
+                  .add(SaveReport(_index, widget.workout));
               context
                   .read<WorkoutBloc>()
                   .add(UpdateWorkout(_index, widget.workout));

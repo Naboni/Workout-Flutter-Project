@@ -109,7 +109,7 @@ void main() async {
         ),
         BlocProvider(create: (context) => WorkoutBloc()),
         BlocProvider(create: (_) => TimerBloc(ticker: Ticker())),
-        BlocProvider(create: (_) => ReportBloc()..add(GetReport())),
+        BlocProvider(create: (_) => ReportBloc()),
       ],
       child: MyApp(),
     ),
