@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:project/constants/data.dart';
-import 'package:project/data/models/exercise/exercise.dart';
-
 // deps
 import 'package:weekday_selector/weekday_selector.dart';
-// model
-import '../../../../data/models/workoutPlan/workoutPlan.dart';
+
 // widgets
 import 'muscle_target.dart';
 import 'workout_dificulty.dart';

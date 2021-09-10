@@ -10,8 +10,8 @@ abstract class WorkoutPlanState extends Equatable {
 class WorkoutPlanInitial extends WorkoutPlanState {}
 
 class WorkoutPlanLoaded extends WorkoutPlanInitial {
+  final WorkoutPlansResponse workoutResponse;
   WorkoutPlanLoaded(this.workoutResponse);
-  final WorkoutResponse workoutResponse;
 }
 
 class WorkoutPlanFailed extends WorkoutPlanInitial {}

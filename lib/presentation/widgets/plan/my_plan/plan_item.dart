@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:project/data/models/workoutPlan/workoutPlan.dart';
+import 'package:project/data/models/workoutPlan/workout_plan_response.dart';
 
 class MyPlanItem extends StatelessWidget {
   final WorkoutPlan workoutPlan;
@@ -15,7 +15,7 @@ class MyPlanItem extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              workoutPlan.title,
+              workoutPlan.title!,
               style: TextStyle(
                 color: Colors.grey[700],
                 fontSize: 18,

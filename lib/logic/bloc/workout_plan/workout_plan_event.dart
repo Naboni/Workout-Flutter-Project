@@ -10,7 +10,7 @@ abstract class WorkoutPlanEvent extends Equatable {
 class GetWorkoutPlan extends WorkoutPlanEvent {}
 
 class AddWorkoutPlan extends WorkoutPlanEvent {
-  final Plan workoutPlan;
+  final WorkoutPlan workoutPlan;
   AddWorkoutPlan(this.workoutPlan);
 }
 
