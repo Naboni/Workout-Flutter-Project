@@ -43,4 +43,34 @@ class WorkoutPlanRepository {
     var res = await workoutPlanDataProvider.deleteWorkoutPlan(id);
     return res;
   }
+  //! //! //! //! //! //! //! //! //! //! //! //! //! //!
+
+  //RETURNS NULL IF THE WORKOUT PLAN IS ALREADY IN FAVORITE
+  Future<bool> favorWorkoutPlan(String planId) async {
+    var res = await workoutPlanDataProvider.favorPlan(planId: planId);
+    if (res["status"] == "201") {
+      return true;
+    }
+    return false;
+  }
+
+  Future<bool> unfavorWorkoutPlan(String planId) async {
+    var res = await workoutPlanDataProvider.unfavorPlan(planId: planId);
+    return true;
+  }
+
+  //RETURNS NULL IF THERE ARE NO FAVORED PLANS
+  Future<List<WorkoutPlan>?> getFavoredPlans() async {
+    List<WorkoutPlan>? plans;
+    var res = await workoutPlanDataProvider.getFavoredPlans();
+    if (res["status"] == "204") {
+      return null;
+    }
+    plans = [];
+    var workoutList = jsonDecode(res["body"])["plans"];
+    workoutList.forEach((v) {
+      plans?.add(WorkoutPlan.fromJson((v["plan"])));
+    });
+    return plans;
+  }
 }
