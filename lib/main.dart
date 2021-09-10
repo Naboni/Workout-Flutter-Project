@@ -159,12 +159,12 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       home: BlocBuilder<AuthBloc, AuthState>(
         builder: (context, state) {
-          final WorkoutPlanRepository workoutPlanRepository =
-              WorkoutPlanRepository();
-          Future.delayed(Duration.zero, () async {
-            var z = await workoutPlanRepository.getFavoredPlans();
-            print(z);
-          });
+          // final WorkoutPlanRepository workoutPlanRepository =
+          //     WorkoutPlanRepository();
+          // Future.delayed(Duration.zero, () async {
+          //   var z = await workoutPlanRepository.getFavoredPlans();
+          //   print(z);
+          // });
           if (state is AuthAuthenticated) {
             return TabRoute();
           }
