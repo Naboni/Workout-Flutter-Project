@@ -10,7 +10,7 @@ class WorkoutPlanRepository {
   }
 
   Future<WorkoutPlansResponse> getWorkoutPlans() async {
-    return await workoutPlanDataProvider.getWorkoutPlans();
+    // return await workoutPlanDataProvider.getWorkoutPlans();
   }
 
   Future<void> deleteWorkoutPlan(String workoutPlanId) async {
