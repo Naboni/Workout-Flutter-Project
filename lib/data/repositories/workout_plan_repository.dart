@@ -14,7 +14,11 @@ class WorkoutPlanRepository {
     return WorkoutPlansResponse()..plans = [];
   }
 
-  Future<void> deleteWorkoutPlan(String workoutPlanId) async {
-    return await workoutPlanDataProvider.deleteWorkoutPlan(workoutPlanId);
+  Future<Map<String, dynamic>> searchWorkoutPlans(String title) async {
+    return await workoutPlanDataProvider.searchWorkoutPlans(title: title);
+  }
+
+  Future<Map<String, dynamic>> getFavoredPlan() async {
+    return await workoutPlanDataProvider.getFavoredPlan();
   }
 }
