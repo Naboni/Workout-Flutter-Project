@@ -29,7 +29,7 @@ class CountdownTimerDialogue extends StatelessWidget {
           children: [
             Text(
               'Set Duration (10 ~ 15 secs)',
-              style: TextStyle(fontSize: 20),
+              style: TextStyle(fontSize: 17),
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,

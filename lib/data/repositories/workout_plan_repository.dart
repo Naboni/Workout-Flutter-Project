@@ -56,6 +56,7 @@ class WorkoutPlanRepository {
   //RETURNS NULL IF THE WORKOUT PLAN IS ALREADY IN FAVORITE
   Future<bool> favorWorkoutPlan(String planId) async {
     var res = await workoutPlanDataProvider.favorPlan(planId: planId);
+    print(res);
     if (res["status"] == "201") {
       return true;
     }
