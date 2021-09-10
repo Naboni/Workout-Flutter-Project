@@ -8,6 +8,7 @@ export './reminder.dart';
 export './history.dart';
 export './splash.dart';
 export 'plan/add_plan.dart';
+export 'plan/exercise_wrapper.dart';
 export 'plan/my_plan.dart';
 export 'profile.dart';
 export 'training.dart';

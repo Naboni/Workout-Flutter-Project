@@ -23,6 +23,14 @@ class WorkoutPlanRepository {
     return WorkoutPlansResponse.fromJson(jsonDecode(plans["body"]));
   }
 
+  Future<WorkoutPlansResponse> getWorkoutPlansByTrainer() async {
+    var plans = await workoutPlanDataProvider.getWorkoutPlansByTrainer();
+    if (plans["status"] == "404") {
+      return WorkoutPlansResponse()..plans = [];
+    }
+    return WorkoutPlansResponse.fromJson(jsonDecode(plans["body"]));
+  }
+
   Future<WorkoutPlansResponse> searchWorkoutPlans(String title) async {
     var plans = await workoutPlanDataProvider.searchWorkoutPlans(title: title);
     if (plans["status"] == "404") {
