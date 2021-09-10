@@ -115,133 +115,147 @@ class _RegisterState extends State<Register> {
         subtitle: 'Please fill some of the basic information to get started',
         content: Form(
           key: _formKeyBasic,
-          child: Column(
-            children: [
-              Container(
-                decoration: BoxDecoration(
-                  boxShadow: <BoxShadow>[
-                    BoxShadow(
-                      color: Colors.grey.withOpacity(0.3),
-                      blurRadius: 40,
-                    ),
-                  ],
-                ),
-                child: SizedBox(
-                  height: 115,
-                  width: 115,
-                  child: Stack(
-                    fit: StackFit.expand,
-                    clipBehavior: Clip.none,
-                    children: [
-                      profileImagePath != ""
-                          ? CircleAvatar(
-                              child: Container(
-                                decoration: BoxDecoration(
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(100))),
-                                child: Image.file(File(profileImagePath)),
-                                clipBehavior: Clip.antiAlias,
-                              ),
-                            )
-                          : CircleAvatar(
-                              backgroundImage:
-                                  AssetImage('assets/icons/no_user.jpg'),
-                            ),
-                      Positioned(
-                        right: -16,
-                        bottom: 0,
-                        child: SizedBox(
-                          height: 46,
-                          width: 46,
-                          child: TextButton(
-                            style: ButtonStyle(
-                              padding: MaterialStateProperty.all<EdgeInsets>(
-                                  EdgeInsets.all(15)),
-                              backgroundColor: MaterialStateProperty.all<Color>(
-                                  Colors.grey[200]!),
-                              shape: MaterialStateProperty.all<
-                                      RoundedRectangleBorder>(
-                                  RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(50),
-                                side: BorderSide(color: Colors.white),
-                              )),
-                            ),
-                            onPressed: () {
-                              showModalBottomSheet(
-                                  context: context,
-                                  builder: (context) {
-                                    return Container(
-                                      decoration: BoxDecoration(
-                                        color: Colors.white,
-                                        borderRadius: const BorderRadius.only(
-                                            topLeft: Radius.circular(16.0),
-                                            topRight: Radius.circular(16.0)),
-                                      ),
-                                      child: Wrap(
-                                        alignment: WrapAlignment.end,
-                                        crossAxisAlignment:
-                                            WrapCrossAlignment.end,
-                                        children: [
-                                          ListTile(
-                                            leading: Icon(Icons.camera),
-                                            title: Text('Camera'),
-                                            onTap: () async {
-                                              Navigator.pop(context);
-                                              pickImage(ImageSource.camera);
-                                            },
-                                          ),
-                                          ListTile(
-                                            leading: Icon(Icons.image),
-                                            title: Text('Gallery'),
-                                            onTap: () async {
-                                              Navigator.pop(context);
-                                              pickImage(ImageSource.gallery);
-                                            },
-                                          ),
-                                        ],
-                                      ),
-                                    );
-                                  });
-                            },
-                            child: SvgPicture.asset(
-                                "assets/icons/Camera Icon.svg"),
-                          ),
+          child: GestureDetector(
+            onTap: () {
+              FocusScope.of(context).unfocus();
+            },
+            child: Container(
+              color: Colors.transparent,
+              child: Column(
+                children: [
+                  Container(
+                    decoration: BoxDecoration(
+                      boxShadow: <BoxShadow>[
+                        BoxShadow(
+                          color: Colors.grey.withOpacity(0.3),
+                          blurRadius: 40,
                         ),
-                      )
-                    ],
+                      ],
+                    ),
+                    child: SizedBox(
+                      height: 115,
+                      width: 115,
+                      child: Stack(
+                        fit: StackFit.expand,
+                        clipBehavior: Clip.none,
+                        children: [
+                          profileImagePath != ""
+                              ? CircleAvatar(
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(100))),
+                                    child: Image.file(File(profileImagePath)),
+                                    clipBehavior: Clip.antiAlias,
+                                  ),
+                                )
+                              : CircleAvatar(
+                                  backgroundImage:
+                                      AssetImage('assets/icons/no_user.jpg'),
+                                ),
+                          Positioned(
+                            right: -16,
+                            bottom: 0,
+                            child: SizedBox(
+                              height: 46,
+                              width: 46,
+                              child: TextButton(
+                                style: ButtonStyle(
+                                  padding:
+                                      MaterialStateProperty.all<EdgeInsets>(
+                                          EdgeInsets.all(15)),
+                                  backgroundColor:
+                                      MaterialStateProperty.all<Color>(
+                                          Colors.grey[200]!),
+                                  shape: MaterialStateProperty.all<
+                                          RoundedRectangleBorder>(
+                                      RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(50),
+                                    side: BorderSide(color: Colors.white),
+                                  )),
+                                ),
+                                onPressed: () {
+                                  showModalBottomSheet(
+                                      context: context,
+                                      builder: (context) {
+                                        return Container(
+                                          decoration: BoxDecoration(
+                                            color: Colors.white,
+                                            borderRadius:
+                                                const BorderRadius.only(
+                                                    topLeft:
+                                                        Radius.circular(16.0),
+                                                    topRight:
+                                                        Radius.circular(16.0)),
+                                          ),
+                                          child: Wrap(
+                                            alignment: WrapAlignment.end,
+                                            crossAxisAlignment:
+                                                WrapCrossAlignment.end,
+                                            children: [
+                                              ListTile(
+                                                leading: Icon(Icons.camera),
+                                                title: Text('Camera'),
+                                                onTap: () async {
+                                                  Navigator.pop(context);
+                                                  pickImage(ImageSource.camera);
+                                                },
+                                              ),
+                                              ListTile(
+                                                leading: Icon(Icons.image),
+                                                title: Text('Gallery'),
+                                                onTap: () async {
+                                                  Navigator.pop(context);
+                                                  pickImage(
+                                                      ImageSource.gallery);
+                                                },
+                                              ),
+                                            ],
+                                          ),
+                                        );
+                                      });
+                                },
+                                child: SvgPicture.asset(
+                                    "assets/icons/Camera Icon.svg"),
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
                   ),
-                ),
+                  SizedBox(height: 10),
+                  FormField(
+                    controller: firstNameController,
+                    labelText: 'First name',
+                    validatorMessage: 'Enter your First Name',
+                  ),
+                  SizedBox(height: 10),
+                  SizedBox(height: 10),
+                  FormField(
+                    controller: lastNameController,
+                    labelText: 'Last name',
+                    validatorMessage: 'Enter your Last name',
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  FormField(
+                    controller: emailController,
+                    labelText: 'Email',
+                    validatorMessage: 'Enter your email',
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  FormField(
+                    controller: passwordController,
+                    labelText: 'Password',
+                    validatorMessage: 'Enter your password',
+                  ),
+                ],
               ),
-              SizedBox(height: 10),
-              FormField(
-                controller: firstNameController,
-                labelText: 'First name',
-                validatorMessage: 'Enter your First Name',
-              ),
-              SizedBox(height: 10),
-              SizedBox(height: 10),
-              FormField(
-                controller: lastNameController,
-                labelText: 'Last name',
-                validatorMessage: 'Enter your Last name',
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              FormField(
-                controller: emailController,
-                labelText: 'Email',
-                validatorMessage: 'Enter your email',
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              FormField(
-                controller: passwordController,
-                labelText: 'Password',
-                validatorMessage: 'Enter your password',
-              ),
-            ],
+            ),
           ),
         ),
         validation: () {

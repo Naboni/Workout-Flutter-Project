@@ -61,7 +61,15 @@ class _TabState extends State<TabRoute> {
                     style: TextStyle(),
                   ));
                 }
-                return CircularProgressIndicator();
+                return Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Container(
+                    width: MediaQuery.of(context).size.width * 0.1,
+                    child: CircularProgressIndicator(
+                      strokeWidth: 3,
+                    ),
+                  ),
+                );
               },
             ),
           ),
