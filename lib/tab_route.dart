@@ -4,7 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 // import 'presentation/widgets/main_drawer.dart';
 import 'data/models/user/user.dart';
 import 'data/repositories/user_repository.dart';
-import 'data/repositories/workout_plan_repository.dart';
 import 'logic/bloc/auth_bloc/auth.dart';
 import 'presentation/screens/_routes.dart';
 import 'presentation/screens/navigation_drawer.dart';
@@ -16,7 +15,6 @@ class TabRoute extends StatefulWidget {
 }
 
 class _TabState extends State<TabRoute> {
-  WorkoutPlanRepository workotPlanRepository = WorkoutPlanRepository();
   List<Map<String, Object>>? _pages;
   int _selectedPageIndex = 0;
   late Future<User> user =

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 // deps
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:project/data/models/workoutPlan/workout_plan_response.dart';
 import 'package:project/logic/bloc/workout_plan/workout_plan_bloc.dart';
 import 'package:project/presentation/screens/plan/add_plan.dart';
 
@@ -33,46 +34,64 @@ class _MyPlanState extends State<MyPlan> {
         if (state is WorkoutPlanLoaded) {
           final workoutplans = state.workoutResponse;
           if (workoutplans.plans!.length == 0) {
-            return Center(child: Text("You dont have any plans posted."));
+            return FloatingActionButton.extended(
+              onPressed: () {
+                // ! provide an already existing bloc instance!!!!!
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (ctx) => BlocProvider.value(
+                      value: BlocProvider.of<WorkoutPlanBloc>(context),
+                      child: AddPlan(),
+                    ),
+                  ),
+                );
+              },
+              label: Row(
+                children: [Icon(Icons.add), Text('ADD NEW PLAN')],
+              ),
+            );
           }
-          return Container(
-            margin: EdgeInsets.only(top: 10),
-            padding: EdgeInsets.symmetric(horizontal: 10),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
-                PlanStat(workoutplans.plans!),
-                SizedBox(height: 10),
-                Expanded(
-                  child: ListView.builder(
-                    itemBuilder: (_, index) =>
-                        MyPlanItem(workoutplans.plans![index]),
-                    itemCount: workoutplans.plans!.length,
-                  ),
-                ),
-                FloatingActionButton.extended(
-                  onPressed: () {
-                    // ! provide an already existing bloc instance!!!!!
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (ctx) => BlocProvider.value(
-                          value: BlocProvider.of<WorkoutPlanBloc>(context),
-                          child: AddPlan(),
-                        ),
-                      ),
-                    );
-                  },
-                  label: Row(
-                    children: [Icon(Icons.add), Text('ADD NEW PLAN')],
-                  ),
-                ),
-                SizedBox(height: 10)
-              ],
-            ),
-          );
+          return Body(workoutplans, context);
         }
         return Container();
       },
+    );
+  }
+
+  Container Body(WorkoutPlansResponse workoutplans, BuildContext context) {
+    return Container(
+      margin: EdgeInsets.only(top: 10),
+      padding: EdgeInsets.symmetric(horizontal: 10),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: [
+          PlanStat(workoutplans.plans!),
+          SizedBox(height: 10),
+          Expanded(
+            child: ListView.builder(
+              itemBuilder: (_, index) => MyPlanItem(workoutplans.plans![index]),
+              itemCount: workoutplans.plans!.length,
+            ),
+          ),
+          FloatingActionButton.extended(
+            onPressed: () {
+              // ! provide an already existing bloc instance!!!!!
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (ctx) => BlocProvider.value(
+                    value: BlocProvider.of<WorkoutPlanBloc>(context),
+                    child: AddPlan(),
+                  ),
+                ),
+              );
+            },
+            label: Row(
+              children: [Icon(Icons.add), Text('ADD NEW PLAN')],
+            ),
+          ),
+          SizedBox(height: 10)
+        ],
+      ),
     );
   }
 }

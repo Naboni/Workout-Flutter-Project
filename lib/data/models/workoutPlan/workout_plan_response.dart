@@ -40,17 +40,17 @@ class WorkoutPlansResponse {
 /// __v : 0
 
 class WorkoutPlan {
-  String? dateCreated;
-  List<TargetMuscles>? targetMuscles;
-  List<int>? weekDays;
-  List<Workouts>? workouts;
-  String? id;
-  String? title;
-  String? age;
-  String? imgUrl;
-  String? description;
-  int? difficulty;
-  User? creator;
+  String? dateCreated; // !
+  List<TargetMuscles>? targetMuscles; //
+  List<int>? weekDays; //
+  List<Workouts>? workouts; //
+  String? id; // !
+  String? title; //
+  String? age; //
+  String? imgUrl; // !
+  String? description; //
+  int? difficulty; //
+  User? creator; // !
 
   WorkoutPlan({
     this.dateCreated,

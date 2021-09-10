@@ -26,6 +26,7 @@ class WorkoutPlanBloc extends Bloc<WorkoutPlanEvent, WorkoutPlanState> {
     }
     if (event is AddWorkoutPlan) {
       final workoutPlan = event.workoutPlan;
+      print(workoutPlan);
       // add repo
       // get again
       // yield TrainerWorkoutLoaded(workoutPlans);

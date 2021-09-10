@@ -9,6 +9,7 @@ import 'package:project/data/models/workoutPlan/workout_plan_response.dart';
 import 'package:project/data/repositories/workout_plan_repository.dart';
 import 'package:project/logic/bloc/report/report_bloc.dart';
 import 'package:project/logic/bloc/workout_plan/workout_plan_bloc.dart';
+import 'package:project/presentation/screens/auth/login.dart';
 
 // bloc
 import './logic/bloc/reminder/reminder.dart';
@@ -113,7 +114,9 @@ void main() async {
         BlocProvider(create: (context) => WorkoutBloc()),
         BlocProvider(create: (_) => TimerBloc(ticker: Ticker())),
         BlocProvider(create: (_) => ReportBloc()),
-        BlocProvider(create: (_) => WorkoutPlanBloc(workoutPlanRepository)),
+        BlocProvider(
+            create: (_) =>
+                WorkoutPlanBloc(workoutPlanRepository)..add(GetWorkoutPlan())),
       ],
       child: MyApp(),
     ),
@@ -161,7 +164,7 @@ class _MyAppState extends State<MyApp> {
           }
           if (state is AuthUnauthenticated) {
             //! MAKE THIS TO THE PAGE ROUTE VIEW LATTER
-            return TabRoute();
+            return Login();
             // return Intro();
           }
           if (state is AuthLoading) {

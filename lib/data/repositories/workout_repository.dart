@@ -37,12 +37,12 @@ class WorkoutRepository {
             }
           }
         } else if (exercise.difficulty ==
-            difficulty[stepResult['dificulty'] - 1].toString()) {
+            difficulty[stepResult['difficulty'] - 1].toString()) {
           if (stepResult['targetMuscles'].length == 0) {
             listOfExercises.add(exercise);
           } else {
             if (exercise.difficulty ==
-                difficulty[stepResult['dificulty'] - 1].toString()) {
+                difficulty[stepResult['difficulty'] - 1].toString()) {
               if (stepResult['targetMuscles'].length == 0) {
                 listOfExercises.add(exercise);
               } else {

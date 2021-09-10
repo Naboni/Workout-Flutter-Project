@@ -78,8 +78,11 @@ class StepTwo extends StatelessWidget {
                     });
                     if (_checkForValues())
                       // !!!!!!!!!!!!!!!! step result doesnt hv full items
-                      workoutPlanBloc.add(AddWorkoutPlan(WorkoutPlan.fromJson(
-                          {...stepResult, 'workouts': d})));
+                      workoutPlanBloc.add(AddWorkoutPlan(WorkoutPlan.fromJson({
+                        ...stepResult,
+                        'workouts': d,
+                        'imgUrl': "abcd",
+                      })));
                     else
                       _showSnackBar("Please choose at least one exercise");
                   },
