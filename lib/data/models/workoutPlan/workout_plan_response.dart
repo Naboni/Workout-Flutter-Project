@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:project/data/models/exercise/exercise.dart';
 import 'package:project/data/models/user/user.dart';
 
@@ -87,7 +89,9 @@ class WorkoutPlan {
     imgUrl = json['imgUrl'];
     description = json['description'];
     difficulty = json['difficulty'];
-    creator = json['creator'] != null ? User.fromJson(json['creator']) : null;
+    creator = json['creator'] != null
+        ? User.fromJson(jsonEncode(json['creator']))
+        : null;
   }
 
   Map<String, dynamic> toJson() {

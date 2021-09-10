@@ -8,7 +8,6 @@ import '../boxes.dart';
 
 class WorkoutDataProvider {
   final _box = Boxes.getWorkouts();
-  final _rbox = Boxes.getReport();
 
   Future<void> saveWorkouts() async {
     final String response =
@@ -26,7 +25,6 @@ class WorkoutDataProvider {
   }
 
   Future<void> updateWorkout(int index, Workout workout) async {
-    workout.exercise[index].isDone = true;
     workout.exercise[index].isDone = true;
     workout.save();
   }
