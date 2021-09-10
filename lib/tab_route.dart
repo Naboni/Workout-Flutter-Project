@@ -48,6 +48,12 @@ class _TabState extends State<TabRoute> {
       appBar: AppBar(
         elevation: 0,
         backgroundColor: Colors.white,
+        bottom: PreferredSize(
+            child: Container(
+              color: Colors.grey,
+              height: 0.3,
+            ),
+            preferredSize: Size.fromHeight(1.0)),
         actions: [
           Container(
             padding: EdgeInsets.symmetric(horizontal: 10),
@@ -61,7 +67,15 @@ class _TabState extends State<TabRoute> {
                     style: TextStyle(),
                   ));
                 }
-                return CircularProgressIndicator();
+                return Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Container(
+                    width: MediaQuery.of(context).size.width * 0.1,
+                    child: CircularProgressIndicator(
+                      strokeWidth: 3,
+                    ),
+                  ),
+                );
               },
             ),
           ),

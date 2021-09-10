@@ -44,144 +44,152 @@ class _LoginState extends State<Login> {
       builder: (context, state) {
         return Scaffold(
             body: SingleChildScrollView(
-          child: Container(
-            decoration: BoxDecoration(),
-            child: Column(
-              children: [
-                SizedBox(
-                  height: size.height * 0.12,
-                ),
-                Align(
-                  alignment: Alignment.topCenter,
-                  child: Column(
-                    children: [
-                      Icon(
-                        Icons.login,
-                        color: Colors.blue,
-                        size: 69.0,
-                      ),
-                      SizedBox(
-                        height: size.height * 0.05,
-                      ),
-                      Text(
-                        'Login',
-                        style: GoogleFonts.montserrat(
-                            textStyle: TextStyle(
-                          fontSize: 36,
-                          fontWeight: FontWeight.w400,
-                          color: Colors.blue.shade700,
-                        )),
-                      ),
-                      Column(children: [
-                        state is LoginFaliure
-                            ? authAlert(size, state.error)
-                            : SizedBox(
-                                height: size.height * 0.12,
-                              ),
-                        SizedBox(
-                          height: size.height * 0.025,
+          child: GestureDetector(
+            onTap: () {
+              FocusScope.of(context).unfocus();
+            },
+            child: Container(
+              color: Colors.transparent,
+              // decoration: BoxDecoration(),
+              child: Column(
+                children: [
+                  SizedBox(
+                    height: size.height * 0.12,
+                  ),
+                  Align(
+                    alignment: Alignment.topCenter,
+                    child: Column(
+                      children: [
+                        Icon(
+                          Icons.login,
+                          color: Colors.blue,
+                          size: 69.0,
                         ),
-                      ]),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 40.0, right: 40),
-                        child: Column(children: [
-                          Form(
-                            key: _formKey,
-                            child: Column(
-                              children: [
-                                FormField(
-                                  controller: emailController,
-                                  labelText: 'Email',
-                                  validatorMessage: 'Enter your email',
+                        SizedBox(
+                          height: size.height * 0.05,
+                        ),
+                        Text(
+                          'Login',
+                          style: GoogleFonts.montserrat(
+                              textStyle: TextStyle(
+                            fontSize: 36,
+                            fontWeight: FontWeight.w400,
+                            color: Colors.blue.shade700,
+                          )),
+                        ),
+                        Column(children: [
+                          state is LoginFaliure
+                              ? authAlert(size, state.error)
+                              : SizedBox(
+                                  height: size.height * 0.12,
                                 ),
-                                FormField(
-                                  controller: passwordController,
-                                  labelText: 'Password',
-                                  validatorMessage: 'Enter your password',
-                                ),
-                              ],
-                            ),
+                          SizedBox(
+                            height: size.height * 0.025,
                           ),
                         ]),
-                      ),
-                      SizedBox(
-                        height: size.height * 0.08,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 40.0, right: 40),
-                        child: Row(
-                          children: [
-                            Expanded(
-                              child: ElevatedButton(
-                                style: ElevatedButton.styleFrom(
-                                    shape: new RoundedRectangleBorder(
-                                      borderRadius:
-                                          new BorderRadius.circular(8.0),
-                                    ),
-                                    primary: Colors.blue[400]),
-                                child: Padding(
-                                  padding: const EdgeInsets.all(15.0),
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Text(
-                                        'Login',
-                                      ),
-                                      state is LoginLoading
-                                          ? CircularProgressIndicator(
-                                              color: Colors.white,
-                                            )
-                                          : Container()
-                                    ],
+                        Padding(
+                          padding: const EdgeInsets.only(left: 40.0, right: 40),
+                          child: Column(children: [
+                            Form(
+                              key: _formKey,
+                              child: Column(
+                                children: [
+                                  FormField(
+                                    controller: emailController,
+                                    labelText: 'Email',
+                                    validatorMessage: 'Enter your email',
                                   ),
-                                ),
-                                onPressed: () {
-                                  if (_formKey.currentState!.validate()) {
-                                    _onLoginButtonPressed();
-                                  }
-                                },
+                                  FormField(
+                                    controller: passwordController,
+                                    labelText: 'Password',
+                                    validatorMessage: 'Enter your password',
+                                  ),
+                                ],
                               ),
                             ),
-                          ],
+                          ]),
                         ),
-                      ),
-                      SizedBox(
-                        height: size.height * 0.03,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 40, right: 40),
-                        child: Align(
-                          alignment: Alignment.bottomLeft,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
+                        SizedBox(
+                          height: size.height * 0.08,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 40.0, right: 40),
+                          child: Row(
                             children: [
-                              Text(
-                                'Don\'t have an account yet?',
-                                style: TextStyle(
-                                  color: Colors.black54,
-                                ),
-                              ),
-                              TextButton(
-                                onPressed: () {
-                                  Navigator.of(context).push(MaterialPageRoute(
-                                    builder: (ctx) => Register(),
-                                  ));
-                                },
-                                child: Text(
-                                  'Sign Up',
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.blue[400]),
+                              Expanded(
+                                child: ElevatedButton(
+                                  style: ElevatedButton.styleFrom(
+                                      shape: new RoundedRectangleBorder(
+                                        borderRadius:
+                                            new BorderRadius.circular(8.0),
+                                      ),
+                                      primary: Colors.blue[400]),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(15.0),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Text(
+                                          'Login',
+                                        ),
+                                        state is LoginLoading
+                                            ? CircularProgressIndicator(
+                                                color: Colors.white,
+                                              )
+                                            : Container()
+                                      ],
+                                    ),
+                                  ),
+                                  onPressed: () {
+                                    if (_formKey.currentState!.validate()) {
+                                      _onLoginButtonPressed();
+                                    }
+                                  },
                                 ),
                               ),
                             ],
                           ),
                         ),
-                      )
-                    ],
+                        SizedBox(
+                          height: size.height * 0.03,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 40, right: 40),
+                          child: Align(
+                            alignment: Alignment.bottomLeft,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'Don\'t have an account yet?',
+                                  style: TextStyle(
+                                    color: Colors.black54,
+                                  ),
+                                ),
+                                TextButton(
+                                  onPressed: () {
+                                    Navigator.of(context)
+                                        .push(MaterialPageRoute(
+                                      builder: (ctx) => Register(),
+                                    ));
+                                  },
+                                  child: Text(
+                                    'Sign Up',
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.blue[400]),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ));

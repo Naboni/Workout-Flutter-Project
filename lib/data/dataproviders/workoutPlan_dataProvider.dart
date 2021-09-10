@@ -256,7 +256,7 @@ class WorkoutPlanDataProvider {
   }
 
   //[GET] //GET plans favored by trainee
-  Future<Map<String, dynamic>> getFavoredPlan() async {
+  Future<Map<String, dynamic>> getFavoredPlans() async {
     String? user = await _storage.read(key: "user");
     if (user == null) {
       print("Secure storage is empty");
@@ -274,14 +274,13 @@ class WorkoutPlanDataProvider {
       return {
         "body": jsonEncode(responseBody),
         "status": response.statusCode.toString(),
-        "message": responseBody["message"]
       };
     } on DioError catch (e) {
       return {
         "status": e.response!.statusCode.toString(),
-        "message": e.response!.data["message"]
       };
     } catch (e) {
+      print(e);
       return {"status": "404", "message": "Wrong URL or sth"};
     }
   }

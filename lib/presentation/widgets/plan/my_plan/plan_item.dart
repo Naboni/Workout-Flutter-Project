@@ -78,10 +78,33 @@ class MyPlanItem extends StatelessWidget {
               ),
               Row(
                 children: [
-                  Text('Exercise days:  '),
                   ...workoutPlan.weekDays!
-                      .map((e) => Text('${stringDays[e]}   '))
+                      .map((e) => Container(
+                            margin: EdgeInsets.only(right: 5),
+                            width: 25,
+                            height: 25,
+                            padding: EdgeInsets.all(5),
+                            decoration: BoxDecoration(
+                                color: Colors.amber,
+                                borderRadius: BorderRadius.circular(100)),
+                            child: Center(
+                              child: Text('${stringDays[e].substring(0, 1)}'),
+                            ),
+                          ))
                       .toList(),
+                  Spacer(),
+                  Container(
+                    padding: EdgeInsets.symmetric(vertical: 3, horizontal: 9),
+                    child: Row(
+                      children: [
+                        Icon(Icons.check_circle,
+                            color: workoutPlan.creator!.verified!
+                                ? Colors.green
+                                : Colors.grey),
+                        Text('${workoutPlan.creator!.firstName!}'),
+                      ],
+                    ),
+                  )
                 ],
               ),
             ],

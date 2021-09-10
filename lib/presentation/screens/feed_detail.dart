@@ -22,7 +22,7 @@ class FeedDetail extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           FeedDetailHeader(workoutPlan.imgUrl!, workoutPlan.title!,
-              workoutPlan.description!),
+              workoutPlan.description!, workoutPlan.creator!.firstName!),
           SizedBox(height: 10),
           Container(
             padding: EdgeInsets.symmetric(horizontal: 10),

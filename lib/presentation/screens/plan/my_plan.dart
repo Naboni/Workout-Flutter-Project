@@ -22,7 +22,7 @@ class _MyPlanState extends State<MyPlan> {
   @override
   void initState() {
     // TODO: implement initState
-    context.read<WorkoutPlanBloc>()..add(GetWorkoutPlan());
+    context.read<WorkoutPlanBloc>()..add(GetWorkoutPlanByTrainer());
     super.initState();
   }
 

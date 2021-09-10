@@ -23,6 +23,14 @@ class WorkoutPlanBloc extends Bloc<WorkoutPlanEvent, WorkoutPlanState> {
           await workotPlanRepository.getWorkoutPlans();
       yield WorkoutPlanLoaded(workoutResponse);
     }
+
+    if (event is GetWorkoutPlanByTrainer) {
+      yield WorkoutPlanInitial();
+      final WorkoutPlansResponse workoutResponse =
+          await workotPlanRepository.getWorkoutPlansByTrainer();
+      yield WorkoutPlanLoaded(workoutResponse);
+    }
+
     if (event is AddWorkoutPlan) {
       final workoutPlan = event.workoutPlan;
       yield WorkoutPlanAdding();
@@ -33,7 +41,7 @@ class WorkoutPlanBloc extends Bloc<WorkoutPlanEvent, WorkoutPlanState> {
       } else {
         yield WorkoutPlanAddingSucceded();
         final WorkoutPlansResponse workoutResponse =
-            await workotPlanRepository.getWorkoutPlans();
+            await workotPlanRepository.getWorkoutPlansByTrainer();
         yield WorkoutPlanLoaded(workoutResponse);
       }
     }

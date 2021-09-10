@@ -4,7 +4,9 @@ class FeedDetailHeader extends StatelessWidget {
   final String imgUrl;
   final String title;
   final String description;
-  const FeedDetailHeader(this.imgUrl, this.title, this.description, {Key? key})
+  final String name;
+  const FeedDetailHeader(this.imgUrl, this.title, this.description, this.name,
+      {Key? key})
       : super(key: key);
 
   @override
@@ -20,10 +22,23 @@ class FeedDetailHeader extends StatelessWidget {
                 Container(
                   decoration: BoxDecoration(
                     image: DecorationImage(
-                      image: AssetImage('assets/images/course1.jpg'),
+                      image: AssetImage(imgUrl),
                       fit: BoxFit.cover,
                     ),
                   ),
+                ),
+                Align(
+                  child: Container(
+                    padding: EdgeInsets.symmetric(horizontal: 15, vertical: 30),
+                    child: Text(
+                      'By: $name',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 15,
+                      ),
+                    ),
+                  ),
+                  alignment: Alignment.topRight,
                 ),
                 Align(
                   alignment: Alignment.bottomLeft,

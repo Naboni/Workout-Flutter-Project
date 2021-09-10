@@ -81,7 +81,6 @@ class StepTwo extends StatelessWidget {
                       workoutPlanBloc.add(AddWorkoutPlan(WorkoutPlan.fromJson({
                         ...stepResult,
                         'workouts': d,
-                        'imgUrl': "abcd",
                       })));
                     else
                       _showSnackBar("Please choose at least one exercise");
