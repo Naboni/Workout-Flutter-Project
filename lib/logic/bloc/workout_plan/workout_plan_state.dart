@@ -14,4 +14,10 @@ class WorkoutPlanLoaded extends WorkoutPlanState {
   WorkoutPlanLoaded(this.workoutResponse);
 }
 
+class WorkoutPlanAdding extends WorkoutPlanState {}
+
+class WorkoutPlanAddingSucceded extends WorkoutPlanState {}
+
+class WorkoutPlanAddingFailed extends WorkoutPlanState {}
+
 class WorkoutPlanFailed extends WorkoutPlanState {}

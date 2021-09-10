@@ -86,8 +86,26 @@ class StepTwo extends StatelessWidget {
                     else
                       _showSnackBar("Please choose at least one exercise");
                   },
-                  child: Container(
-                      height: 50, child: Center(child: Text("Finish"))),
+                  child: BlocConsumer<WorkoutPlanBloc, WorkoutPlanState>(
+                    listener: (context, state) {
+                      if (state is WorkoutPlanAddingSucceded) {
+                        Navigator.of(context).pop();
+                        _showSnackBar("Successfully added a new plan.");
+                      }
+                      if (state is WorkoutPlanAddingFailed) {
+                        _showSnackBar("Something went wrong");
+                      }
+                    },
+                    builder: (context, state) {
+                      if (state is WorkoutPlanAdding) {
+                        return Container(
+                            height: 50,
+                            child: Center(child: Text("Loading...")));
+                      }
+                      return Container(
+                          height: 50, child: Center(child: Text("Finish")));
+                    },
+                  ),
                 ),
                 SizedBox(height: 10),
               ],

@@ -8,10 +8,11 @@ class PlanStat extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 100,
+      height: 50,
       width: double.infinity,
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        // mainAxisAlignment: MainAxisAlignment.spaceAround,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Column(
             children: [
@@ -19,7 +20,7 @@ class PlanStat extends StatelessWidget {
                 workouts.length.toString(),
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
               ),
-              Text("WORKOUT"),
+              Text("WORKOUTS"),
             ],
           ),
         ],

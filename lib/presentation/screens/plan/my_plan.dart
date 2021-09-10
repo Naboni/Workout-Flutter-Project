@@ -20,6 +20,13 @@ class MyPlan extends StatefulWidget {
 
 class _MyPlanState extends State<MyPlan> {
   @override
+  void initState() {
+    // TODO: implement initState
+    context.read<WorkoutPlanBloc>()..add(GetWorkoutPlan());
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return BlocBuilder<WorkoutPlanBloc, WorkoutPlanState>(
       builder: (context, state) {
@@ -33,8 +40,31 @@ class _MyPlanState extends State<MyPlan> {
         }
         if (state is WorkoutPlanLoaded) {
           final workoutplans = state.workoutResponse;
-          if (workoutplans.plans!.length == 0) {
-            return FloatingActionButton.extended(
+          return Body(workoutplans, context);
+        }
+        return Container();
+      },
+    );
+  }
+
+  Container Body(WorkoutPlansResponse workoutplans, BuildContext context) {
+    return Container(
+      margin: EdgeInsets.only(top: 10),
+      padding: EdgeInsets.symmetric(horizontal: 10),
+      child: Stack(
+        children: [
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              PlanStat(workoutplans.plans!),
+              SizedBox(height: 10),
+              ValueBasedBody(workoutplans),
+            ],
+          ),
+          Positioned(
+            bottom: 5,
+            right: 3,
+            child: FloatingActionButton.extended(
               onPressed: () {
                 // ! provide an already existing bloc instance!!!!!
                 Navigator.of(context).push(
@@ -49,49 +79,21 @@ class _MyPlanState extends State<MyPlan> {
               label: Row(
                 children: [Icon(Icons.add), Text('ADD NEW PLAN')],
               ),
-            );
-          }
-          return Body(workoutplans, context);
-        }
-        return Container();
-      },
+            ),
+          )
+        ],
+      ),
     );
   }
 
-  Container Body(WorkoutPlansResponse workoutplans, BuildContext context) {
-    return Container(
-      margin: EdgeInsets.only(top: 10),
-      padding: EdgeInsets.symmetric(horizontal: 10),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.end,
-        children: [
-          PlanStat(workoutplans.plans!),
-          SizedBox(height: 10),
-          Expanded(
+  Widget ValueBasedBody(WorkoutPlansResponse workoutplans) {
+    return workoutplans.plans!.length > 0
+        ? Expanded(
             child: ListView.builder(
               itemBuilder: (_, index) => MyPlanItem(workoutplans.plans![index]),
               itemCount: workoutplans.plans!.length,
             ),
-          ),
-          FloatingActionButton.extended(
-            onPressed: () {
-              // ! provide an already existing bloc instance!!!!!
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (ctx) => BlocProvider.value(
-                    value: BlocProvider.of<WorkoutPlanBloc>(context),
-                    child: AddPlan(),
-                  ),
-                ),
-              );
-            },
-            label: Row(
-              children: [Icon(Icons.add), Text('ADD NEW PLAN')],
-            ),
-          ),
-          SizedBox(height: 10)
-        ],
-      ),
-    );
+          )
+        : Center(child: Text("No plans posted yet"));
   }
 }

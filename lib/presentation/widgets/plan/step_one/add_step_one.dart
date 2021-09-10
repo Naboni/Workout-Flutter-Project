@@ -15,8 +15,6 @@ class StepOne extends StatefulWidget {
   _StepOneState createState() => _StepOneState();
 }
 
-// ! EXtract titles
-
 class _StepOneState extends State<StepOne> {
   void _showSnackBar(String value) {
     ScaffoldMessenger.of(context).hideCurrentSnackBar();
