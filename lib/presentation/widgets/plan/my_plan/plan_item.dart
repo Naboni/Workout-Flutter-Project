@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:project/constants/data.dart';
 import 'package:project/data/models/workoutPlan/workout_plan_response.dart';
+import 'package:project/logic/bloc/workout_plan/workout_plan_bloc.dart';
 import 'package:project/presentation/screens/feed_detail.dart';
 
 class MyPlanItem extends StatelessWidget {
@@ -9,8 +11,17 @@ class MyPlanItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    void _showSnackBar(String value) {
+      ScaffoldMessenger.of(context).hideCurrentSnackBar();
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text(value)));
+    }
+
     return Card(
       child: InkWell(
+        onLongPress: () {
+          _showDetails(context, workoutPlan.id!);
+        },
         onTap: () {
           Navigator.of(context)
               .pushNamed(FeedDetail.routeName, arguments: workoutPlan);
@@ -113,4 +124,62 @@ class MyPlanItem extends StatelessWidget {
       ),
     );
   }
+}
+
+void _showDetails(BuildContext context, String workoutPlanId) {
+  void _showSnackBar(String value) {
+    ScaffoldMessenger.of(context).hideCurrentSnackBar();
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(value)));
+  }
+
+  showDialog(
+    context: context,
+    builder: (BuildContext context) =>
+        BlocConsumer<WorkoutPlanBloc, WorkoutPlanState>(
+      listener: (context, state) {
+        // TODO: implement listener
+        if (state is WorkoutPlanDeleteSucceded) {
+          _showSnackBar("Deleted");
+        }
+        if (state is WorkoutPlanDeleteFailed) {
+          _showSnackBar("Something went wrong");
+        }
+      },
+      builder: (context, state) {
+        Text? mssg;
+        if (state is WorkoutPlanDelete) {
+          mssg = Text("Deleting plan...");
+        } else {
+          mssg = Text("Are you sure you want to delete this plan?");
+        }
+        return AlertDialog(
+          content: Container(child: mssg),
+          actions: [
+            TextButton(
+              onPressed: () {
+                BlocProvider.of<WorkoutPlanBloc>(context)
+                    .add(DeleteWorkoutPlan(workoutPlanId));
+                Navigator.of(context).pop();
+              },
+              child: Text(
+                'YES',
+                style: TextStyle(
+                  fontSize: 16,
+                ),
+              ),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Text(
+                'NO',
+                style: TextStyle(fontSize: 16),
+              ),
+            ),
+          ],
+        );
+      },
+    ),
+  );
 }

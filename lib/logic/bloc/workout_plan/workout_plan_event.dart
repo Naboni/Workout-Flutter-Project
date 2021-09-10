@@ -20,3 +20,13 @@ class DeleteWorkoutPlan extends WorkoutPlanEvent {
   final String planId;
   DeleteWorkoutPlan(this.planId);
 }
+
+class FavorWorkoutPlan extends WorkoutPlanEvent {
+  final String planId;
+  FavorWorkoutPlan(this.planId);
+}
+
+class SearchPlan extends WorkoutPlanEvent {
+  final String title;
+  SearchPlan(this.title);
+}

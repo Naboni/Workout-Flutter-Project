@@ -11,7 +11,6 @@ import '../../widgets/plan/my_plan/plan_item.dart';
 //bloc
 
 class MyPlan extends StatefulWidget {
-  // const FeedPage({Key? key}) : super(key: key);
   static const routeName = "/myplan";
 
   @override

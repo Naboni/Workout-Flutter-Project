@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:project/data/models/user/user.dart';
 
 class FeedDetailHeader extends StatelessWidget {
   final String imgUrl;
   final String title;
   final String description;
-  final String name;
-  const FeedDetailHeader(this.imgUrl, this.title, this.description, this.name,
+  final User creator;
+  const FeedDetailHeader(
+      this.imgUrl, this.title, this.description, this.creator,
       {Key? key})
       : super(key: key);
 
@@ -28,14 +30,20 @@ class FeedDetailHeader extends StatelessWidget {
                   ),
                 ),
                 Align(
-                  child: Container(
-                    padding: EdgeInsets.symmetric(horizontal: 15, vertical: 30),
-                    child: Text(
-                      'By: $name',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 15,
-                      ),
+                  child: InkWell(
+                    onTap: () {},
+                    child: Container(
+                      height: 50,
+                      width: 50,
+                      margin:
+                          EdgeInsets.symmetric(horizontal: 15, vertical: 40),
+                      decoration: BoxDecoration(
+                          color: Colors.amber,
+                          image: DecorationImage(
+                            image: AssetImage('creator.profileImage!'),
+                            fit: BoxFit.cover,
+                          ),
+                          borderRadius: BorderRadius.circular(100)),
                     ),
                   ),
                   alignment: Alignment.topRight,

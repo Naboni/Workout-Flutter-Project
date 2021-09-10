@@ -45,11 +45,46 @@ class WorkoutPlanBloc extends Bloc<WorkoutPlanEvent, WorkoutPlanState> {
         yield WorkoutPlanLoaded(workoutResponse);
       }
     }
+
     if (event is DeleteWorkoutPlan) {
+      yield WorkoutPlanDelete();
       final workoutPlanId = event.planId;
-      // add repo
-      // get again
-      // yield TrainerWorkoutLoaded(workoutPlans);
+      final bool workoutRes =
+          await workotPlanRepository.deleteWorkoutPlan(workoutPlanId);
+      if (!workoutRes) {
+        yield WorkoutPlanDeleteFailed();
+      } else {
+        yield WorkoutPlanDeleteSucceded();
+      }
+      yield WorkoutPlanInitial();
+      final WorkoutPlansResponse workoutResponse =
+          await workotPlanRepository.getWorkoutPlansByTrainer();
+      yield WorkoutPlanLoaded(workoutResponse);
+    }
+
+    if (event is FavorWorkoutPlan) {
+      yield WorkoutPlanFavoring();
+      final workoutPlanId = event.planId;
+      final bool workoutResponse =
+          await workotPlanRepository.favorWorkoutPlan(workoutPlanId);
+      if (!workoutResponse) {
+        yield WorkoutPlanFavoringFailed();
+      } else {
+        yield WorkoutPlanFavoringSucceded();
+      }
+    }
+
+    // search
+    if (event is SearchPlan) {
+      yield WorkoutPlanSearching();
+      final title = event.title;
+      final WorkoutPlansResponse workoutResponse =
+          await workotPlanRepository.searchWorkoutPlans(title);
+      if (workoutResponse.plans!.length == 0) {
+        yield WorkoutPlanSearchingFailed();
+      } else {
+        yield WorkoutPlanLoaded(workoutResponse);
+      }
     }
   }
 }
