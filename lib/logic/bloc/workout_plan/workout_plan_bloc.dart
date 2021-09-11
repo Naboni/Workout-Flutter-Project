@@ -35,7 +35,10 @@ class WorkoutPlanBloc extends Bloc<WorkoutPlanEvent, WorkoutPlanState> {
       yield WorkoutPlanInitial();
       final List<WorkoutPlan>? workoutResponse =
           await workotPlanRepository.getFavoredPlans();
-      yield WorkoutPlansLoaded(workoutResponse!);
+      if (workoutResponse == null)
+        yield WorkoutPlansLoaded([]);
+      else
+        yield WorkoutPlansLoaded(workoutResponse);
     }
 
     if (event is AddWorkoutPlan) {
@@ -75,9 +78,9 @@ class WorkoutPlanBloc extends Bloc<WorkoutPlanEvent, WorkoutPlanState> {
       final bool workoutRes =
           await workotPlanRepository.favorWorkoutPlan(workoutPlanId);
       if (!workoutRes) {
-        yield WorkoutPlanFavoringFailed();
+        yield WorkoutPlanFavoringFailed("Something went wrong");
       } else {
-        yield WorkoutPlanFavoringSucceded();
+        yield WorkoutPlanFavoringSucceded("Added to favorites");
       }
       final WorkoutPlansResponse? workoutResponse =
           await workotPlanRepository.getWorkoutPlans();
@@ -90,9 +93,9 @@ class WorkoutPlanBloc extends Bloc<WorkoutPlanEvent, WorkoutPlanState> {
       final bool workoutRes =
           await workotPlanRepository.unfavorWorkoutPlan(workoutPlanId);
       if (!workoutRes) {
-        yield WorkoutPlanFavoringFailed();
+        yield WorkoutPlanFavoringFailed("Something went wrong");
       } else {
-        yield WorkoutPlanFavoringSucceded();
+        yield WorkoutPlanFavoringSucceded("Removed from favorites");
       }
       final WorkoutPlansResponse? workoutResponse =
           await workotPlanRepository.getWorkoutPlans();

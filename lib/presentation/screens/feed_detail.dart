@@ -126,11 +126,11 @@ void _showDetails(BuildContext context, String workoutPlan,
           listener: (context, state) {
             // TODO: implement listener
             if (state is WorkoutPlanFavoringSucceded) {
-              return _showSnackBar("Added to favourites");
+              return _showSnackBar(state.mssg);
               // ! navigate to fav
             }
             if (state is WorkoutPlanFavoringFailed) {
-              return _showSnackBar("Something went wrong");
+              return _showSnackBar(state.mssg);
             }
           },
           builder: (context, state) {
