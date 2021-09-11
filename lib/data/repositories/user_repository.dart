@@ -67,7 +67,7 @@ class UserRepositories {
   }
 
   Future<bool>? deleteAccount() async {
-    // var res = await authDataProvider.deleteUser();
+    var res = await authDataProvider.deleteUser();
     await _storage.delete(key: "user");
     await _storage.deleteAll();
     return true;

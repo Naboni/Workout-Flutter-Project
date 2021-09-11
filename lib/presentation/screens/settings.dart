@@ -18,7 +18,8 @@ class Settings extends StatefulWidget {
 
 class _SettingsState extends State<Settings> {
   void deleteAccountPressed() {
-    BlocProvider.of<AuthBloc>(context).add(LoggedOut());
+    BlocProvider.of<AuthBloc>(context).add(DeleteAccount());
+    Navigator.of(context).popUntil((route) => route.isFirst);
   }
 
   @override
