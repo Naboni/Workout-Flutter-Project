@@ -10,8 +10,10 @@ part 'report_event.dart';
 part 'report_state.dart';
 
 class ReportBloc extends Bloc<ReportEvent, ReportState> {
-  ReportBloc() : super(ReportInitial());
-  final reportRepository = ReportRepository();
+  final ReportRepository reportRepository;
+
+  ReportBloc(this.reportRepository) : super(ReportInitial());
+
   @override
   Stream<ReportState> mapEventToState(
     ReportEvent event,
@@ -19,7 +21,7 @@ class ReportBloc extends Bloc<ReportEvent, ReportState> {
     if (event is GetReport) {
       yield ReportInitial();
       final report = await reportRepository.getReport();
-      yield Repor(report);
+      yield Repor(report!);
     }
     if (event is SaveReport) {
       final index = event.index;

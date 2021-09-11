@@ -9,7 +9,7 @@ class ReminderRepository {
     await reminderDataProvider.saveReminder(reminder);
   }
 
-  Future<List<Reminder>> getReminders() async {
+  Future<List<Reminder>>? getReminders() async {
     return await reminderDataProvider.getReminders();
   }
 

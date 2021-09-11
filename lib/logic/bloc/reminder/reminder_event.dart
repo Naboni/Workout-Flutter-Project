@@ -1,6 +1,11 @@
-import '../../../data/models/reminder/reminder.dart';
+part of 'reminder_bloc.dart';
 
-abstract class ReminderEvent {}
+abstract class ReminderEvent extends Equatable {
+  const ReminderEvent();
+
+  @override
+  List<Object> get props => [];
+}
 
 class AddReminder extends ReminderEvent {
   final Reminder reminder;
