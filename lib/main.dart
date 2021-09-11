@@ -15,6 +15,7 @@ import 'package:project/presentation/screens/auth/login.dart';
 import './logic/bloc/reminder/reminder.dart';
 import './logic/bloc/workout/workout.dart';
 import 'data/models/report/report.dart';
+import 'data/repositories/report_repository.dart';
 import 'logic/bloc/ticker/timer_bloc.dart';
 import 'logic/bloc/ticker/ticker.dart';
 
@@ -97,6 +98,7 @@ void main() async {
 
   // ! repository initialization
   final ReminderRepository reminderRepository = ReminderRepository();
+  final ReportRepository reportRepository = ReportRepository();
   final WorkoutPlanRepository workoutPlanRepository = WorkoutPlanRepository();
   runApp(RepositoryProvider(
     create: (context) => UserRepositories(),
@@ -113,7 +115,7 @@ void main() async {
         ),
         BlocProvider(create: (context) => WorkoutBloc()),
         BlocProvider(create: (_) => TimerBloc(ticker: Ticker())),
-        BlocProvider(create: (_) => ReportBloc()),
+        BlocProvider(create: (_) => ReportBloc(reportRepository)),
         BlocProvider(create: (_) => WorkoutPlanBloc(workoutPlanRepository)),
       ],
       child: MyApp(),
