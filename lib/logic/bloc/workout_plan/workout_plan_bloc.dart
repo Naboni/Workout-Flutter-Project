@@ -19,16 +19,16 @@ class WorkoutPlanBloc extends Bloc<WorkoutPlanEvent, WorkoutPlanState> {
     // TODO: implement mapEventToState
     if (event is GetWorkoutPlan) {
       yield WorkoutPlanInitial();
-      final WorkoutPlansResponse workoutResponse =
+      final WorkoutPlansResponse? workoutResponse =
           await workotPlanRepository.getWorkoutPlans();
-      yield WorkoutPlanLoaded(workoutResponse);
+      yield WorkoutPlanLoaded(workoutResponse!);
     }
 
     if (event is GetWorkoutPlanByTrainer) {
       yield WorkoutPlanInitial();
-      final WorkoutPlansResponse workoutResponse =
+      final WorkoutPlansResponse? workoutResponse =
           await workotPlanRepository.getWorkoutPlansByTrainer();
-      yield WorkoutPlanLoaded(workoutResponse);
+      yield WorkoutPlanLoaded(workoutResponse!);
     }
 
     if (event is AddWorkoutPlan) {
@@ -40,9 +40,9 @@ class WorkoutPlanBloc extends Bloc<WorkoutPlanEvent, WorkoutPlanState> {
         yield WorkoutPlanAddingFailed();
       } else {
         yield WorkoutPlanAddingSucceded();
-        final WorkoutPlansResponse workoutResponse =
+        final WorkoutPlansResponse? workoutResponse =
             await workotPlanRepository.getWorkoutPlansByTrainer();
-        yield WorkoutPlanLoaded(workoutResponse);
+        yield WorkoutPlanLoaded(workoutResponse!);
       }
     }
 
@@ -57,9 +57,9 @@ class WorkoutPlanBloc extends Bloc<WorkoutPlanEvent, WorkoutPlanState> {
         yield WorkoutPlanDeleteSucceded();
       }
       yield WorkoutPlanInitial();
-      final WorkoutPlansResponse workoutResponse =
+      final WorkoutPlansResponse? workoutResponse =
           await workotPlanRepository.getWorkoutPlansByTrainer();
-      yield WorkoutPlanLoaded(workoutResponse);
+      yield WorkoutPlanLoaded(workoutResponse!);
     }
 
     if (event is FavorWorkoutPlan) {

@@ -20,31 +20,9 @@ void main() {
         ..time = '2'
         ..days = [1, 2]
     ];
-    // final report = Report()
-    //   ..duration = 20
-    //   ..point = 20
-    //   ..execiseName = 'Exercisess'
-    //   ..dateCreated = DateTime.now().toString();
-    // List<Exercise> exercise = [
-    //   Exercise()
-    //     ..id = "0"
-    //     ..name = "PLANK EXERCISE"
-    //     ..duration = "20"
-    //     ..lottieUrl = "assets/anim/workouts/abs/plank-excercise.json"
-    //     ..category = "abs"
-    //     ..description =
-    //         "The plank is an isometric core strength exercise that involves maintaining a position similar to a push-up for the maximum possible time."
-    //     ..difficulty = "hard"
-    //     ..isDone = false
-    // ];
-    // final workout = Workout()
-    //   ..id = "0"
-    //   ..name = "ABS"
-    //   ..imgUrl = "assets/images/asd.jpg"
-    //   ..exercise = exercise;
 
     blocTest<ReminderBloc, ReminderState>(
-      'emits [ReportInitial, Repor(report)] when successful',
+      'emits [ReminderInitial, ReminderLoaded(reminders)] when successful',
       build: () {
         // when(mockReminderRepository.addReport(1, workout))
         //     .thenAnswer((_) async => reports.add(report));
