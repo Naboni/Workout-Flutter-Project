@@ -40,9 +40,17 @@ Future<void> pain() async{
   // Bloc.observer = MyBlocObserver();
 }
 void main() {
+  Widget makeTestableWidget({required Widget child}) {
+    return MaterialApp(
+      home: child,
+    );
+  }
+
   testWidgets('Search', (WidgetTester tester) async {
     final addField = find.byKey(ValueKey('searchField'));
     await tester.pumpWidget(Feeds());
+
+    await tester.pumpWidget(makeTestableWidget(child: Feeds()));
     await tester.enterText(addField, 'Simple');
     await tester.tap(addField);
     await tester.pump(); //rebuilds Widget
@@ -53,6 +61,14 @@ void main() {
       (WidgetTester tester) async {
     await tester.runAsync(() => pain());
     await tester.pumpWidget(MyApp());
+    await tester.pumpWidget(makeTestableWidget(child: MyApp()));
+
+    expect(find.byType(MaterialApp), findsOneWidget);
+  });
+
+  testWidgets('Simple test',
+      (WidgetTester tester) async {
+    await tester.pumpWidget(makeTestableWidget(child: MyApp()));
 
     expect(find.byType(MaterialApp), findsOneWidget);
   });
