@@ -86,7 +86,7 @@ class _MyPlanState extends State<MyPlan> {
   }
 
   Widget ValueBasedBody(WorkoutPlansResponse workoutplans) {
-    var x = workoutplans.plans![0];
+    var x = workoutplans.plans!;
     return workoutplans.plans!.length > 0
         ? Expanded(
             child: ListView.builder(

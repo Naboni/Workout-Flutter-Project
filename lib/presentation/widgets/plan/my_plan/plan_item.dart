@@ -52,7 +52,7 @@ class MyPlanItem extends StatelessWidget {
                     child: Text(
                       workoutPlan.difficulty! == -1
                           ? "All"
-                          : difficulty[workoutPlan.difficulty!],
+                          : difficulty[workoutPlan.difficulty! - 1],
                       style: TextStyle(color: Colors.white),
                     ),
                   )

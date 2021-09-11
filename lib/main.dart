@@ -111,8 +111,8 @@ class _MyAppState extends State<MyApp> {
   final appRouter = AppRouter();
 
   // ! repository initialization
-  final ReminderRepository reminderRepository = ReminderRepository();
   final WorkoutRepository workoutRepository = WorkoutRepository();
+  final ReminderRepository reminderRepository = ReminderRepository();
   final ReportRepository reportRepository = ReportRepository();
   final UserRepositories userRepository = UserRepositories();
   final WorkoutPlanRepository workoutPlanRepository = WorkoutPlanRepository();
@@ -132,7 +132,7 @@ class _MyAppState extends State<MyApp> {
   @override
   void dispose() {
     // ! close hive box...not sure where to dispose
-    Hive.box("reminders").close();
+    // Hive.box("reminders").close();
     Hive.box("workouts").close();
     Hive.box("report").close();
     super.dispose();
