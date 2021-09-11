@@ -12,7 +12,7 @@ export 'plan/exercise_wrapper.dart';
 export 'plan/my_plan.dart';
 export 'profile.dart';
 export 'training.dart';
-export './set_goal.dart';
+export './favorites.dart';
 // / auth
 export './exercise_type.dart';
 export './feed_detail.dart';

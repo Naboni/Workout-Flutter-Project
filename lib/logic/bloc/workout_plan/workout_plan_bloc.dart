@@ -31,6 +31,13 @@ class WorkoutPlanBloc extends Bloc<WorkoutPlanEvent, WorkoutPlanState> {
       yield WorkoutPlanLoaded(workoutResponse);
     }
 
+    if (event is GetWorkoutPlanByTrainee) {
+      yield WorkoutPlanInitial();
+      final List<WorkoutPlan>? workoutResponse =
+          await workotPlanRepository.getFavoredPlans();
+      yield WorkoutPlansLoaded(workoutResponse!);
+    }
+
     if (event is AddWorkoutPlan) {
       final workoutPlan = event.workoutPlan;
       yield WorkoutPlanAdding();
@@ -65,13 +72,31 @@ class WorkoutPlanBloc extends Bloc<WorkoutPlanEvent, WorkoutPlanState> {
     if (event is FavorWorkoutPlan) {
       yield WorkoutPlanFavoring();
       final workoutPlanId = event.planId;
-      final bool workoutResponse =
+      final bool workoutRes =
           await workotPlanRepository.favorWorkoutPlan(workoutPlanId);
-      if (!workoutResponse) {
+      if (!workoutRes) {
         yield WorkoutPlanFavoringFailed();
       } else {
         yield WorkoutPlanFavoringSucceded();
       }
+      final WorkoutPlansResponse workoutResponse =
+          await workotPlanRepository.getWorkoutPlans();
+      yield WorkoutPlanLoaded(workoutResponse);
+    }
+
+    if (event is UnfavorWorkoutPlan) {
+      yield WorkoutPlanFavoring();
+      final workoutPlanId = event.planId;
+      final bool workoutRes =
+          await workotPlanRepository.unfavorWorkoutPlan(workoutPlanId);
+      if (!workoutRes) {
+        yield WorkoutPlanFavoringFailed();
+      } else {
+        yield WorkoutPlanFavoringSucceded();
+      }
+      final WorkoutPlansResponse workoutResponse =
+          await workotPlanRepository.getWorkoutPlans();
+      yield WorkoutPlanLoaded(workoutResponse);
     }
 
     // search

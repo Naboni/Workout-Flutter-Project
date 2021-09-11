@@ -36,11 +36,12 @@ class FeedDetailHeader extends StatelessWidget {
                       height: 50,
                       width: 50,
                       margin:
-                          EdgeInsets.symmetric(horizontal: 15, vertical: 40),
+                          EdgeInsets.symmetric(horizontal: 10, vertical: 30),
                       decoration: BoxDecoration(
                           color: Colors.amber,
                           image: DecorationImage(
-                            image: NetworkImage('${creator.profileImage!}'),
+                            image: NetworkImage(
+                                'http://192.168.137.1:3000/api/images/${creator.profileImage!}'),
                             fit: BoxFit.cover,
                           ),
                           borderRadius: BorderRadius.circular(100)),
