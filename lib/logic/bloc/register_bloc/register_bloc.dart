@@ -17,6 +17,7 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
       try {
         print(event.email);
         final user = await userRepositories.SignUp(
+          bio: event.bio,
             role: event.role,
             email: event.email,
             firstName: event.firstName,

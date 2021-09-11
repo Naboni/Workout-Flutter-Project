@@ -50,6 +50,7 @@ dependencies:
   path: ^1.8.0
   bloc_test: ^8.1.0
   mockito: ^5.0.15
+  dotted_border: ^2.0.0+1
 
 dev_dependencies:
   flutter_test:
