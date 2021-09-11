@@ -20,9 +20,11 @@ void main() {
         ..time = '2'
         ..days = [1, 2]
     ];
-
+    final reminder = Reminder()
+      ..time = '2'
+      ..days = [1, 2];
     blocTest<ReminderBloc, ReminderState>(
-      'emits [ReminderInitial, ReminderLoaded(reminders)] when successful',
+      'emits [ReminderInitial, ReminderLoaded(reminders)] when GetReminer is successful',
       build: () {
         when(mockReminderRepository.getReminders())
             .thenAnswer((_) async => reminders);
@@ -33,6 +35,39 @@ void main() {
       },
       expect: () => [
         ReminderInitial(),
+        ReminderLoaded(reminders),
+      ],
+    );
+    blocTest<ReminderBloc, ReminderState>(
+      'emits [ReminderLoaded(reminders)] when AddReminer is successful',
+      build: () {
+        when(mockReminderRepository.saveReminder(reminder))
+            .thenAnswer((_) async => Future.value());
+        when(mockReminderRepository.getReminders())
+            .thenAnswer((_) async => reminders);
+        return ReminderBloc(mockReminderRepository);
+      },
+      act: (bloc) {
+        bloc.add(AddReminder(reminder));
+      },
+      expect: () => [
+        ReminderLoaded(reminders),
+      ],
+    );
+
+    blocTest<ReminderBloc, ReminderState>(
+      'emits [ReminderLoaded(reminders)] when DeleteReminer is successful',
+      build: () {
+        when(mockReminderRepository.deleteReminder(reminder))
+            .thenAnswer((_) async => Future.value());
+        when(mockReminderRepository.getReminders())
+            .thenAnswer((_) async => reminders);
+        return ReminderBloc(mockReminderRepository);
+      },
+      act: (bloc) {
+        bloc.add(DeleteReminder(reminder));
+      },
+      expect: () => [
         ReminderLoaded(reminders),
       ],
     );

@@ -6,10 +6,16 @@ import 'package:project/presentation/screens/feeds.dart';
 // import 'package:project/presentation/screens/feeds.dart';
 
 void main() {
+  Widget makeTestableWidget({required Widget child}) {
+    return MaterialApp(
+      home: child,
+    );
+  }
+
   testWidgets('Search', (WidgetTester tester) async {
     final addField = find.byKey(ValueKey('searchField'));
 
-    await tester.pumpWidget(Feeds());
+    await tester.pumpWidget(makeTestableWidget(child: Feeds()));
     await tester.enterText(addField, 'Simple');
     await tester.tap(addField);
     await tester.pump(); //rebuilds Widget
@@ -18,7 +24,14 @@ void main() {
   });
   testWidgets('Test to see MaterialApp widget is in tree',
       (WidgetTester tester) async {
-    await tester.pumpWidget(MyApp());
+    await tester.pumpWidget(makeTestableWidget(child: MyApp()));
+
+    expect(find.byType(MaterialApp), findsOneWidget);
+  });
+
+  testWidgets('Simple test',
+      (WidgetTester tester) async {
+    await tester.pumpWidget(makeTestableWidget(child: MyApp()));
 
     expect(find.byType(MaterialApp), findsOneWidget);
   });
