@@ -6,11 +6,11 @@ import 'package:project/data/models/report/report.dart';
 class ReportRepository {
   final reportDataProvider = ReportDataProvider();
 
-  Future<List<Report>> getReport() async {
+  Future<List<Report>>? getReport() async {
     return await reportDataProvider.getReports();
   }
 
-  Future<void> addReport(int index, Workout workout) async {
+  Future<void>? addReport(int index, Workout workout) async {
     await reportDataProvider.saveReport(index, workout);
   }
 }

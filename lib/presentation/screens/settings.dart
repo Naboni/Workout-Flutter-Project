@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:project/logic/bloc/auth_bloc/auth.dart';
 import 'package:project/presentation/screens/navigation_drawer.dart';
 import 'package:project/presentation/widgets/navigation/counter_dialogue.dart';
 import 'package:project/presentation/widgets/navigation/delete_account_dialogue.dart';
@@ -14,6 +17,11 @@ class Settings extends StatefulWidget {
 }
 
 class _SettingsState extends State<Settings> {
+  void deleteAccountPressed() {
+    BlocProvider.of<AuthBloc>(context).add(DeleteAccount());
+    Navigator.of(context).popUntil((route) => route.isFirst);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,9 +41,13 @@ class _SettingsState extends State<Settings> {
         child: Column(
           children: [
             Container(
+              decoration:
+                  BoxDecoration(color: Color.fromRGBO(227, 232, 246, 1)),
               child: InkWell(
                 onTap: () async {
-                  await deleteAccountDialog(context);
+                  showDeleteAccount(context, deleteAccountPressed);
+
+                  // await deleteAccountDialog(context);
                 },
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -153,5 +165,103 @@ class _SettingsState extends State<Settings> {
         ),
       ),
     );
+  }
+
+  void showDeleteAccount(BuildContext context, Function deleteAccountPressed) {
+    showDialog<String>(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+            title: Column(
+              children: [
+                SizedBox(
+                  child: Icon(
+                    Icons.account_circle_outlined,
+                    color: Colors.grey,
+                    size: 90.0,
+                  ),
+                ),
+                Text(
+                  'Delete Your Account?',
+                  style: GoogleFonts.montserrat(
+                    textStyle: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            content: Text(
+              'You will lose all of your data by deleting your account. This action can\'t be undone',
+              textAlign: TextAlign.center,
+              style: GoogleFonts.montserrat(
+                textStyle: TextStyle(
+                  // fontSize: 18,
+                  fontWeight: FontWeight.w400,
+                ),
+              ),
+            ),
+            actions: <Widget>[
+              SizedBox(
+                width: MediaQuery.of(context).size.width,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 8.0),
+                      child: SizedBox(
+                        height: MediaQuery.of(context).size.height * 0.06,
+                        width: MediaQuery.of(context).size.width,
+                        child: TextButton(
+                          style: ElevatedButton.styleFrom(
+                              primary: Color.fromRGBO(253, 214, 215, 1)),
+                          onPressed: () {
+                            deleteAccountPressed();
+                            // Navigator.pop(context, 'OK');
+                          },
+                          child: Text(
+                            'Delete Account',
+                            textAlign: TextAlign.center,
+                            style: GoogleFonts.montserrat(
+                              textStyle: TextStyle(
+                                  color: Color.fromRGBO(92, 64, 51, 1)),
+                              // fontSize: 18,
+                              fontWeight: FontWeight.w400,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height * 0.06,
+                      width: MediaQuery.of(context).size.width,
+                      child: TextButton(
+                        style: ElevatedButton.styleFrom(
+                            primary: Color.fromRGBO(237, 242, 246, 1)),
+                        onPressed: () => Navigator.pop(context, 'Cancel'),
+                        child: Text(
+                          'Cancel',
+                          textAlign: TextAlign.center,
+                          style: GoogleFonts.montserrat(
+                            textStyle: TextStyle(
+                              color: Colors.black,
+                              fontWeight: FontWeight.w400,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height * 0.03,
+                    )
+                  ],
+                ),
+              ),
+            ],
+          );
+        });
   }
 }

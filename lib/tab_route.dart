@@ -91,36 +91,6 @@ class _TabState extends State<TabRoute> {
               elevation: 0,
               backgroundColor: Colors.white,
               actions: [
-                Container(
-                  padding: EdgeInsets.symmetric(horizontal: 10),
-                  child: FutureBuilder(
-                    future: user,
-                    builder:
-                        (BuildContext context, AsyncSnapshot<User> snapshot) {
-                      if (snapshot.hasData) {
-                        return Center(
-                            child: Text(
-                          '${snapshot.data!.role![0].toUpperCase()}${snapshot.data!.role!.substring(1)}',
-                          style: TextStyle(),
-                        ));
-                      }
-                      return Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: Container(
-                          width: MediaQuery.of(context).size.width * 0.1,
-                          child: CircularProgressIndicator(
-                            strokeWidth: 3,
-                          ),
-                        ),
-                      );
-                    },
-                  ),
-                ),
-                IconButton(
-                    onPressed: () {
-                      BlocProvider.of<AuthBloc>(context).add(LoggedOut());
-                    },
-                    icon: Icon(Icons.logout_outlined)),
               ],
               title: Row(
                 children: [

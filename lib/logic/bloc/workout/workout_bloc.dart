@@ -6,8 +6,8 @@ import 'package:project/data/repositories/workout_repository.dart';
 import 'workout.dart';
 
 class WorkoutBloc extends Bloc<WorkoutEvent, WorkoutState> {
-  WorkoutBloc() : super(WorkoutInitial());
-  final workoutRepository = WorkoutRepository();
+  final WorkoutRepository workoutRepository;
+  WorkoutBloc(this.workoutRepository) : super(WorkoutInitial());
   @override
   Stream<WorkoutState> mapEventToState(
     WorkoutEvent event,
@@ -16,7 +16,7 @@ class WorkoutBloc extends Bloc<WorkoutEvent, WorkoutState> {
     if (event is GetWorkouts) {
       yield WorkoutInitial();
       final _workouts = await workoutRepository.getWorkouts();
-      yield WorkoutLoaded(_workouts);
+      yield WorkoutLoaded(_workouts!);
     }
     if (event is UpdateWorkout) {
       final index = event.index;

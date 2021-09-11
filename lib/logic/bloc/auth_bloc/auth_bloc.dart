@@ -6,8 +6,8 @@ import 'package:project/data/repositories/user_repository.dart';
 import 'auth.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
-  final UserRepositories userRepositories = UserRepositories();
-  AuthBloc() : super(AuthUninitialized());
+  final UserRepositories userRepositories;
+  AuthBloc(this.userRepositories) : super(AuthUninitialized());
 
   @override
   Stream<AuthState> mapEventToState(
@@ -15,8 +15,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   ) async* {
     // TODO: implement mapEventToState
     if (event is AppStarted) {
-      final bool hasUser = await userRepositories.hasUser();
-      if (hasUser) {
+      final bool? hasUser = await userRepositories.hasUser();
+      if (hasUser!) {
         yield AuthAuthenticated();
       } else {
         yield AuthUnauthenticated();
@@ -30,6 +30,11 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     if (event is LoggedOut) {
       yield AuthLoading();
       await userRepositories.deleteUser();
+      yield AuthUnauthenticated();
+    }
+    if (event is DeleteAccount) {
+      yield AuthLoading();
+      await userRepositories.deleteAccount();
       yield AuthUnauthenticated();
     }
   }

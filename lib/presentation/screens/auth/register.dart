@@ -572,6 +572,7 @@ class _RegisterState extends State<Register> {
             print("Registration Loading...");
           }
           if (state is RegisterSuccess) {
+
             final snackBar = SnackBar(
               content: alert(
                   message: "Registration succesful.",
@@ -587,14 +588,9 @@ class _RegisterState extends State<Register> {
               snackBar,
             );
             Future.delayed(Duration(seconds: 2), () {
-              Navigator.push(
-                context,
-                PageTransition(
-                  type: PageTransitionType.rightToLeft,
-                  duration: Duration(milliseconds: 350),
-                  child: Login(),
-                ),
-              );
+              Navigator.pop(
+                context
+                );
             });
           }
           if (state is RegisterFaliure) {

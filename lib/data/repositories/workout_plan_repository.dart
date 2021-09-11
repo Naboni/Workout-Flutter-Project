@@ -7,7 +7,7 @@ class WorkoutPlanRepository {
   // ? Instantiate workoutPlan data provider
   final workoutPlanDataProvider = WorkoutPlanDataProvider();
 
-  Future<WorkoutPlan?> addWorkoutPlan(WorkoutPlan workoutPlan) async {
+  Future<WorkoutPlan?>? addWorkoutPlan(WorkoutPlan workoutPlan) async {
     var plan = await workoutPlanDataProvider.addWorkoutPlan(workoutPlan);
     if (plan["status"] == "201") {
       return WorkoutPlan.fromJson(jsonDecode(plan["body"])["plan"]);
@@ -15,7 +15,7 @@ class WorkoutPlanRepository {
     return null;
   }
 
-  Future<WorkoutPlansResponse> getWorkoutPlans() async {
+  Future<WorkoutPlansResponse>? getWorkoutPlans() async {
     var plans = await workoutPlanDataProvider.getWorkoutPlans();
     if (plans["status"] == "404") {
       return WorkoutPlansResponse()..plans = [];
@@ -23,7 +23,7 @@ class WorkoutPlanRepository {
     return WorkoutPlansResponse.fromJson(jsonDecode(plans["body"]));
   }
 
-  Future<WorkoutPlansResponse> getWorkoutPlansByTrainer() async {
+  Future<WorkoutPlansResponse>? getWorkoutPlansByTrainer() async {
     var plans = await workoutPlanDataProvider.getWorkoutPlansByTrainer();
     if (plans["status"] == "404") {
       return WorkoutPlansResponse()..plans = [];
@@ -39,7 +39,7 @@ class WorkoutPlanRepository {
     return WorkoutPlansResponse.fromJson(jsonDecode(plans["body"]));
   }
 
-  Future<WorkoutPlan?> getWorkoutPlan(String id) async {
+  Future<WorkoutPlan?>? getWorkoutPlan(String id) async {
     var plans = await workoutPlanDataProvider.getWorkoutPlan(id: id);
     if (plans["status"] == "404") {
       return null;
@@ -69,7 +69,7 @@ class WorkoutPlanRepository {
   }
 
   //RETURNS NULL IF THERE ARE NO FAVORED PLANS
-  Future<List<WorkoutPlan>?> getFavoredPlans() async {
+  Future<List<WorkoutPlan>?>? getFavoredPlans() async {
     List<WorkoutPlan>? plans;
     var res = await workoutPlanDataProvider.getFavoredPlans();
     if (res["status"] == "204") {
