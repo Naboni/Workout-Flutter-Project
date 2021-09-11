@@ -24,8 +24,6 @@ void main() {
     blocTest<ReminderBloc, ReminderState>(
       'emits [ReminderInitial, ReminderLoaded(reminders)] when successful',
       build: () {
-        // when(mockReminderRepository.addReport(1, workout))
-        //     .thenAnswer((_) async => reports.add(report));
         when(mockReminderRepository.getReminders())
             .thenAnswer((_) async => reminders);
         return ReminderBloc(mockReminderRepository);

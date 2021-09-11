@@ -19,7 +19,7 @@ class UserRepositories {
     return User.fromJson(await _storage.read(key: "user"));
   }
 
-  Future<bool> hasUser() async {
+  Future<bool>? hasUser() async {
     var value = await _storage.read(key: "user");
     if (value != null) {
       return true;
@@ -28,13 +28,13 @@ class UserRepositories {
     }
   }
 
-  Future<void> persisteUser(String user) async {
+  Future<void>? persisteUser(String user) async {
     //SAVE THE USER INSTANCE
     await _storage.write(key: "user", value: user);
   }
 
   //!IF YOU DECIDE TO UPDATE THIS LATTER THEN CALL CURRENT USER DELETE THE KEY FIRST
-  Future<void> deleteUser() async {
+  Future<void>? deleteUser() async {
     await _storage.delete(key: "user");
     await _storage.deleteAll();
   }
@@ -66,7 +66,7 @@ class UserRepositories {
         bio: bio);
   }
 
-  Future<bool> deleteAccount() async {
+  Future<bool>? deleteAccount() async {
     // var res = await authDataProvider.deleteUser();
     await _storage.delete(key: "user");
     await _storage.deleteAll();

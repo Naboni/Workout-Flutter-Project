@@ -101,13 +101,14 @@ void main() async {
   final ReminderRepository reminderRepository = ReminderRepository();
   final WorkoutRepository workoutRepository = WorkoutRepository();
   final ReportRepository reportRepository = ReportRepository();
+  final UserRepositories userRepository = UserRepositories();
   final WorkoutPlanRepository workoutPlanRepository = WorkoutPlanRepository();
   runApp(RepositoryProvider(
     create: (context) => UserRepositories(),
     child: MultiBlocProvider(
       providers: [
         BlocProvider(create: (context) {
-          return AuthBloc()..add(AppStarted());
+          return AuthBloc(userRepository)..add(AppStarted());
         }),
         BlocProvider(
           create: (context) => ReminderBloc(reminderRepository)
