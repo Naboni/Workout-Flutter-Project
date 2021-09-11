@@ -38,6 +38,8 @@ dependencies:
   lottie: ^1.1.0
   google_fonts: ^2.1.0
   image_picker: any
+  string_extensions: ^0.3.1
+  intl: ^0.17.0
   flutter_svg: any
   dio: ^4.0.0
   cool_stepper: ^1.2.1
@@ -53,7 +55,7 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   build_runner: ^2.1.2
-  hive_generator: 
+  hive_generator:
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 
@@ -71,9 +73,9 @@ flutter:
     # workout place holder
     - assets/workoutPlaceHolder.json
     - assets/images/
-     # lottie
+      # lottie
     - assets/anim/empty.json
-    
+
     # ! workouts
     - assets/anim/workouts/trophy-congratulation.json
     # warmup
@@ -90,7 +92,7 @@ flutter:
     - assets/anim/workouts/abs/seated-abs-circles.json
     - assets/anim/workouts/abs/squat-kick.json
     - assets/anim/workouts/abs/inchworm.json
-    
+
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
 

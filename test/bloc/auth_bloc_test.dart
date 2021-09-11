@@ -2,13 +2,8 @@ import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:project/data/models/models.dart';
-// import 'package:project/data/models/exercise/exercise.dart';
-import 'package:project/data/models/report/report.dart';
-// import 'package:project/data/models/workout/workout.dart';
-// import 'package:project/data/repositories/report_repository.dart';
 import 'package:project/data/repositories/user_repository.dart';
 import 'package:project/logic/bloc/auth_bloc/auth.dart';
-import 'package:project/logic/bloc/report/report_bloc.dart';
 
 class MockUserRepositories extends Mock implements UserRepositories {}
 
