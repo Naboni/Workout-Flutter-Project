@@ -27,6 +27,13 @@ class ReminderScreen extends StatefulWidget {
 
 class _ReminderScreenState extends State<ReminderScreen> {
   @override
+  void initState() {
+    // TODO: implement initState
+    context.read<ReminderBloc>().add(GetReminders());
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       drawer: NavigationDrawerWidget(),
@@ -49,6 +56,7 @@ class _ReminderScreenState extends State<ReminderScreen> {
           width: double.infinity,
           child: BlocBuilder<ReminderBloc, ReminderState>(
             builder: (_, reminderState) {
+              print(reminderState);
               if (reminderState is ReminderInitial) {
                 return CircularProgressIndicator();
               }
@@ -97,27 +105,15 @@ Future<Null> _selectTime(BuildContext context) async {
     initialTime: TimeOfDay.now(),
   );
   if (picked != null) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) => DaySelector(),
-    ).then(
-      (value) => {if (value != null) addReminder(context, picked, value)},
-    );
+    addReminder(context, picked);
   }
 }
 
-addReminder(BuildContext context, TimeOfDay time, List<bool> weekDays) {
+addReminder(BuildContext context, TimeOfDay time) {
   final reminderBloc = BlocProvider.of<ReminderBloc>(context);
-  // change array of bools to array of ints
-  var indexList = [];
-  for (var i = 0; i < weekDays.length; i++) {
-    if (weekDays[i]) {
-      indexList.add(i);
-    }
-  }
   scheduleAlarm(time.hour, time.minute);
   final reminder = Reminder()
     ..time = time.format(context)
-    ..days = indexList;
+    ..days = [];
   reminderBloc.add(AddReminder(reminder));
 }

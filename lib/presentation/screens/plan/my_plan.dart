@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 // deps
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:project/data/models/user/user.dart';
 import 'package:project/data/models/workoutPlan/workout_plan_response.dart';
 import 'package:project/logic/bloc/workout_plan/workout_plan_bloc.dart';
 import 'package:project/presentation/screens/plan/add_plan.dart';
@@ -12,7 +13,8 @@ import '../../widgets/plan/my_plan/plan_item.dart';
 
 class MyPlan extends StatefulWidget {
   static const routeName = "/myplan";
-
+  final User user;
+  MyPlan(this.user);
   @override
   _MyPlanState createState() => _MyPlanState();
 }
@@ -86,7 +88,6 @@ class _MyPlanState extends State<MyPlan> {
   }
 
   Widget ValueBasedBody(WorkoutPlansResponse workoutplans) {
-    var x = workoutplans.plans![0];
     return workoutplans.plans!.length > 0
         ? Expanded(
             child: ListView.builder(

@@ -20,7 +20,6 @@ class ReminderBloc extends Bloc<ReminderEvent, ReminderState> {
   ) async* {
     // TODO: implement mapEventToState
     if (event is GetReminders) {
-      // load
       yield ReminderInitial();
       final _reminders = await reminderRepository.getReminders();
       yield ReminderLoaded(_reminders!);

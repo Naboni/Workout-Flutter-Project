@@ -34,10 +34,11 @@ class CongraModal extends StatelessWidget {
                   ),
                   TextButton(
                     onPressed: () {
-                      var count = 0;
-                      Navigator.popUntil(context, (route) {
-                        return count++ == 2;
-                      });
+                      // var count = 0;
+                      // Navigator.popUntil(context, (route) {
+                      //   return count++ == 2;
+                      // });
+                      Navigator.pushNamed(context, 'history');
                     },
                     child: CircleAvatar(
                       backgroundColor: Colors.blue,

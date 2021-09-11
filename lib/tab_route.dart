@@ -17,7 +17,7 @@ class TabRoute extends StatefulWidget {
 
 class _TabState extends State<TabRoute> {
   List<Map<String, Object>>? _pages;
-  int _selectedPageIndex = 0;
+  int _selectedPageIndex = 1;
   late Future<User> user =
       RepositoryProvider.of<UserRepositories>(context).getCurrentUser();
   @override
@@ -29,7 +29,7 @@ class _TabState extends State<TabRoute> {
           'page': Home(),
         });
         _pages!.add({
-          'page': MyPlan(),
+          'page': MyPlan(value),
         });
       }
       if (value.role == Roles.Trainee) {
@@ -90,8 +90,7 @@ class _TabState extends State<TabRoute> {
             appBar: AppBar(
               elevation: 0,
               backgroundColor: Colors.white,
-              actions: [
-              ],
+              actions: [],
               title: Row(
                 children: [
                   Text(

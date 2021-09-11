@@ -79,9 +79,9 @@ class WorkoutPlanBloc extends Bloc<WorkoutPlanEvent, WorkoutPlanState> {
       } else {
         yield WorkoutPlanFavoringSucceded();
       }
-      final WorkoutPlansResponse workoutResponse =
+      final WorkoutPlansResponse? workoutResponse =
           await workotPlanRepository.getWorkoutPlans();
-      yield WorkoutPlanLoaded(workoutResponse);
+      yield WorkoutPlanLoaded(workoutResponse!);
     }
 
     if (event is UnfavorWorkoutPlan) {
@@ -94,9 +94,9 @@ class WorkoutPlanBloc extends Bloc<WorkoutPlanEvent, WorkoutPlanState> {
       } else {
         yield WorkoutPlanFavoringSucceded();
       }
-      final WorkoutPlansResponse workoutResponse =
+      final WorkoutPlansResponse? workoutResponse =
           await workotPlanRepository.getWorkoutPlans();
-      yield WorkoutPlanLoaded(workoutResponse);
+      yield WorkoutPlanLoaded(workoutResponse!);
     }
 
     // search

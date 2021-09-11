@@ -122,42 +122,7 @@ class _SettingsState extends State<Settings> {
                     ),
                   ),
                   Divider(),
-                  Container(
-                    padding: EdgeInsets.symmetric(horizontal: 15),
-                    child: ListTile(
-                      title: Text('Countdown Timer'),
-                      trailing: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Text(
-                            '15 secs',
-                            style: TextStyle(color: Colors.blue, fontSize: 12),
-                          ),
-                          Icon(
-                            Icons.arrow_downward_sharp,
-                            color: Colors.blue,
-                            size: 16,
-                          ),
-                        ],
-                      ),
-                      leading: Icon(Icons.coffee),
-                      onTap: () async {
-                        await counterDialog(context);
-                      },
-                    ),
-                  ),
-                  Divider(),
-                  Container(
-                    padding: EdgeInsets.symmetric(horizontal: 15),
-                    child: ListTile(
-                      title: Text('Reset Progress'),
-                      leading: Icon(Icons.time_to_leave),
-                      onTap: () async {
-                        await resetDialog(context);
-                      },
-                    ),
-                  ),
-                  Divider(),
+                  //
                 ],
               ),
             )
