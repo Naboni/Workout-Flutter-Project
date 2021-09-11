@@ -14,6 +14,12 @@ class WorkoutPlanLoaded extends WorkoutPlanState {
   WorkoutPlanLoaded(this.workoutResponse);
 }
 
+// for trainee b/c it takes list<workoutplan>
+class WorkoutPlansLoaded extends WorkoutPlanState {
+  final List<WorkoutPlan> workoutResponse;
+  WorkoutPlansLoaded(this.workoutResponse);
+}
+
 class WorkoutPlanFailed extends WorkoutPlanState {}
 
 // add

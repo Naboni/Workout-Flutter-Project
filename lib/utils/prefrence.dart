@@ -16,4 +16,9 @@ class Pref {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setBool('populated', true);
   }
+
+  static setTimer(int timer) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setInt('timer', timer);
+  }
 }

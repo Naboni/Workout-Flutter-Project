@@ -34,8 +34,7 @@ class WorkoutRepository {
               }
             }
           }
-        } else if (exercise.difficulty ==
-            difficulty[stepResult['difficulty'] - 1].toString()) {
+        } else {
           if (stepResult['targetMuscles'].length == 0) {
             listOfExercises.add(exercise);
           } else {

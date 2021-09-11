@@ -29,7 +29,7 @@ class _TabState extends State<TabRoute> {
           'page': Home(),
         });
         _pages!.add({
-          'page': MyPlan(),
+          'page': MyPlan(value),
         });
       }
       if (value.role == Roles.Trainee) {
@@ -90,8 +90,7 @@ class _TabState extends State<TabRoute> {
             appBar: AppBar(
               elevation: 0,
               backgroundColor: Colors.white,
-              actions: [
-              ],
+              actions: [],
               title: Row(
                 children: [
                   Text(

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:project/data/models/user/roles.dart';
 import 'package:project/data/models/user/user.dart';
 import 'package:project/data/repositories/user_repository.dart';
 import 'package:project/logic/bloc/auth_bloc/auth.dart';
@@ -59,15 +60,23 @@ class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget> {
                         ),
                         buildMenuItem(
                           context,
-                          text: 'Settings',
-                          icon: Icons.settings,
-                          routeName: Settings.routeName,
-                        ),
-                        buildMenuItem(
-                          context,
                           text: 'History',
                           icon: Icons.history,
                           routeName: History.routeName,
+                        ),
+                        snapshot.data!.role == Roles.Trainee
+                            ? buildMenuItem(
+                                context,
+                                text: 'Favorites',
+                                icon: Icons.favorite,
+                                routeName: Favorites.routeName,
+                              )
+                            : SizedBox(),
+                        buildMenuItem(
+                          context,
+                          text: 'Settings',
+                          icon: Icons.settings,
+                          routeName: Settings.routeName,
                         ),
                         const SizedBox(height: 24),
                         Divider(color: Colors.white70),

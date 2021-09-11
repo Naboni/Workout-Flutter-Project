@@ -63,9 +63,19 @@ class FeedDetail extends StatelessWidget {
                       TextButton(
                           onPressed: () {
                             _showDetails(
-                                context, workoutPlan.id!, _showSnackBar);
+                                context, workoutPlan.id!, _showSnackBar, true);
                           },
                           child: Text("Add")),
+                      TextButton(
+                        onPressed: () {
+                          _showDetails(
+                              context, workoutPlan.id!, _showSnackBar, false);
+                        },
+                        child: Text(
+                          "Remove",
+                          style: TextStyle(color: Colors.red),
+                        ),
+                      )
                     ],
                   ),
                   Row(children: [
@@ -106,8 +116,8 @@ class FeedDetail extends StatelessWidget {
   }
 }
 
-void _showDetails(
-    BuildContext context, String workoutPlan, Function _showSnackBar) {
+void _showDetails(BuildContext context, String workoutPlan,
+    Function _showSnackBar, bool isAdd) {
   showDialog(
     context: context,
     builder: (BuildContext context) => AlertDialog(
@@ -120,22 +130,27 @@ void _showDetails(
               // ! navigate to fav
             }
             if (state is WorkoutPlanFavoringFailed) {
-              return _showSnackBar("Failed to add to favourites");
+              return _showSnackBar("Something went wrong");
             }
           },
           builder: (context, state) {
             if (state is WorkoutPlanFavoring) {
               return Text('Loading please wait...');
             }
-            return Text('Add this workout to favourites?');
+            return isAdd
+                ? Text('Add this workout to favourites?')
+                : Text('Remove this workout from favourites?');
           },
         ),
       ),
       actions: [
         TextButton(
           onPressed: () {
-            BlocProvider.of<WorkoutPlanBloc>(context)
-                .add(FavorWorkoutPlan(workoutPlan));
+            isAdd
+                ? BlocProvider.of<WorkoutPlanBloc>(context)
+                    .add(FavorWorkoutPlan(workoutPlan))
+                : BlocProvider.of<WorkoutPlanBloc>(context)
+                    .add(UnfavorWorkoutPlan(workoutPlan));
             Navigator.of(context).pop();
           },
           child: Text(

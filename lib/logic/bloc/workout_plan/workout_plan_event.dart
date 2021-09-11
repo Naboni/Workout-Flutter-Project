@@ -11,6 +11,8 @@ class GetWorkoutPlan extends WorkoutPlanEvent {}
 
 class GetWorkoutPlanByTrainer extends WorkoutPlanEvent {}
 
+class GetWorkoutPlanByTrainee extends WorkoutPlanEvent {}
+
 class AddWorkoutPlan extends WorkoutPlanEvent {
   final WorkoutPlan workoutPlan;
   AddWorkoutPlan(this.workoutPlan);
@@ -24,6 +26,11 @@ class DeleteWorkoutPlan extends WorkoutPlanEvent {
 class FavorWorkoutPlan extends WorkoutPlanEvent {
   final String planId;
   FavorWorkoutPlan(this.planId);
+}
+
+class UnfavorWorkoutPlan extends WorkoutPlanEvent {
+  final String planId;
+  UnfavorWorkoutPlan(this.planId);
 }
 
 class SearchPlan extends WorkoutPlanEvent {

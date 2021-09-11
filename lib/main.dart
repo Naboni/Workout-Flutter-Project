@@ -147,13 +147,8 @@ class _MyAppState extends State<MyApp> {
           BlocProvider(create: (context) {
             return AuthBloc(userRepository)..add(AppStarted());
           }),
-          BlocProvider(
-            create: (context) => ReminderBloc(reminderRepository)
-              ..add(
-                GetReminders(),
-              ),
-          ),
-          BlocProvider(create: (context) => WorkoutBloc(workoutRepository)),
+          BlocProvider(create: (_) => ReminderBloc(reminderRepository)),
+          BlocProvider(create: (_) => WorkoutBloc(workoutRepository)),
           BlocProvider(create: (_) => TimerBloc(ticker: Ticker())),
           BlocProvider(create: (_) => ReportBloc(reportRepository)),
           BlocProvider(create: (_) => WorkoutPlanBloc(workoutPlanRepository)),
@@ -161,7 +156,6 @@ class _MyAppState extends State<MyApp> {
         child: MaterialApp(
           home: BlocBuilder<AuthBloc, AuthState>(
             builder: (context, state) {
-
               if (state is AuthAuthenticated) {
                 return TabRoute();
               }
