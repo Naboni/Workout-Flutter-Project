@@ -17,7 +17,7 @@ class TabRoute extends StatefulWidget {
 
 class _TabState extends State<TabRoute> {
   List<Map<String, Object>>? _pages;
-  int _selectedPageIndex = 1;
+  int _selectedPageIndex = 0;
   late Future<User> user =
       RepositoryProvider.of<UserRepositories>(context).getCurrentUser();
   @override
