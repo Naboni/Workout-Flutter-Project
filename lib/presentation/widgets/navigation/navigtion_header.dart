@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:string_extensions/string_extensions.dart';
 
 Widget buildHeader(
   BuildContext context, {
@@ -6,6 +7,7 @@ Widget buildHeader(
   required name,
   required email,
 }) {
+  var capitalizedName = name.toString().capitalize();
   return Material(
     color: Colors.transparent,
     child: Container(
@@ -20,26 +22,39 @@ Widget buildHeader(
           SizedBox(
             width: 20,
           ),
-          Column(
-            children: [
-              Text(
-                name,
-                style: TextStyle(
-                  fontSize: 20,
-                  color: Colors.white,
+          Container(
+            width: MediaQuery.of(context).size.width * 0.4,
+            child: Column(
+              children: [
+                Container(
+                  child: Text(
+                    capitalizedName!,
+                    overflow: TextOverflow.clip,
+                    maxLines: 1,
+                    softWrap: false,
+                    style: TextStyle(
+                      fontSize: 14,
+                      color: Colors.white,
+                    ),
+                  ),
                 ),
-              ),
-              const SizedBox(
-                height: 4,
-              ),
-              Text(
-                email,
-                style: TextStyle(
-                  fontSize: 14,
-                  color: Colors.white,
+                const SizedBox(
+                  height: 4,
                 ),
-              ),
-            ],
+                Container(
+                  child: Text(
+                    email,
+                    overflow: TextOverflow.fade,
+                    maxLines: 1,
+                    softWrap: false,
+                    style: TextStyle(
+                      fontSize: 12,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
         ],
       ),

@@ -97,33 +97,7 @@ void main() async {
   // ? Run the bloc observer(for debuging purpose)
   Bloc.observer = MyBlocObserver();
 
-  // ! repository initialization
-  final ReminderRepository reminderRepository = ReminderRepository();
-  final WorkoutRepository workoutRepository = WorkoutRepository();
-  final ReportRepository reportRepository = ReportRepository();
-  final UserRepositories userRepository = UserRepositories();
-  final WorkoutPlanRepository workoutPlanRepository = WorkoutPlanRepository();
-  runApp(RepositoryProvider(
-    create: (context) => UserRepositories(),
-    child: MultiBlocProvider(
-      providers: [
-        BlocProvider(create: (context) {
-          return AuthBloc(userRepository)..add(AppStarted());
-        }),
-        BlocProvider(
-          create: (context) => ReminderBloc(reminderRepository)
-            ..add(
-              GetReminders(),
-            ),
-        ),
-        BlocProvider(create: (context) => WorkoutBloc(workoutRepository)),
-        BlocProvider(create: (_) => TimerBloc(ticker: Ticker())),
-        BlocProvider(create: (_) => ReportBloc(reportRepository)),
-        BlocProvider(create: (_) => WorkoutPlanBloc(workoutPlanRepository)),
-      ],
-      child: MyApp(),
-    ),
-  ));
+  runApp(MyApp());
 }
 
 class MyApp extends StatefulWidget {
@@ -135,6 +109,13 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   final appRouter = AppRouter();
+
+  // ! repository initialization
+  final ReminderRepository reminderRepository = ReminderRepository();
+  final WorkoutRepository workoutRepository = WorkoutRepository();
+  final ReportRepository reportRepository = ReportRepository();
+  final UserRepositories userRepository = UserRepositories();
+  final WorkoutPlanRepository workoutPlanRepository = WorkoutPlanRepository();
   @override
   void initState() {
     // ? Future delayed b/c cant use async/await on init
@@ -159,30 +140,51 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: BlocBuilder<AuthBloc, AuthState>(
-        builder: (context, state) {
-          if (state is AuthAuthenticated) {
-            return TabRoute();
-          }
-          if (state is AuthUnauthenticated) {
-            //! MAKE THIS TO THE PAGE ROUTE VIEW LATTER
-            return Login();
-            // return Intro();
-          }
-          if (state is AuthLoading) {
-            //! ADD A SPLASH SCREEN PLS
-            return Scaffold(body: CircularProgressIndicator());
-          }
-          return Scaffold(body: CircularProgressIndicator());
-        },
+    return RepositoryProvider(
+      create: (context) => UserRepositories(),
+      child: MultiBlocProvider(
+        providers: [
+          BlocProvider(create: (context) {
+            return AuthBloc(userRepository)..add(AppStarted());
+          }),
+          BlocProvider(
+            create: (context) => ReminderBloc(reminderRepository)
+              ..add(
+                GetReminders(),
+              ),
+          ),
+          BlocProvider(create: (context) => WorkoutBloc(workoutRepository)),
+          BlocProvider(create: (_) => TimerBloc(ticker: Ticker())),
+          BlocProvider(create: (_) => ReportBloc(reportRepository)),
+          BlocProvider(create: (_) => WorkoutPlanBloc(workoutPlanRepository)),
+        ],
+        child: MaterialApp(
+          home: BlocBuilder<AuthBloc, AuthState>(
+            builder: (context, state) {
+
+              if (state is AuthAuthenticated) {
+                return TabRoute();
+              }
+              if (state is AuthUnauthenticated) {
+                //! MAKE THIS TO THE PAGE ROUTE VIEW LATTER
+                return Login();
+                // return Intro();
+              }
+              if (state is AuthLoading) {
+                //! ADD A SPLASH SCREEN PLS
+                return Scaffold(body: CircularProgressIndicator());
+              }
+              return Scaffold(body: CircularProgressIndicator());
+            },
+          ),
+          debugShowCheckedModeBanner: false,
+          title: 'Can Addis',
+          theme: ThemeData(
+            primaryColor: Colors.blue.shade300,
+          ),
+          onGenerateRoute: appRouter.onGenerateRoute,
+        ),
       ),
-      debugShowCheckedModeBanner: false,
-      title: 'Can Addis',
-      theme: ThemeData(
-        primaryColor: Colors.blue.shade300,
-      ),
-      onGenerateRoute: appRouter.onGenerateRoute,
     );
   }
 }

@@ -33,6 +33,7 @@ class _FeedsState extends State<Feeds> {
               elevation: 2,
               borderRadius: BorderRadius.circular(50),
               child: TextField(
+                key: Key('searchField'),
                 onChanged: (value) => {
                   BlocProvider.of<WorkoutPlanBloc>(context)
                       .add(SearchPlan(value))
