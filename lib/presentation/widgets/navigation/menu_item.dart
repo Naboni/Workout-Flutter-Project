@@ -7,7 +7,7 @@ Widget buildMenuItem(
   required String routeName,
 }) {
   final color = Colors.white;
-  return Material(
+  return Container(
     color: Colors.transparent,
     child: ListTile(
       leading: Icon(
@@ -20,7 +20,7 @@ Widget buildMenuItem(
       ),
       // onTap: () => Navigator.of(context).popAndPushNamed(routeName),
       onTap: () {
-        Navigator.pushNamedAndRemoveUntil(context, routeName, (route) => false);
+        Navigator.pushNamed(context, routeName);
       },
     ),
   );

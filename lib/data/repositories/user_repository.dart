@@ -66,8 +66,8 @@ class UserRepositories {
         bio: bio);
   }
 
-  Future<bool> deleteAccount(String planId) async {
-    var res = await authDataProvider.deleteUser();
+  Future<bool> deleteAccount() async {
+    // var res = await authDataProvider.deleteUser();
     await _storage.delete(key: "user");
     await _storage.deleteAll();
     return true;

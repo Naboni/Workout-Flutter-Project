@@ -32,5 +32,10 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       await userRepositories.deleteUser();
       yield AuthUnauthenticated();
     }
+    if (event is DeleteAccount) {
+      yield AuthLoading();
+      await userRepositories.deleteAccount();
+      yield AuthUnauthenticated();
+    }
   }
 }
