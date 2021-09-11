@@ -16,3 +16,4 @@ export './favorites.dart';
 // / auth
 export './exercise_type.dart';
 export './feed_detail.dart';
+export 'trainer_profile_public.dart';

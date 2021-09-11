@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:project/data/models/user/user.dart';
 
 class TrainerProfilePublic extends StatelessWidget {
+  final User creator;
 
+  TrainerProfilePublic(this.creator);
+  static const routeName = "trainerProfilePublic";
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(backgroundColor: Colors.transparent,elevation: 0,),
+      extendBodyBehindAppBar: true,
       body: Column(
         children: <Widget>[
           Container(
@@ -27,7 +32,7 @@ class TrainerProfilePublic extends StatelessWidget {
                     children: <Widget>[
                       CircleAvatar(
                         backgroundImage: NetworkImage(
-                          "https://www.rd.com/wp-content/uploads/2017/09/01-shutterstock_476340928-Irina-Bg.jpg",
+                            'http://192.168.137.1:3000/api/images/${creator.profileImage}'
                         ),
                         radius: 50.0,
                       ),
@@ -69,7 +74,7 @@ class TrainerProfilePublic extends StatelessWidget {
                                       height: 5.0,
                                     ),
                                     Text(
-                                      "4",
+                                      "2",
                                       style: TextStyle(
                                         fontSize: 18,
                                         color: Colors.blueAccent,
@@ -94,7 +99,7 @@ class TrainerProfilePublic extends StatelessWidget {
                                       height: 5.0,
                                     ),
                                     Text(
-                                      "se.maruf",
+                                      "${creator.email}",
                                       style: TextStyle(
                                         fontSize: 18,
                                         color: Colors.blueAccent,
@@ -129,7 +134,7 @@ class TrainerProfilePublic extends StatelessWidget {
                   SizedBox(
                     height: 10.0,
                   ),
-                  Text('My name is Alice and I am  a freelance mobile app developper.\n',
+                  Text('${creator.bio}',
                     style: TextStyle(
                       fontSize: 18.0,
                       fontStyle: FontStyle.italic,

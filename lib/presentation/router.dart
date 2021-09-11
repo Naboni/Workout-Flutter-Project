@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:project/data/models/exercise/exercise.dart';
+import 'package:project/data/models/user/user.dart';
 
 // models
 import 'package:project/data/models/workout/workout.dart';
@@ -41,6 +42,8 @@ class AppRouter {
         return MaterialPageRoute(builder: (ctx) => AddPlan());
       case Favorites.routeName:
         return MaterialPageRoute(builder: (ctx) => Favorites());
+      case TrainerProfilePublic.routeName:
+        return MaterialPageRoute(builder: (ctx) => TrainerProfilePublic(settings.arguments as User));
       default:
         return MaterialPageRoute(builder: (ctx) => ProfileRoute());
     }

@@ -1,5 +1,7 @@
+import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:project/data/models/user/user.dart';
+import 'package:project/presentation/screens/_routes.dart';
 
 class FeedDetailHeader extends StatelessWidget {
   final String imgUrl;
@@ -29,26 +31,7 @@ class FeedDetailHeader extends StatelessWidget {
                     ),
                   ),
                 ),
-                Align(
-                  child: InkWell(
-                    onTap: () {},
-                    child: Container(
-                      height: 50,
-                      width: 50,
-                      margin:
-                          EdgeInsets.symmetric(horizontal: 10, vertical: 30),
-                      decoration: BoxDecoration(
-                          color: Colors.amber,
-                          image: DecorationImage(
-                            image: NetworkImage(
-                                'http://192.168.137.1:3000/api/images/${creator.profileImage}'),
-                            fit: BoxFit.cover,
-                          ),
-                          borderRadius: BorderRadius.circular(100)),
-                    ),
-                  ),
-                  alignment: Alignment.topRight,
-                ),
+
                 Align(
                   alignment: Alignment.bottomLeft,
                   child: Row(
