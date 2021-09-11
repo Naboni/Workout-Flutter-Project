@@ -1,190 +1,160 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:project/constants/data.dart';
+import 'package:project/data/models/workoutPlan/workout_plan_response.dart';
+import 'package:project/logic/bloc/workout_plan/workout_plan_bloc.dart';
+import 'package:project/presentation/widgets/feeds/days_wrapper.dart';
 
 // widget
 import '../widgets/feeds/feed_detail_header.dart';
 
 class FeedDetail extends StatelessWidget {
-  // const FeedDetail({Key? key}) : super(key: key);
+  final WorkoutPlan workoutPlan;
+  const FeedDetail(this.workoutPlan, {Key? key}) : super(key: key);
   static const routeName = '/feed-detail';
   @override
   Widget build(BuildContext context) {
+    void _showSnackBar(String value) {
+      ScaffoldMessenger.of(context).hideCurrentSnackBar();
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text(value)));
+    }
+
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
         elevation: 0,
         backgroundColor: Colors.transparent,
+        iconTheme: IconThemeData(color: Colors.white),
       ),
-      body: SingleChildScrollView(
-        child: Container(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              FeedDetailHeader(),
-              Material(
-                // elevation: 20,
-                // color: Colors.amber,
-                child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          FeedDetailHeader(workoutPlan.imgUrl!, workoutPlan.title!,
+              workoutPlan.description!, workoutPlan.creator!),
+          Container(
+            height: MediaQuery.of(context).size.height * .15,
+            color: Colors.grey[200],
+            child: Container(
+              margin: EdgeInsets.symmetric(vertical: 10),
+              color: Colors.white,
+              child: Column(
+                children: [
+                  Row(
                     children: [
-                      Container(
-                        padding: EdgeInsets.only(top: 18, left: 20),
-                        child: Text(
-                          'Exercise Routines',
-                          style: GoogleFonts.montserrat(
-                            textStyle: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.w400,
-                            ),
-                          ),
-                        ),
-                      ),
-                      Container(
-                        height: 200,
-                        child: ListView.builder(
-                          padding: EdgeInsets.all(18),
-                          scrollDirection: Axis.horizontal,
-                          itemBuilder: (_, index) => Padding(
-                            padding: const EdgeInsets.only(right: 8),
-                            child: AspectRatio(
-                              aspectRatio: 1,
-                              child: ClipRRect(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(4)),
-                                child: Image.asset(
-                                  'assets/images/course1.jpg',
-                                  fit: BoxFit.fitHeight,
+                      SizedBox(width: 15),
+                      ...workoutPlan.weekDays!
+                          .map((e) => Container(
+                                margin: EdgeInsets.only(right: 5),
+                                width: 30,
+                                height: 30,
+                                padding: EdgeInsets.all(5),
+                                decoration: BoxDecoration(
+                                    color: Colors.amber,
+                                    borderRadius: BorderRadius.circular(100)),
+                                child: Center(
+                                  child:
+                                      Text('${stringDays[e].substring(0, 1)}'),
                                 ),
-                              ),
-                            ),
-                          ),
-                          itemCount: 3,
-                        ),
-                      ),
-                    ]),
-              ),
-              Container(
-                padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(bottom: 8.0),
-                      child: Text(
-                        'Target Muscles',
-                        style: GoogleFonts.montserrat(
-                          textStyle: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.w400,
-                          ),
-                        ),
-                      ),
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(right: 8.0),
-                          child: ElevatedButton(
-                            onPressed: () {},
-                            child: Text('Arms'),
-                            style: ElevatedButton.styleFrom(
-                                primary: Colors.cyan[300],
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(8))),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(right: 8.0),
-                          child: ElevatedButton(
-                            onPressed: () {},
-                            child: Text('Chest'),
-                            style: ElevatedButton.styleFrom(
-                                primary: Colors.cyan[300],
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(8))),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(right: 0.0),
-                          child: ElevatedButton(
-                            onPressed: () {},
-                            child: Text('Glutes'),
-                            style: ElevatedButton.styleFrom(
-                                primary: Colors.cyan[300],
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(8))),
-                          ),
-                        ),
-                      ],
-                    ),
-                    // ElevatedButton(
-                    //   onPressed: () {},
-                    //   child: Text('Medium'),
-                    //   style: ElevatedButton.styleFrom(
-                    //       primary: Colors.amber,
-                    //       shape: RoundedRectangleBorder(
-                    //           borderRadius: BorderRadius.circular(8))),
-                    // ),
-                  ],
-                ),
-              ),
-              SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-              Center(
-                child: ElevatedButton(
-                  child: const Text('Show More'),
-                  onPressed: () {
-                    showModalBottomSheet<void>(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return SingleChildScrollView(
-                          child: Container(
-                            height: MediaQuery.of(context).size.height * 0.3,
-                            color: Color.fromRGBO(246, 225, 190, 0.8),
-                            child: Center(
-                              child: Container(
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Container(
-                                      padding: EdgeInsets.symmetric(
-                                          vertical: 20, horizontal: 15),
-                                      child: Text(
-                                        'Description',
-                                        style: TextStyle(
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                      ),
-                                    ),
-                                    Container(
-                                      padding:
-                                          EdgeInsets.symmetric(horizontal: 15),
-                                      child: Text(
-                                        'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using  content here'
-                                        'lorem ipsum will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose injected humour and the like',
-                                        textAlign: TextAlign.justify,
-                                        style: TextStyle(
-                                            // fontSize: 18,
-                                            ),
-                                      ),
-                                    ),
-                                  ],
+                              ))
+                          .toList(),
+                      Spacer(),
+                      TextButton(
+                          onPressed: () {
+                            _showDetails(
+                                context, workoutPlan.id!, _showSnackBar);
+                          },
+                          child: Text("Add")),
+                    ],
+                  ),
+                  Row(children: [
+                    SizedBox(width: 15),
+                    ...workoutPlan.targetMuscles!
+                        .map(
+                          (e) => Container(
+                            padding: EdgeInsets.symmetric(
+                                vertical: 3, horizontal: 9),
+                            margin: EdgeInsets.only(right: 5),
+                            decoration: BoxDecoration(
+                                color: Colors.blue[300],
+                                borderRadius: BorderRadius.circular(20)),
+                            child: Row(
+                              children: [
+                                Text(
+                                  e.name!,
+                                  style: TextStyle(color: Colors.white),
                                 ),
-                              ),
+                              ],
                             ),
                           ),
-                        );
-                      },
-                    );
-                  },
-                ),
+                        )
+                        .toList(),
+                  ]),
+                ],
               ),
-            ],
+            ),
           ),
-        ),
+          Container(
+            padding: EdgeInsets.symmetric(horizontal: 10),
+            height: MediaQuery.of(context).size.height * 0.55,
+            child: DaysWrapper(workoutPlan.workouts!),
+          ),
+        ],
       ),
     );
   }
+}
+
+void _showDetails(
+    BuildContext context, String workoutPlan, Function _showSnackBar) {
+  showDialog(
+    context: context,
+    builder: (BuildContext context) => AlertDialog(
+      content: Container(
+        child: BlocConsumer<WorkoutPlanBloc, WorkoutPlanState>(
+          listener: (context, state) {
+            // TODO: implement listener
+            if (state is WorkoutPlanFavoringSucceded) {
+              return _showSnackBar("Added to favourites");
+              // ! navigate to fav
+            }
+            if (state is WorkoutPlanFavoringFailed) {
+              return _showSnackBar("Failed to add to favourites");
+            }
+          },
+          builder: (context, state) {
+            if (state is WorkoutPlanFavoring) {
+              return Text('Loading please wait...');
+            }
+            return Text('Add this workout to favourites?');
+          },
+        ),
+      ),
+      actions: [
+        TextButton(
+          onPressed: () {
+            BlocProvider.of<WorkoutPlanBloc>(context)
+                .add(FavorWorkoutPlan(workoutPlan));
+            Navigator.of(context).pop();
+          },
+          child: Text(
+            'YES',
+            style: TextStyle(
+              fontSize: 16,
+            ),
+          ),
+        ),
+        TextButton(
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+          child: Text(
+            'NO',
+            style: TextStyle(fontSize: 16),
+          ),
+        ),
+      ],
+    ),
+  );
 }

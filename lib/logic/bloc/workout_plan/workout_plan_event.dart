@@ -9,6 +9,8 @@ abstract class WorkoutPlanEvent extends Equatable {
 
 class GetWorkoutPlan extends WorkoutPlanEvent {}
 
+class GetWorkoutPlanByTrainer extends WorkoutPlanEvent {}
+
 class AddWorkoutPlan extends WorkoutPlanEvent {
   final WorkoutPlan workoutPlan;
   AddWorkoutPlan(this.workoutPlan);
@@ -17,4 +19,14 @@ class AddWorkoutPlan extends WorkoutPlanEvent {
 class DeleteWorkoutPlan extends WorkoutPlanEvent {
   final String planId;
   DeleteWorkoutPlan(this.planId);
+}
+
+class FavorWorkoutPlan extends WorkoutPlanEvent {
+  final String planId;
+  FavorWorkoutPlan(this.planId);
+}
+
+class SearchPlan extends WorkoutPlanEvent {
+  final String title;
+  SearchPlan(this.title);
 }

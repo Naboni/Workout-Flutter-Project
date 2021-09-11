@@ -20,12 +20,15 @@ class _AddPlanState extends State<AddPlan> {
   _getPages(int index) {
     switch (index) {
       case 0:
-        return StepOne(_setSelectedIndex);
+        return {'title': "ADD BASIC INFO", 'page': StepOne(_setSelectedIndex)};
       case 1:
-        return RepositoryProvider(
-          create: (context) => WorkoutRepository(),
-          child: StepTwo(_stepVals),
-        );
+        return {
+          'title': "ADD EXERCISES",
+          'page': RepositoryProvider(
+            create: (context) => WorkoutRepository(),
+            child: StepTwo(_stepVals),
+          )
+        };
     }
   }
 
@@ -41,12 +44,19 @@ class _AddPlanState extends State<AddPlan> {
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
+        title: Text(_getPages(_selectedIndex)['title']),
         backgroundColor: Colors.transparent,
+        bottom: PreferredSize(
+            child: Container(
+              color: Colors.grey,
+              height: 0.3,
+            ),
+            preferredSize: Size.fromHeight(1.0)),
       ),
       body: Container(
         margin: EdgeInsets.only(top: 10),
         padding: EdgeInsets.symmetric(horizontal: 10),
-        child: _getPages(_selectedIndex) as Widget,
+        child: _getPages(_selectedIndex)['page'] as Widget,
       ),
     );
   }

@@ -116,9 +116,7 @@ void main() async {
         BlocProvider(create: (context) => WorkoutBloc()),
         BlocProvider(create: (_) => TimerBloc(ticker: Ticker())),
         BlocProvider(create: (_) => ReportBloc(reportRepository)),
-        BlocProvider(
-            create: (_) =>
-                WorkoutPlanBloc(workoutPlanRepository)..add(GetWorkoutPlan())),
+        BlocProvider(create: (_) => WorkoutPlanBloc(workoutPlanRepository)),
       ],
       child: MyApp(),
     ),
@@ -161,13 +159,6 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       home: BlocBuilder<AuthBloc, AuthState>(
         builder: (context, state) {
-          final WorkoutPlanRepository workoutPlanRepository =
-              WorkoutPlanRepository();
-          Future.delayed(Duration.zero, () async {
-            var z = await workoutPlanRepository
-                .deleteWorkoutPlan("613a15d680b1be31dcce1d4e");
-            print(z);
-          });
           if (state is AuthAuthenticated) {
             return TabRoute();
           }

@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 // deps
 import 'package:weekday_selector/weekday_selector.dart';
@@ -5,6 +7,8 @@ import 'package:weekday_selector/weekday_selector.dart';
 // widgets
 import 'muscle_target.dart';
 import 'workout_dificulty.dart';
+
+import '../../../../constants/data.dart';
 
 class StepOne extends StatefulWidget {
   // global key to identify the form and for validation
@@ -14,8 +18,6 @@ class StepOne extends StatefulWidget {
   @override
   _StepOneState createState() => _StepOneState();
 }
-
-// ! EXtract titles
 
 class _StepOneState extends State<StepOne> {
   void _showSnackBar(String value) {
@@ -27,6 +29,11 @@ class _StepOneState extends State<StepOne> {
   var title = "c";
   var age = "";
   var description = "";
+  var imgUrl = "";
+  _changeImageUrl(String url) {
+    imgUrl = url;
+  }
+
   int _dificultyIndex = 1;
   _changeDifficultyLevel(int newIndex) {
     setState(() {
@@ -39,6 +46,7 @@ class _StepOneState extends State<StepOne> {
     {"name": "Abs", "value": false},
     {"name": "Legs", "value": false},
   ];
+
   _changeTargetMuscles(index, bool) {
     setState(() {
       _targetMuscles[index]["value"] = bool;
@@ -52,12 +60,12 @@ class _StepOneState extends State<StepOne> {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Container(
-        height: MediaQuery.of(context).size.height * .8,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
-            Title("ADD A WORKOUT PLAN"),
+            SizedBox(height: 10),
+            RefreshImg(_changeImageUrl),
             SizedBox(height: 20),
             Form(
               key: _formKey,
@@ -68,7 +76,7 @@ class _StepOneState extends State<StepOne> {
                     children: [
                       Expanded(
                         child: TextFormField(
-                          initialValue: 'Input text',
+                          initialValue: 'Test Title 1',
                           validator: (value) {
                             if (value == null || value.isEmpty)
                               return "Required field";
@@ -84,7 +92,7 @@ class _StepOneState extends State<StepOne> {
                       SizedBox(width: 10),
                       Expanded(
                         child: TextFormField(
-                          initialValue: 'Input text',
+                          initialValue: '23-25',
                           validator: (value) {
                             if (value == null || value.isEmpty)
                               return "Required field";
@@ -101,7 +109,8 @@ class _StepOneState extends State<StepOne> {
                   ),
                   SizedBox(height: 20),
                   TextFormField(
-                    initialValue: 'Input text',
+                    initialValue:
+                        'This is a sample description for a workout plan. This workout plan should help you become a better version of your self by putting you in a good shape and physical health.',
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return "Required field";
@@ -152,6 +161,7 @@ class _StepOneState extends State<StepOne> {
                     widget.setNewIndex(
                       1,
                       {
+                        "imgUrl": imgUrl,
                         "title": title,
                         "age": age,
                         "description": description,
@@ -166,7 +176,8 @@ class _StepOneState extends State<StepOne> {
                 }
               },
               child: Container(height: 50, child: Center(child: Text("Next"))),
-            )
+            ),
+            SizedBox(height: 10),
           ],
         ),
       ),
@@ -180,6 +191,63 @@ class _StepOneState extends State<StepOne> {
         fontSize: 18,
         fontWeight: FontWeight.bold,
         color: Colors.grey[600],
+      ),
+    );
+  }
+}
+
+class RefreshImg extends StatefulWidget {
+  final Function change;
+  RefreshImg(
+    this.change, {
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  _RefreshImgState createState() => _RefreshImgState();
+}
+
+class _RefreshImgState extends State<RefreshImg> {
+  final _random = new Random();
+
+  String? _imgUrl;
+  _getRandomImgUrl() {
+    setState(() {
+      _imgUrl = imgList[_random.nextInt(imgList.length)];
+    });
+    widget.change(_imgUrl);
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    _getRandomImgUrl();
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 120,
+      child: Stack(
+        children: [
+          Container(
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage(_imgUrl!),
+                fit: BoxFit.cover,
+              ),
+            ),
+            height: 120,
+          ),
+          Align(
+            alignment: Alignment.bottomRight,
+            child: TextButton(
+              onPressed: _getRandomImgUrl,
+              child: Text("Change image"),
+            ),
+          )
+        ],
       ),
     );
   }

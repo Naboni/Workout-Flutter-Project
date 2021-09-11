@@ -9,6 +9,7 @@ import 'package:project/data/models/user/user.dart';
 class AuthDataProvider {
   static String baseUrl = "http://192.168.137.1:3000/api";
   static var loginUrl = '$baseUrl/users/login';
+  final FlutterSecureStorage _storage = FlutterSecureStorage();
   static Future<Map<String, dynamic>> login(
       String email, String password) async {
     print("POST $loginUrl");
@@ -82,6 +83,37 @@ class AuthDataProvider {
       };
     } catch (e) {
       return {"status": "69", "message": "Wrong URL or sth"};
+    }
+  }
+
+  //[DELETE] //TRAINEE Unvafors a favored plan
+  Future<Map<String, dynamic>> deleteUser() async {
+    String? user = await _storage.read(key: "user");
+    if (user == null) {
+      print("Secure storage is empty");
+      throw ("Secure storage is empty");
+    }
+    String token = User.fromJson(user).token!;
+    String url = '$baseUrl/users';
+    print("[DELETE]@$url");
+    try {
+      var dio = Dio();
+      dio.options.headers['content-Type'] = 'application/json';
+      dio.options.headers["authorization"] = token;
+      var response = await dio.delete(url);
+      var responseBody = response.data;
+      return {
+        "body": jsonEncode(responseBody),
+        "status": response.statusCode.toString(),
+        "message": responseBody["message"]
+      };
+    } on DioError catch (e) {
+      return {
+        "status": e.response!.statusCode.toString(),
+        "message": e.response!.data["message"]
+      };
+    } catch (e) {
+      return {"status": "404", "message": "Wrong URL or sth"};
     }
   }
 }

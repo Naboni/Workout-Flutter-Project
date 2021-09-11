@@ -9,6 +9,7 @@ class UserRepositories {
   final FlutterSecureStorage _storage = FlutterSecureStorage();
   static String baseUrl = "http://192.168.137.1:3000/api";
   var loginUrl = '$baseUrl/users/login';
+  AuthDataProvider authDataProvider = new AuthDataProvider();
   User? currentUser;
   // UserRepositories() {
   //   _storage.delete(key: "user");
@@ -63,5 +64,12 @@ class UserRepositories {
         age: age,
         profileImagePath: profileImagePath,
         bio: bio);
+  }
+
+  Future<bool> deleteAccount() async {
+    // var res = await authDataProvider.deleteUser();
+    await _storage.delete(key: "user");
+    await _storage.deleteAll();
+    return true;
   }
 }
