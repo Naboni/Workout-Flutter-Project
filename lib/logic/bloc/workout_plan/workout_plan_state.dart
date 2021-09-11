@@ -32,9 +32,15 @@ class WorkoutPlanAddingFailed extends WorkoutPlanState {}
 // favor
 class WorkoutPlanFavoring extends WorkoutPlanState {}
 
-class WorkoutPlanFavoringSucceded extends WorkoutPlanState {}
+class WorkoutPlanFavoringSucceded extends WorkoutPlanState {
+  WorkoutPlanFavoringSucceded(this.mssg);
+  final String mssg;
+}
 
-class WorkoutPlanFavoringFailed extends WorkoutPlanState {}
+class WorkoutPlanFavoringFailed extends WorkoutPlanState {
+  WorkoutPlanFavoringFailed(this.mssg);
+  final String mssg;
+}
 
 // search
 class WorkoutPlanSearching extends WorkoutPlanState {}

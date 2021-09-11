@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
 class ProfilePic extends StatelessWidget {
-  const ProfilePic({
+  final String imgUrl;
+  const ProfilePic(
+    this.imgUrl, {
     Key? key,
   }) : super(key: key);
 
@@ -19,26 +21,9 @@ class ProfilePic extends StatelessWidget {
             // overflow: Overflow.visible,
             children: [
               CircleAvatar(
-                backgroundImage: AssetImage("assets/images/course1.jpg"),
+                backgroundImage: NetworkImage(
+                    'http://192.168.137.1:3000/api/images/$imgUrl'),
               ),
-              Positioned(
-                right: -2,
-                bottom: 0,
-                child: SizedBox(
-                  height: 40,
-                  width: 40,
-                  child: FlatButton(
-                    padding: EdgeInsets.zero,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(50),
-                      side: BorderSide(color: Colors.orange, width: 3),
-                    ),
-                    color: Color(0xFFF5F6F9),
-                    child: Icon(Icons.edit),
-                    onPressed: () {},
-                  ),
-                ),
-              )
             ],
           ),
         ),
