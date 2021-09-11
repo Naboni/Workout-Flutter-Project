@@ -10,7 +10,7 @@ class Pref {
   }
 
   // ? populate db and change populated key to true
-  static setPopulated() async {
+  static Future<void> setPopulated() async {
     WorkoutDataProvider wdp = WorkoutDataProvider();
     await wdp.saveWorkouts();
     SharedPreferences prefs = await SharedPreferences.getInstance();

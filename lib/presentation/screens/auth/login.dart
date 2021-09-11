@@ -134,8 +134,15 @@ class _LoginState extends State<Login> {
                                           'Login',
                                         ),
                                         state is LoginLoading
-                                            ? CircularProgressIndicator(
-                                                color: Colors.white,
+                                            ? Container(
+                                                margin:
+                                                    EdgeInsets.only(left: 10),
+                                                height: 30,
+                                                width: 30,
+                                                child:
+                                                    CircularProgressIndicator(
+                                                  color: Colors.white,
+                                                ),
                                               )
                                             : Container()
                                       ],

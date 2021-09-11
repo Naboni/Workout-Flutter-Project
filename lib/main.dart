@@ -118,14 +118,6 @@ class _MyAppState extends State<MyApp> {
   final WorkoutPlanRepository workoutPlanRepository = WorkoutPlanRepository();
   @override
   void initState() {
-    // ? Future delayed b/c cant use async/await on init
-    Future.delayed(Duration.zero, () async {
-      // ! check if db is already populated
-      var isPopulated = await Pref.checkIfPopulated();
-      if (!isPopulated) {
-        Pref.setPopulated();
-      }
-    });
     super.initState();
   }
 

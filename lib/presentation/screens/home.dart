@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 // deps
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:project/logic/bloc/report/report_bloc.dart';
+import 'package:project/utils/prefrence.dart';
 // widgets
 import '../widgets/home/workouts.dart';
 import '../../presentation/widgets/home/stat.dart';
@@ -17,7 +18,15 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   @override
   void initState() {
-    BlocProvider.of<WorkoutBloc>(context).add(GetWorkouts());
+    // ? Future delayed b/c cant use async/await on init
+    Future.delayed(Duration.zero, () async {
+      // ! check if db is already populated
+      var isPopulated = await Pref.checkIfPopulated();
+      if (!isPopulated) {
+        Pref.setPopulated().then(
+            (_) => BlocProvider.of<WorkoutBloc>(context).add(GetWorkouts()));
+      }
+    });
     // TODO: implement initState
     super.initState();
   }
