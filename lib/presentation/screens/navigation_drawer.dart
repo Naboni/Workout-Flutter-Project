@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:project/data/models/user/user.dart';
 import 'package:project/data/repositories/user_repository.dart';
+import 'package:project/logic/bloc/auth_bloc/auth.dart';
 import 'package:project/tab_route.dart';
 import '/presentation/widgets/navigation/menu_item.dart';
 import '/presentation/widgets/navigation/navigtion_header.dart';
@@ -71,12 +72,24 @@ class _NavigationDrawerWidgetState extends State<NavigationDrawerWidget> {
                         const SizedBox(height: 24),
                         Divider(color: Colors.white70),
                         const SizedBox(height: 24),
-                        buildMenuItem(
-                          context,
-                          text: 'Logout',
-                          icon: Icons.logout_outlined,
-                          routeName: '',
+                    Container(
+                      color: Colors.transparent,
+                      child: ListTile(
+                        leading: Icon(
+                          Icons.logout_outlined,
+                          color: Colors.white,
                         ),
+                        title: Text(
+                          "Logout",
+                          style: TextStyle(color: Colors.white, fontSize: 16),
+                        ),
+                        // onTap: () => Navigator.of(context).popAndPushNamed(routeName),
+                        onTap: () {
+                          BlocProvider.of<AuthBloc>(context).add(LoggedOut());
+                          Navigator.of(context).popUntil((route) => route.isFirst);
+                        },
+                      ),
+                    )
                       ],
                     ),
                   )

@@ -11,7 +11,6 @@ class AppStarted extends AuthEvent {}
 
 class LoggedIn extends AuthEvent {
   final String user;
-
   const LoggedIn({required this.user});
 
   @override
@@ -24,3 +23,4 @@ class LoggedIn extends AuthEvent {
 class LoggedOut extends AuthEvent {}
 
 class DeleteAccount extends AuthEvent {}
+
